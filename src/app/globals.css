@@ -167,33 +167,6 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
-   Reveals · el respaldo va acá, no en el JS
-
-   Las líneas del hero arrancan escondidas para que GSAP las suba desde
-   atrás de la máscara. Pero esconder algo con CSS y confiar en que el JS
-   lo revele es cómo se deja una página en blanco: si el bundle no carga,
-   el título no vuelve nunca.
-
-   Por eso el estado escondido cuelga de `.js`, una clase que pone un
-   script inline en el <head>. Sin JavaScript, la clase no existe y el
-   título se ve. Y ese mismo script la saca a los 2s pase lo que pase, así
-   que si el bundle muere después de arrancar, tampoco queda escondido:
-   para entonces GSAP ya dejó su transform inline y sacar la clase no
-   cambia nada.
-   ------------------------------------------------------------------ */
-.js [data-linea] {
-  transform: translateY(108%);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js [data-linea] {
-    transform: none;
-    opacity: 1;
-  }
-}
-
-/* ------------------------------------------------------------------
    Grano · sobre el fondo oscuro. Sin gradientes de color.
    ------------------------------------------------------------------ */
 .grano {

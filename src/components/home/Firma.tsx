@@ -94,6 +94,7 @@ export function Firma() {
       tl.fromTo('[data-barra="latina"]', { scaleY: 1 }, { scaleY: 0.88, ease: 'none' }, 0)
 
       // El cierre entra sobre el final del recorrido, no antes.
+      gsap.set('[data-cierre]', { opacity: 0, y: 18 })
       tl.fromTo(
         '[data-cierre]',
         { opacity: 0, y: 18 },
@@ -189,7 +190,9 @@ export function Firma() {
             </div>
           </div>
 
-          <div data-cierre style={reducido ? undefined : { opacity: 0 }} className="mt-10">
+          {/* Sin style inline escondiendo: el estado inicial lo pone GSAP
+              en el efecto. Si el JS no corre, el cierre se ve. */}
+          <div data-cierre className="mt-10">
             <p className="display text-display-2">{firma.cierre}</p>
           </div>
 

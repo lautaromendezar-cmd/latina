@@ -33,8 +33,8 @@ export const assets = {
   cutouts: [
     {
       path: '/imagenes/cutouts/pack-1kg.png',
-      ancho: 766,
-      alto: 1239,
+      ancho: 960,
+      alto: 1547,
       descripcion:
         'Paquete de 1 kg, foto REAL recortada con alfa. El pack-cutout.png del banco NO estaba recortado (traía la mesa y la pared): se rehizo el matting. Etiqueta verificada letra por letra.',
       pendiente: false,
@@ -142,7 +142,7 @@ export const assets = {
       ancho: 2000,
       alto: 2000,
       descripcion:
-        'Macro extremo del padrón despalado de LaTiNa. MISMO ENCUADRE que la anterior.',
+        'Macro del padrón despalado. PROVISORIA: hoy usa yerba.jpg del banco, que es foto real de la molienda de LaTiNa pero NO comparte encuadre con la otra. Cuando se haga la toma de las dos, se pisan LAS DOS JUNTAS.',
       pendiente: true,
     },
     {
@@ -159,8 +159,8 @@ export const assets = {
   producto: [
     {
       path: '/imagenes/pack-1kg.png',
-      ancho: 766,
-      alto: 1239,
+      ancho: 960,
+      alto: 1547,
       descripcion: 'Paquete de 1 kg, foto real recortada. RESUELTO (mismo archivo que el cutout).',
       pendiente: false,
       transparente: true,

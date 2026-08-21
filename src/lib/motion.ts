@@ -1,6 +1,22 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
+
+/**
+ * useLayoutEffect en el cliente, useEffect en el servidor.
+ *
+ * Es la pieza que permite no esconder nada con CSS: el estado inicial de
+ * un reveal lo pone GSAP acá, ANTES del primer pintado, así que no hay
+ * parpadeo. Y si el JavaScript no corre, no hay ninguna regla de CSS
+ * escondiendo el texto: se ve, que es lo que tiene que pasar.
+ *
+ * (La versión anterior escondía con `.js [data-linea]` y confiaba en que
+ * el JS lo revelara. Cuando el reveal no corría, el título del hero
+ * quedaba invisible. Un reveal no puede ser la única forma de ver el
+ * contenido.)
+ */
+export const useLayoutEffectSeguro =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 /**
  * Movimiento reducido.

@@ -151,7 +151,6 @@ export function Origen() {
                   <div
                     data-marca={i}
                     className="h-full origin-left bg-dorado"
-                    style={{ transform: reducido ? 'scaleX(1)' : 'scaleX(0)' }}
                   />
                 </div>
 

@@ -35,8 +35,8 @@ export const presentaciones: Presentacion[] = [
     descripcion: 'La de todos los días. Es la que se vende por escala.',
     mayorista: true,
     imagen: '/imagenes/pack-1kg.png',
-    ancho: 766,
-    alto: 1239,
+    ancho: 960,
+    alto: 1547,
     alt: 'Paquete de LaTiNa yerba mate de 1 kg',
   },
   {
@@ -46,8 +46,8 @@ export const presentaciones: Presentacion[] = [
     descripcion: 'La presentación chica, para probarla o para llevar.',
     mayorista: false,
     imagen: '/imagenes/pack-500g.png',
-    ancho: 1200,
-    alto: 1500,
+    ancho: 960,
+    alto: 1547,
     alt: 'Paquete de LaTiNa yerba mate de medio kilo',
   },
 ]
