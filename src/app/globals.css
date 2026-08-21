@@ -352,6 +352,25 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
+   Indicador de scroll
+   Se apaga solo con prefers-reduced-motion: el bloque de abajo le pone
+   duración 0.01ms a toda animación.
+   ------------------------------------------------------------------ */
+.indicador-baja {
+  animation: indicador-baja 1.8s ease-in-out infinite;
+}
+
+@keyframes indicador-baja {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* ------------------------------------------------------------------
    Cutouts ambiente · dos planos, no tres.
    aria-hidden + pointer-events:none es piso, no opción.
    ------------------------------------------------------------------ */

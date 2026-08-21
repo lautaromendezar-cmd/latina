@@ -6,16 +6,23 @@ import { useLayoutEffectSeguro, movimientoReducido } from '@/lib/motion'
 import { hero } from '@/content/site'
 
 /**
- * El título del hero, con reveal por líneas.
+ * La entrada del hero.
+ *
+ * Antes sólo se animaban las tres líneas del título y todo lo demás
+ * —bajada, botones, banda de especificaciones— aparecía de golpe. El hero
+ * arrancaba a medio armar. Ahora es UNA sola línea de tiempo: las líneas
+ * suben desde atrás de su máscara y el resto las sigue, escalonado.
+ *
+ * Sigue contando como un solo efecto del presupuesto: es la entrada del
+ * hero, no un fade-in por elemento (que el brief prohíbe explícitamente).
+ * La diferencia es que acá los elementos entran en el orden en que se
+ * leen, encadenados, no cada uno por su cuenta al cruzar el viewport.
  *
  * REGLA, aprendida rompiéndola: el contenido nunca se esconde con CSS
- * esperando que el JS lo revele. Acá el HTML del servidor sale con el
- * título VISIBLE, y GSAP lo esconde y lo anima dentro de un
- * useLayoutEffect, que corre antes del primer pintado — sin parpadeo.
- *
- * Si el bundle no carga, si GSAP falla, si el efecto tira error: el
- * título se ve igual. No hay ninguna regla de CSS que dependa de que el
- * JavaScript llegue.
+ * esperando que el JS lo revele. El HTML del servidor sale VISIBLE y GSAP
+ * lo esconde y lo anima dentro de un useLayoutEffect, que corre antes del
+ * primer pintado — sin parpadeo. Si el bundle no carga, si GSAP falla, si
+ * el efecto tira error: el hero se ve igual.
  *
  * Sobre SplitText: no se usa a propósito. Las tres líneas ya están
  * escritas como tres líneas en `site.ts`, así que no hay nada que partir.
@@ -29,26 +36,37 @@ export function HeroTitulo() {
     if (!raiz.current) return
     if (movimientoReducido()) return
 
+    const seccion = raiz.current.closest('section')
+    if (!seccion) return
+
     const ctx = gsap.context(() => {
       const lineas = gsap.utils.toArray<HTMLElement>('[data-linea]')
-      if (!lineas.length) return
+      const siguen = gsap.utils.toArray<HTMLElement>('[data-hero-entra]')
 
-      // fromTo con valores explícitos: si GSAP tuviera que leer el estado
-      // inicial del CSS, un transform en % se le vuelve px.
-      gsap.fromTo(
-        lineas,
-        { yPercent: 108, opacity: 0 },
-        {
-          yPercent: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.08,
-          ease: 'expo.out',
-          // Espera a que el preloader se esté yendo, no a que termine.
-          delay: 0.35,
-        },
-      )
-    }, raiz)
+      // Arranca cuando el preloader ya se está abriendo, no cuando termina:
+      // los dos movimientos se encadenan en vez de turnarse.
+      const tl = gsap.timeline({ delay: 0.35 })
+
+      if (lineas.length) {
+        // fromTo con valores explícitos: si GSAP tuviera que leer el estado
+        // inicial del CSS, un transform en % se le vuelve px.
+        tl.fromTo(
+          lineas,
+          { yPercent: 108, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out' },
+        )
+      }
+
+      if (siguen.length) {
+        tl.fromTo(
+          siguen,
+          { y: 22, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, stagger: 0.09, ease: 'power3.out' },
+          // se solapa con el final del título: encadenado, no en fila india
+          '-=0.45',
+        )
+      }
+    }, seccion)
 
     return () => ctx.revert()
   }, [])

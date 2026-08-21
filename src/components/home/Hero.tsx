@@ -3,7 +3,7 @@ import { Greca } from '@/components/ui/Greca'
 import { Boton } from '@/components/ui/Boton'
 import { hero } from '@/content/site'
 import { HeroTitulo } from '@/components/home/HeroTitulo'
-import { heroVideoListo } from '@/data/assets'
+import { HeroFondo } from '@/components/home/HeroFondo'
 
 /**
  * Hero.
@@ -17,42 +17,13 @@ import { heroVideoListo } from '@/data/assets'
  *    negro puro.
  *  · "La yerba" va en contorno porque en Fase 3 se rellena con el scroll.
  *    Si no se rellenara, iría sólida: contorno sin relleno es decoración.
- *  · Mientras no esté el loop, se muestra el poster como foto fija. El día
- *    que llegue el video se cambia un booleano en assets.ts y nada más.
+ *  · El fondo (poster + video) vive en HeroFondo: el poster es el LCP y
+ *    el video se monta después y sólo si la conexión lo banca.
  */
 export function Hero() {
   return (
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
-      {/* --- fondo --- */}
-      <div className="absolute inset-0" aria-hidden="true">
-        {heroVideoListo ? (
-          <video
-            className="h-full w-full object-cover"
-            poster="/imagenes/hero-poster.jpg"
-            preload="metadata"
-            playsInline
-            muted
-            loop
-            autoPlay
-          >
-            <source src="/imagenes/hero-loop.webm" type="video/webm" />
-            <source src="/imagenes/hero-loop.mp4" type="video/mp4" />
-          </video>
-        ) : (
-          <Image
-            src="/imagenes/hero-poster.jpg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        )}
-        {/* Velo verde, no negro (MARCA.md). Un solo plano plano: el brief
-            prohíbe gradientes de color, así que el enganche con la sección
-            siguiente lo hace la greca, no un degradé. */}
-        <div className="absolute inset-0 bg-yerba-oscuro/72" />
-      </div>
+      <HeroFondo />
 
       {/* --- cutouts ---
           Van DENTRO del mismo contenedor centrado de 1400px que el texto.
@@ -69,6 +40,18 @@ export function Hero() {
             sizes="20vw"
             data-plano="fondo"
             className="cutout cutout--fondo absolute hidden md:block md:left-0 md:top-[6%] md:w-[22vw] md:max-w-[200px] lg:left-2 lg:w-[15vw]"
+          />
+          {/* Tercer cutout, plano de fondo: da profundidad abajo a la
+              izquierda, que era el rincón que quedaba muerto. Va donde no
+              hay texto y desenfocado, así que no le pelea nada. */}
+          <Image
+            src="/imagenes/cutouts/polvo.png"
+            alt=""
+            width={1200}
+            height={800}
+            sizes="26vw"
+            data-plano="fondo"
+            className="cutout cutout--fondo absolute hidden md:block md:-left-[6%] md:bottom-[14%] md:w-[34vw] md:max-w-[320px] lg:left-[2%] lg:w-[22vw]"
           />
         </div>
       </div>
@@ -107,9 +90,11 @@ export function Hero() {
           <HeroTitulo />
         </div>
 
-        <p className="mt-8 max-w-[42ch] text-body-lg text-papel-suave">{hero.bajada}</p>
+        <p data-hero-entra className="mt-8 max-w-[42ch] text-body-lg text-papel-suave">
+          {hero.bajada}
+        </p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div data-hero-entra className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Boton href={hero.cta.primario.href} variante="primario">
             {hero.cta.primario.texto}
           </Boton>
@@ -134,7 +119,7 @@ export function Hero() {
 
           El separador es la greca del packaging, en verde sobre el oro
           (5.11:1). El texto va en yerba-oscuro (9.99:1). */}
-      <div className="relative z-10 mt-auto bg-dorado text-yerba-oscuro">
+      <div data-hero-entra className="relative z-10 mt-auto bg-dorado text-yerba-oscuro">
         <Greca tono="verde" alto={12} opacidad={0.55} />
         <ul className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6 lg:gap-x-16 lg:px-10">
           {hero.etiquetas.map((e, i) => (
@@ -147,6 +132,21 @@ export function Hero() {
               <span className="etiqueta font-semibold">{e}</span>
             </li>
           ))}
+          {/* Indicador de scroll. Va acá adentro y no flotando abajo al
+              centro, que es el cliché: es el último elemento de la banda,
+              alineado a la derecha, y ADEMÁS funciona — es un link que
+              baja a la sección siguiente, no un adorno. */}
+          <li className="ml-auto hidden lg:block">
+            <a
+              href="#manifiesto"
+              className="etiqueta flex items-center gap-2 font-semibold text-yerba-oscuro/80 transition-colors hover:text-yerba-oscuro"
+            >
+              Seguí bajando
+              <span aria-hidden="true" className="indicador-baja inline-block">
+                ↓
+              </span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>

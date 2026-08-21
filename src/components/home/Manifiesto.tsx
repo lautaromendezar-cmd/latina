@@ -62,7 +62,7 @@ export function Manifiesto() {
   }, [reducido])
 
   return (
-    <section ref={seccion} className="relative overflow-hidden py-seccion">
+    <section id="manifiesto" ref={seccion} className="relative overflow-hidden py-seccion">
       {/* El palo se va de cuadro justo donde el copy dice despalada. No es
           adorno: es la única razón por la que este cutout existe.
 

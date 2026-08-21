@@ -81,10 +81,16 @@ encuadre no coincide, la comparación no prueba nada y se nota.
 > y `pack-hero.jpg` de `contenido-latina` tienen el microtexto roto
 > ("lex picagrammeic" en vez de *Ilex paraguariensis*). Mirar con lupa siempre.
 
-### Video del hero
+### Video del hero — RESUELTO
 
-`imagenes/hero-loop.webm` + `.mp4`, 1920×1080, ~6s. Cuando estén, poner
-`heroVideoListo = true` en `src/data/assets.ts` y no tocar nada más.
+Generado con Kling 3.0 a partir del propio poster, así que el poster ES el
+primer frame del loop y no hay salto al arrancar. 1280×720, 4s, mudo,
+cosido: el último segundo se funde sobre el primero. Medida la costura:
+2,88 de diferencia media por píxel contra 16,82 del movimiento real, o sea
+seis veces menos que un corte normal.
+
+Quién lo reproduce lo decide `HeroFondo` en el cliente: con
+`prefers-reduced-motion`, `saveData` o conexión 2G/3G se queda el poster.
 
 **El loop va SIN el paquete**, igual que el poster. El paquete entra como
 cutout encima, en su propio plano de parallax. Dos motivos: es lo que pide

@@ -180,12 +180,13 @@ export const assets = {
 export const todosLosAssets: Asset[] = Object.values(assets).flat()
 
 /**
- * El loop del hero todavía no existe.
+ * ¿Existen los archivos del loop del hero?
  *
- * Mientras esto sea `false`, el hero muestra el poster como foto fija —que
- * es exactamente lo que va a ver igual quien entre con conexión lenta, así
- * que no es un estado degradado, es un estado que hay que diseñar—. Cuando
- * lleguen `hero-loop.webm` y `hero-loop.mp4`, se pone en `true` y no se
- * toca nada más.
+ * Esto dice si el asset ESTÁ, no si se va a reproducir. Quién lo reproduce
+ * lo decide `HeroFondo` en el cliente, mirando prefers-reduced-motion y
+ * navigator.connection: con datos ahorrados o en 3G se queda el poster.
+ *
+ * El poster es exactamente el primer frame del loop, extraído del video ya
+ * cosido, así que el cambio de foto fija a video no se nota.
  */
-export const heroVideoListo = false
+export const heroVideoListo = true
