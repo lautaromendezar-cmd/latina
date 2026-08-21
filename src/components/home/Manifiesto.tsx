@@ -64,7 +64,12 @@ export function Manifiesto() {
   return (
     <section ref={seccion} className="relative overflow-hidden py-seccion">
       {/* El palo se va de cuadro justo donde el copy dice despalada. No es
-          adorno: es la única razón por la que este cutout existe. */}
+          adorno: es la única razón por la que este cutout existe.
+
+          Arranca ENTERO en cuadro (antes empezaba mordido por el borde y
+          con la salida atada a la sección entera, así que para cuando
+          llegabas a leer ya se había ido). Ahora el disparador es el
+          párrafo que explica la palabra. */}
       <Image
         aria-hidden="true"
         src="/imagenes/cutouts/palo.png"
@@ -73,8 +78,8 @@ export function Manifiesto() {
         height={600}
         sizes="40vw"
         data-plano="frente"
-        data-salida=""
-        className="cutout absolute -right-[6%] top-[14%] w-[52vw] max-w-[520px] rotate-[8deg]"
+        data-salida="[data-despalada]"
+        className="cutout cutout--frente absolute right-[4%] top-[22%] w-[54vw] max-w-[560px] rotate-[8deg] lg:top-[24%]"
       />
 
       <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
@@ -110,7 +115,9 @@ export function Manifiesto() {
 
         <div className="mt-14 grid max-w-4xl gap-8 sm:grid-cols-2 lg:mt-20">
           {manifiesto.cuerpo.map((parrafo, i) => (
-            <div key={parrafo}>
+            // el segundo párrafo es el que explica «despalada»: es el que
+            // dispara la salida del palo
+            <div key={parrafo} {...(i === 1 ? { 'data-despalada': '' } : {})}>
               <Etiqueta className="mb-3 block">{i === 0 ? 'El padrón' : 'La palabra'}</Etiqueta>
               <p className="text-body-lg text-papel-suave">{parrafo}</p>
             </div>

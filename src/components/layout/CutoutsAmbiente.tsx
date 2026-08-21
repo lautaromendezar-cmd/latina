@@ -40,6 +40,20 @@ export function CutoutsAmbiente() {
           // escribirían `rotation` sobre el mismo elemento y GSAP resolvería
           // el conflicto matando uno de los dos, con el que gane cambiando
           // según el orden en que arrancan.
+          //
+          // `data-salida` puede traer un selector: entonces la salida se
+          // ata a ESE elemento y no a la sección entera. Importa mucho.
+          // Con la sección como disparador, el rango va desde que asoma por
+          // abajo hasta que se va por arriba, así que a mitad de la lectura
+          // el palo ya recorrió el 70% y no lo ve nadie. Atado al párrafo
+          // que dice «despalada», el palo está en cuadro mientras leés
+          // sobre el padrón y se va justo cuando llegás a la palabra.
+          const selector = el.dataset.salida
+          const disparador =
+            (selector && document.querySelector<HTMLElement>(selector)) ||
+            el.closest('section') ||
+            el
+
           // fromTo con la rotación inicial explícita: el palo trae un
           // `rotate-[8deg]` del CSS, y hacer que GSAP lo deduzca del
           // transform computado es pedirle que adivine.
@@ -47,14 +61,18 @@ export function CutoutsAmbiente() {
             el,
             { xPercent: 0, rotation: 8 },
             {
-              xPercent: 140,
-              rotation: 26,
+              xPercent: 165,
+              rotation: 34,
               ease: 'none',
               scrollTrigger: {
-                trigger: el.closest('section') ?? el,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1,
+                trigger: disparador,
+                // Rango corto y a media pantalla: el palo tiene que estar
+                // en cuadro durante todo el recorrido. Si el final cae muy
+                // arriba, la salida ocurre cuando el cutout ya se fue por
+                // el techo y no la ve nadie.
+                start: selector ? 'top 92%' : 'top bottom',
+                end: selector ? 'top 50%' : 'bottom top',
+                scrub: 0.8,
               },
             },
           )
