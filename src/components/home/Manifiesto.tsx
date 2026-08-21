@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
+import { TexturaGreca } from '@/components/ui/TexturaGreca'
 import { useMovimientoReducido } from '@/lib/motion'
 import { manifiesto } from '@/content/site'
 
@@ -63,6 +64,35 @@ export function Manifiesto() {
 
   return (
     <section id="manifiesto" ref={seccion} className="relative overflow-hidden py-seccion">
+      {/* El verde a sangre quedaba muerto. La trama es la greca del
+          packaging a escala grande, al 4%: no tiene que leerse como un
+          motivo, sólo tiene que sacarle el plano al fondo. */}
+      <TexturaGreca tono="yerba-seca" escala={104} opacidad={0.045} />
+
+      {/* Dos hojas muy atrás, para que el fondo tenga profundidad además
+          de textura. Van en el plano tenue y con la deriva del ambiente:
+          si se notan, están mal calibradas. */}
+      <Image
+        aria-hidden="true"
+        src="/imagenes/cutouts/hoja-partida.png"
+        alt=""
+        width={1000}
+        height={900}
+        sizes="30vw"
+        data-plano="fondo"
+        className="cutout cutout--tenue absolute -left-[8%] top-[6%] w-[46vw] max-w-[420px] -rotate-12"
+      />
+      <Image
+        aria-hidden="true"
+        src="/imagenes/cutouts/hoja-entera.png"
+        alt=""
+        width={1000}
+        height={1200}
+        sizes="24vw"
+        data-plano="fondo"
+        className="cutout cutout--tenue absolute bottom-[8%] left-[52%] w-[30vw] max-w-[300px] rotate-[18deg]"
+      />
+
       {/* El palo se va de cuadro justo donde el copy dice despalada. No es
           adorno: es la única razón por la que este cutout existe.
 

@@ -395,6 +395,13 @@ textarea {
   opacity: 1;
 }
 
+/* Más atrás todavía: hojas que sólo tienen que romper el fondo plano.
+   Si se notan, están mal calibradas. */
+.cutout--tenue {
+  filter: blur(14px);
+  opacity: 0.16;
+}
+
 /* ------------------------------------------------------------------
    Movimiento reducido
 
