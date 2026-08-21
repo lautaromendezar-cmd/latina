@@ -100,27 +100,27 @@ export const assets = {
   origen: [
     {
       path: '/imagenes/origen-brasil.jpg',
-      ancho: 2400,
-      alto: 1600,
+      ancho: 1536,
+      alto: 1024,
       descripcion:
-        'Yerbal en las montañas del sur de Brasil, atardecer. YA EXISTE una buena: ../contenido-latina/assets/img/brasil.jpg',
-      pendiente: true,
+        'Yerbal en las montañas al atardecer. RESUELTO con brasil.jpg del banco.',
+      pendiente: false,
     },
     {
       path: '/imagenes/origen-uruguay.jpg',
-      ancho: 2400,
-      alto: 1600,
+      ancho: 1080,
+      alto: 720,
       descripcion:
-        'Mate cebado con molienda fina, macro. Tiene que verse el polvo, es el panel que explica qué es el padrón.',
-      pendiente: true,
+        'Mate cebado, se ve la montañita y el polvo. RESUELTO con mate-close.jpg, recortado 3:2 para dejar afuera el logo quemado del pie.',
+      pendiente: false,
     },
     {
       path: '/imagenes/origen-argentina.jpg',
-      ancho: 2400,
-      alto: 1600,
+      ancho: 1600,
+      alto: 1067,
       descripcion:
-        'Ronda de mate, contexto rioplatense. Es el panel donde la marca todavía no está instalada: mejor que se vea calle y gente, no góndola.',
-      pendiente: true,
+        'Ronda de mate en la calle, con el paquete apoyado. RESUELTO con amigos.jpg del banco.',
+      pendiente: false,
     },
   ],
 
@@ -144,11 +144,11 @@ export const assets = {
     },
     {
       path: '/imagenes/textura-molienda.jpg',
-      ancho: 2400,
-      alto: 1200,
+      ancho: 1600,
+      alto: 800,
       descripcion:
-        'Macro de molienda para el relleno tipográfico del manifiesto. Textura pareja, sin foco dominante ni zonas vacías: se ve a través de las letras.',
-      pendiente: true,
+        'Macro de la molienda real para el relleno tipográfico. RESUELTO con yerba.jpg del banco (foto real del producto, no IA).',
+      pendiente: false,
     },
   ],
 
@@ -156,10 +156,10 @@ export const assets = {
   producto: [
     {
       path: '/imagenes/pack-1kg.png',
-      ancho: 1200,
-      alto: 1500,
-      descripcion: 'Paquete de 1 kg, foto real. Nunca render de IA.',
-      pendiente: true,
+      ancho: 1080,
+      alto: 1420,
+      descripcion: 'Paquete de 1 kg, foto real recortada. RESUELTO (mismo archivo que el cutout).',
+      pendiente: false,
       transparente: true,
     },
     {
