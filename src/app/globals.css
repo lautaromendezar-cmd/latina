@@ -51,7 +51,7 @@
      (casi 7x). Aplastaba todo lo demas y el hero no entraba en pantalla.
      Ahora el salto es ~4.5x, que sigue siendo grande pero deja respirar
      al resto de la escala. */
-  --text-display-1: clamp(2.25rem, 7.2vw, 6.25rem);
+  --text-display-1: clamp(2.25rem, 6.6vw, 5.75rem);
   --text-display-1--line-height: 0.94;
   --text-display-2: clamp(1.75rem, 4.6vw, 3.75rem);
   --text-display-2--line-height: 0.98;

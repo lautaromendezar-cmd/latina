@@ -61,15 +61,20 @@ export function Hero() {
           dejaba de leerse como parte de la misma composición que el título. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="relative mx-auto h-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          {/* Desde tablet ocupa la columna derecha. En teléfono NO se
+              muestra: a 360px hay una sola columna y el paquete, en
+              cualquier tamaño útil, se le monta al título o a los botones.
+              Un cutout no puede costarle legibilidad al hero, y el producto
+              igual aparece en grande en la franja de presentaciones. */}
           <Image
             src="/imagenes/cutouts/pack-1kg.png"
             alt=""
             width={960}
             height={1547}
             priority
-            sizes="(max-width: 1024px) 42vw, 30vw"
+            sizes="(max-width: 768px) 1px, (max-width: 1024px) 30vw, 26vw"
             data-plano="frente"
-            className="cutout cutout--frente right-4 top-[16%] w-[42vw] max-w-[380px] sm:right-6 lg:right-10 lg:top-[13%] lg:w-[30vw]"
+            className="cutout cutout--frente hidden md:block md:right-0 md:top-[20%] md:w-[30vw] md:max-w-[240px] lg:right-6 lg:top-[19%] lg:w-[26vw] lg:max-w-[340px]"
           />
           <Image
             src="/imagenes/cutouts/hoja-entera.png"
@@ -78,14 +83,19 @@ export function Hero() {
             height={1200}
             sizes="20vw"
             data-plano="fondo"
-            className="cutout cutout--fondo left-0 top-[6%] w-[34vw] max-w-[260px] lg:left-2 lg:w-[15vw]"
+            className="cutout cutout--fondo hidden md:block md:left-0 md:top-[6%] md:w-[22vw] md:max-w-[200px] lg:left-2 lg:w-[15vw]"
           />
         </div>
       </div>
 
-      {/* --- contenido --- */}
+      {/* --- contenido ---
+          Desde tablet el texto se queda en su columna (66% del marco) en vez
+          de correr a lo ancho: si no, el título pasa por debajo del paquete
+          y las dos cosas se pelean el mismo lugar. */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-8 pt-24 sm:px-6 lg:px-10 lg:pt-28">
-        <HeroTitulo />
+        <div className="md:max-w-[66%]">
+          <HeroTitulo />
+        </div>
 
         <p className="mt-8 max-w-[42ch] text-body-lg text-papel-suave">{hero.bajada}</p>
 
