@@ -24,11 +24,15 @@ const archivo = Archivo({
 /**
  * Cuerpo y etiquetas: Montserrat. Es la familia que ya usa la marca en
  * Instagram (MARCA.md), así que el sitio y las piezas comparten espina.
- * Sólo los pesos que se usan: 400 cuerpo, 500 etiquetas, 600 botones.
+ *
+ * Sin `weight`: así next/font trae la VARIABLE, un solo archivo con toda
+ * la escala de pesos. Antes venían tres archivos (400/500/600) y encima el
+ * cuerpo quedaba en 400, que sobre el verde oscuro se veía deshilachado.
+ * Ahora el cuerpo va en 500 y los pesos intermedios no cuestan una
+ * request más.
  */
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
   display: 'swap',
   variable: '--fuente-sans',
 })

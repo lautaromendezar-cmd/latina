@@ -89,6 +89,11 @@ body {
   color: var(--color-papel);
   font-family: var(--font-sans);
   font-size: var(--text-body);
+  /* 500, no 400. Casi todo el texto del sitio es claro sobre verde muy
+     oscuro, y ahí el 400 de Montserrat se deshilacha: el trazo fino pierde
+     cuerpo contra el fondo. Medio paso de peso lo devuelve sin que el
+     texto se vuelva pesado. */
+  font-weight: 500;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -330,7 +335,10 @@ textarea {
    ------------------------------------------------------------------ */
 .etiqueta {
   font-family: var(--font-sans);
-  font-weight: 500;
+  /* 600: tiene que seguir leyéndose como un escalón por encima del cuerpo,
+     que ahora está en 500. Y con 0.14em de tracking, el peso extra es lo
+     que evita que la etiqueta se desarme. */
+  font-weight: 600;
   font-size: var(--text-etiqueta);
   letter-spacing: 0.14em;
   text-transform: uppercase;

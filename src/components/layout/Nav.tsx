@@ -74,7 +74,7 @@ export function Nav() {
               aria-current={ruta === item.href ? 'page' : undefined}
               // El problema no era el cuerpo, era el peso: Montserrat 400
               // sobre la foto del hero se deshace. 500 lo sostiene.
-              className={`text-[0.9375rem] font-medium tracking-[0.01em] transition-colors hover:text-dorado ${
+              className={`text-[0.9375rem] font-semibold tracking-[0.01em] transition-colors hover:text-dorado ${
                 ruta === item.href ? 'text-dorado' : 'text-papel'
               }`}
             >
@@ -85,7 +85,7 @@ export function Nav() {
             href={nav.externo.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-papel/45 px-4 py-2 text-[0.9375rem] font-medium text-papel transition-colors hover:border-dorado hover:text-dorado"
+            className="rounded-full border border-papel/45 px-4 py-2 text-[0.9375rem] font-semibold text-papel transition-colors hover:border-dorado hover:text-dorado"
           >
             {nav.externo.texto}
             <span aria-hidden="true"> ↗</span>
@@ -126,7 +126,7 @@ export function Nav() {
                 key={item.href}
                 href={item.href}
                 aria-current={ruta === item.href ? 'page' : undefined}
-                className={`border-b border-yerba-alta py-4 text-lg font-medium ${
+                className={`border-b border-yerba-alta py-4 text-lg font-semibold ${
                   ruta === item.href ? 'text-dorado' : 'text-papel'
                 }`}
               >
