@@ -54,15 +54,28 @@ export function CutoutsAmbiente() {
             el.closest('section') ||
             el
 
-          // fromTo con la rotación inicial explícita: el palo trae un
-          // `rotate-[8deg]` del CSS, y hacer que GSAP lo deduzca del
+          // Lo que está lejos se mueve MENOS. Si los tres palos viajan la
+          // misma distancia salen como un bloque y se pierde la
+          // profundidad, que es justamente lo que se busca acá.
+          const lejos = el.dataset.plano === 'fondo'
+          const distancia = lejos ? 95 : 165
+
+          // Rotación inicial declarada en el markup, no deducida: el palo
+          // trae su `rotate-[Ndeg]` del CSS, y hacer que GSAP lo saque del
           // transform computado es pedirle que adivine.
+          const giroInicial = Number(el.dataset.giro ?? 8)
+          const giroFinal = giroInicial + (lejos ? 14 : 26)
+
+          // Desfase: mueve el rango un poco para cada uno, así no arrancan
+          // ni terminan todos en el mismo píxel de scroll.
+          const desfase = Number(el.dataset.desfase ?? 0)
+
           gsap.fromTo(
             el,
-            { xPercent: 0, rotation: 8 },
+            { xPercent: 0, rotation: giroInicial },
             {
-              xPercent: 165,
-              rotation: 34,
+              xPercent: distancia,
+              rotation: giroFinal,
               ease: 'none',
               scrollTrigger: {
                 trigger: disparador,
@@ -70,9 +83,9 @@ export function CutoutsAmbiente() {
                 // en cuadro durante todo el recorrido. Si el final cae muy
                 // arriba, la salida ocurre cuando el cutout ya se fue por
                 // el techo y no la ve nadie.
-                start: selector ? 'top 92%' : 'top bottom',
-                end: selector ? 'top 50%' : 'bottom top',
-                scrub: 0.8,
+                start: selector ? `top ${92 + desfase}%` : 'top bottom',
+                end: selector ? `top ${50 + desfase}%` : 'bottom top',
+                scrub: lejos ? 1.2 : 0.8,
               },
             },
           )

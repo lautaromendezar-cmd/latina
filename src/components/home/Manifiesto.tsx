@@ -109,7 +109,40 @@ export function Manifiesto() {
         sizes="40vw"
         data-plano="frente"
         data-salida="[data-despalada]"
+        data-giro="8"
         className="cutout cutout--frente absolute right-[4%] top-[22%] w-[54vw] max-w-[560px] rotate-[8deg] lg:top-[24%]"
+      />
+
+      {/* Dos palos más, atrás y fuera de foco, que salen con el mismo
+          scroll pero más lento y más corto: lo que está lejos se mueve
+          menos. Y no dilata el sentido, lo refuerza — si «despalada» es
+          que le sacaron el palo, varios palos yéndose lo dicen más fuerte
+          que uno. */}
+      <Image
+        aria-hidden="true"
+        src="/imagenes/cutouts/palo.png"
+        alt=""
+        width={1200}
+        height={600}
+        sizes="30vw"
+        data-plano="fondo"
+        data-salida="[data-despalada]"
+        data-giro="-12"
+        data-desfase="6"
+        className="cutout cutout--fondo absolute right-[26%] top-[2%] w-[32vw] max-w-[320px] -rotate-12"
+      />
+      <Image
+        aria-hidden="true"
+        src="/imagenes/cutouts/palo.png"
+        alt=""
+        width={1200}
+        height={600}
+        sizes="20vw"
+        data-plano="fondo"
+        data-salida="[data-despalada]"
+        data-giro="24"
+        data-desfase="-5"
+        className="cutout cutout--tenue absolute right-[8%] bottom-[14%] w-[22vw] max-w-[200px] rotate-[24deg]"
       />
 
       <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
