@@ -1,59 +1,168 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { gsap } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
+import { useMovimientoReducido } from '@/lib/motion'
 import { origen } from '@/content/site'
 
 /**
- * Origen.
+ * Origen — columna sticky con crossfade scrubbeado.
  *
  * No es geografía, es trayectoria: se hace en el sur de Brasil, el padrón
  * se probó exportándolo a Uruguay, y a la Argentina recién está llegando.
- * El tercer panel es el único donde la marca NO está instalada, y esa es
- * justamente la parte que ninguna yerba argentina puede contar.
+ * El tercer panel es el único donde la marca NO está instalada, y eso no
+ * lo puede contar ninguna yerba de acá. Sin fechas: la marca no publica
+ * año de fundación (MARCA.md).
  *
- * Sin fechas ni año de fundación: la marca no publica uno (MARCA.md), así
- * que los marcadores son nombres de lugar, no `01 / 02 / 03`.
+ * Los marcadores son nombres de lugar, no `01 / 02 / 03`: es un recorrido
+ * con nombres propios, no una secuencia numerada.
  *
- * En Fase 3 la columna izquierda se vuelve sticky con crossfade scrubbeado
- * entre las tres imágenes. En Fase 1 —y en mobile siempre, y con
- * movimiento reducido— es este stack, que ya es un estado terminado.
+ * Sobre el markup duplicado: las imágenes aparecen dos veces, una en la
+ * columna sticky (desktop) y otra dentro de cada bloque (mobile). Son las
+ * MISMAS URLs, así que el browser descarga una sola vez de cada una; lo
+ * único que se paga son nodos de DOM. La alternativa —una sola copia—
+ * obliga a que texto e imagen se intercalen en mobile y se separen en
+ * desktop, que con sticky no sale sin JavaScript de layout.
+ *
+ * En mobile y con movimiento reducido: stack simple, sin sticky y sin
+ * crossfade. Es un estado terminado, no una degradación.
  */
 export function Origen() {
+  const seccion = useRef<HTMLElement>(null)
+  const reducido = useMovimientoReducido()
+
+  useEffect(() => {
+    if (reducido || !seccion.current) return
+    if (!window.matchMedia('(min-width: 1024px)').matches) return
+
+    const ctx = gsap.context(() => {
+      const bloques = gsap.utils.toArray<HTMLElement>('[data-bloque]')
+
+      bloques.forEach((bloque, i) => {
+        const imagen = seccion.current?.querySelector<HTMLElement>(
+          `[data-sticky="${i}"]`,
+        )
+        const marca = seccion.current?.querySelector<HTMLElement>(`[data-marca="${i}"]`)
+        if (!imagen) return
+
+        gsap.to(imagen, {
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: bloque,
+            start: 'top 60%',
+            end: 'top 20%',
+            scrub: 0.5,
+          },
+        })
+
+        // La primera queda visible al salir; las otras se apagan al irse
+        // para que la de abajo vuelva a aparecer al scrollear para arriba.
+        if (i > 0) {
+          gsap.to(imagen, {
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: bloque,
+              start: 'bottom 60%',
+              end: 'bottom 20%',
+              scrub: 0.5,
+            },
+          })
+        }
+
+        if (marca) {
+          gsap.to(marca, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: bloque,
+              start: 'top 70%',
+              end: 'bottom 70%',
+              scrub: 0.5,
+            },
+          })
+        }
+      })
+    }, seccion)
+
+    return () => ctx.revert()
+  }, [reducido])
+
   return (
-    <section className="border-t border-yerba-alta bg-yerba-media py-seccion">
+    <section
+      ref={seccion}
+      className="border-t border-yerba-alta bg-yerba-media py-seccion"
+    >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <header className="mb-14 lg:mb-20">
           <Etiqueta className="mb-4 block">{origen.etiqueta}</Etiqueta>
-          <h2 className="display text-display-2 max-w-[18ch]">{origen.titulo}</h2>
+          <h2 className="display max-w-[18ch] text-display-2">{origen.titulo}</h2>
         </header>
 
-        <ol className="space-y-16 lg:space-y-28">
-          {origen.momentos.map((momento) => (
-            <li
-              key={momento.id}
-              className="grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-16"
-            >
-              <div className="relative aspect-[3/2] overflow-hidden">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+          {/* --- columna sticky, sólo desktop --- */}
+          <div className="hidden lg:block">
+            <div className="sticky top-24 h-[70vh] overflow-hidden">
+              {origen.momentos.map((momento, i) => (
                 <Image
+                  key={momento.id}
+                  data-sticky={i}
                   src={momento.imagen}
                   alt={momento.alt}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="50vw"
                   className="object-cover"
+                  style={{ opacity: i === 0 ? 1 : 0 }}
                 />
-              </div>
+              ))}
+            </div>
+          </div>
 
-              <div>
-                {/* El marcador es el lugar, no un número: no es una secuencia
-                    numerada, es un recorrido con nombres propios. */}
+          {/* --- los tres bloques --- */}
+          <ol className="space-y-16 lg:space-y-0">
+            {origen.momentos.map((momento, i) => (
+              <li
+                key={momento.id}
+                data-bloque
+                className="lg:flex lg:min-h-[85vh] lg:flex-col lg:justify-center"
+              >
+                {/* imagen inline: sólo mobile, misma URL que la sticky */}
+                <div className="relative mb-6 aspect-[3/2] overflow-hidden lg:hidden">
+                  <Image
+                    src={momento.imagen}
+                    alt={momento.alt}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                </div>
+
                 <Etiqueta acento className="mb-3 block">
                   {momento.lugar}
                 </Etiqueta>
+
+                {/* hairline de avance: es el único que queda en el sistema,
+                    y queda porque carga dato — marca en qué punto del
+                    recorrido estás— en vez de decorar. */}
+                <div className="mb-4 hidden h-px w-full bg-yerba-alta lg:block">
+                  <div
+                    data-marca={i}
+                    className="h-full origin-left bg-dorado"
+                    style={{ transform: reducido ? 'scaleX(1)' : 'scaleX(0)' }}
+                  />
+                </div>
+
                 <h3 className="display mb-4 text-display-3">{momento.titulo}</h3>
-                <p className="max-w-[52ch] text-body-lg text-papel-suave">{momento.cuerpo}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+                <p className="max-w-[52ch] text-body-lg text-papel-suave">
+                  {momento.cuerpo}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )

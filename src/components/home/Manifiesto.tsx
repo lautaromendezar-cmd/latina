@@ -1,26 +1,70 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { gsap } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
+import { useMovimientoReducido } from '@/lib/motion'
 import { manifiesto } from '@/content/site'
 
 /**
- * Manifiesto.
+ * Manifiesto — el contorno que se llena de yerba.
  *
- * En Fase 3 las dos palabras del centro se rellenan con una macro real de
- * la molienda, scrubbeada con el scroll (background-clip: text + máscara
- * que sube). Acá quedan en contorno estático, que es también el estado de
- * `prefers-reduced-motion`.
+ * Cada palabra se dibuja dos veces: abajo el contorno, encima una copia
+ * rellena con la macro REAL de la molienda (background-clip: text). El
+ * scroll sube un clip-path y el texto se llena de yerba mientras leés que
+ * la yerba cambia el mate.
  *
- * Por qué se rellenan ESAS dos y no otras: «Padrón» y «Despalada» son las
- * dos que están impresas en el envase. Si el texto que se llena de yerba
- * dijera cualquier otra cosa, el efecto sería decorativo — y el brief
- * prohíbe el contorno decorativo.
+ * Por qué son ESAS dos palabras y no otras: «Padrón» y «Despalada» son las
+ * dos que están impresas en el envase. Si lo que se llena dijera cualquier
+ * otra cosa, el contorno sería decoración — y el brief lo prohíbe
+ * explícitamente.
+ *
+ * Y la textura tiene que ser la molienda de LaTiNa, no una textura de
+ * yerba cualquiera: si es genérica, el efecto es genérico.
  */
+
+const TEXTURA = '/imagenes/textura-molienda.jpg'
+
 export function Manifiesto() {
+  const seccion = useRef<HTMLElement>(null)
+  const reducido = useMovimientoReducido()
+
+  useEffect(() => {
+    if (reducido || !seccion.current) return
+
+    const ctx = gsap.context(() => {
+      const rellenos = gsap.utils.toArray<HTMLElement>('[data-relleno]')
+
+      rellenos.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { clipPath: 'inset(100% 0% 0% 0%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el,
+              // Arranca cuando la palabra entra bien en cuadro y termina
+              // antes de que se vaya: si el rango incluye el borde inferior
+              // del viewport, se llena cuando ya nadie la está mirando.
+              start: 'top 78%',
+              end: 'top 34%',
+              scrub: 0.8,
+            },
+            delay: i * 0.05,
+          },
+        )
+      })
+    }, seccion)
+
+    return () => ctx.revert()
+  }, [reducido])
+
   return (
-    <section className="relative overflow-hidden py-seccion">
-      {/* El palo se va de cuadro justo donde el copy dice despalada.
-          Es el único cutout de esta sección y no está de adorno: en Fase 3
-          su deriva sale del encuadre, no vuelve. */}
+    <section ref={seccion} className="relative overflow-hidden py-seccion">
+      {/* El palo se va de cuadro justo donde el copy dice despalada. No es
+          adorno: es la única razón por la que este cutout existe. */}
       <Image
         aria-hidden="true"
         src="/imagenes/cutouts/palo.png"
@@ -28,7 +72,9 @@ export function Manifiesto() {
         width={1200}
         height={600}
         sizes="40vw"
-        className="cutout cutout--fondo -right-[12%] top-[12%] w-[52vw] max-w-[520px] rotate-[8deg]"
+        data-plano="frente"
+        data-salida=""
+        className="cutout -right-[6%] top-[14%] w-[52vw] max-w-[520px] rotate-[8deg]"
       />
 
       <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
@@ -36,8 +82,26 @@ export function Manifiesto() {
 
         <div className="my-6 lg:my-10">
           {manifiesto.palabras.map((palabra) => (
-            <p key={palabra} className="display text-display-1">
+            <p key={palabra} className="display relative text-display-1">
+              {/* base: el contorno */}
               <span className="contorno">{palabra}</span>
+              {/* encima: la misma palabra rellena de molienda */}
+              <span
+                aria-hidden="true"
+                data-relleno
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${TEXTURA})`,
+                  backgroundSize: '120% auto',
+                  backgroundPosition: 'center',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                  clipPath: reducido ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
+                }}
+              >
+                {palabra}
+              </span>
             </p>
           ))}
         </div>
@@ -47,17 +111,13 @@ export function Manifiesto() {
         <div className="mt-14 grid max-w-4xl gap-8 sm:grid-cols-2 lg:mt-20">
           {manifiesto.cuerpo.map((parrafo, i) => (
             <div key={parrafo}>
-              <Etiqueta className="mb-3 block">
-                {i === 0 ? 'El padrón' : 'La palabra'}
-              </Etiqueta>
+              <Etiqueta className="mb-3 block">{i === 0 ? 'El padrón' : 'La palabra'}</Etiqueta>
               <p className="text-body-lg text-papel-suave">{parrafo}</p>
             </div>
           ))}
         </div>
 
-        <p className="display mt-14 text-display-2 text-dorado lg:mt-20">
-          {manifiesto.cierre}
-        </p>
+        <p className="display mt-14 text-display-2 text-dorado lg:mt-20">{manifiesto.cierre}</p>
       </div>
     </section>
   )

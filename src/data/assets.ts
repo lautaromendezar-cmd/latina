@@ -72,16 +72,17 @@ export const assets = {
       ancho: 1200,
       alto: 800,
       descripcion:
-        'Polvo de molienda suspendido. Es el que sostiene el argumento del padrón: tiene que verse fino, no arena gruesa.',
-      pendiente: true,
+        'Polvo de molienda. RESUELTO: generado + matting + defringe contra blanco (traía fleco claro en el borde).',
+      pendiente: false,
       transparente: true,
     },
     {
       path: '/imagenes/cutouts/bombilla.png',
       ancho: 500,
       alto: 1200,
-      descripcion: 'Bombilla de alpaca, sin mate.',
-      pendiente: true,
+      descripcion:
+        'Bombilla de alpaca. RESUELTO: generada + matting. El keyer de luminancia no servía: la plata es casi tan clara como el fondo.',
+      pendiente: false,
       transparente: true,
     },
   ],

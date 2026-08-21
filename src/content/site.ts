@@ -156,9 +156,16 @@ export const firma = {
   ],
   contador: {
     unidad: 'Cebadas',
-    // [VERIFICAR: cantidad de cebadas que sostiene el sabor. Sin este dato
-    // el contador corre pero no cierra con una cifra afirmada.]
-    hasta: null,
+    /**
+     * [VERIFICAR: cuántas cebadas sostiene el sabor.]
+     *
+     * Mientras esto sea null la sección corre con `hastaProvisorio` y deja
+     * el aviso a la vista. La cifra no se inventa: el "40" del brief no
+     * está en el envase, ni en el folleto aprobado, ni en MARCA.md.
+     */
+    hasta: null as number | null,
+    /** Sólo para que el contador tenga hasta dónde correr. No es un claim. */
+    hastaProvisorio: 30,
   },
   ficha: [
     { campo: 'Hoja', valor: 'Fina, alta proporción' },

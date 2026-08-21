@@ -6,6 +6,8 @@ import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { WhatsAppFlotante } from '@/components/layout/WhatsAppFlotante'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
+import { CutoutsAmbiente } from '@/components/layout/CutoutsAmbiente'
+import { Carga } from '@/components/layout/Carga'
 import { meta, marca, nav } from '@/content/site'
 
 /**
@@ -59,6 +61,22 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-AR" className={`${archivo.variable} ${montserrat.variable}`}>
+      <head>
+        {/*
+          Respaldo de los reveals. Ver la nota larga en globals.css: el
+          estado escondido cuelga de `.js`, así que sin JavaScript nada se
+          esconde, y el timer garantiza que tampoco quede escondido si el
+          bundle arranca y después muere. Va inline y sin `type="module"`
+          para que corra antes del primer pintado.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');" +
+              "setTimeout(function(){document.documentElement.classList.remove('js')},2000);",
+          }}
+        />
+      </head>
       <body>
         <a
           href="#contenido"
@@ -67,7 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {nav.saltarAlContenido}
         </a>
 
+        <Carga />
         <SmoothScroll />
+        <CutoutsAmbiente />
         <Nav />
 
         <main id="contenido">{children}</main>

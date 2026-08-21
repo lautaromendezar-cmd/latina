@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Greca } from '@/components/ui/Greca'
 import { Boton } from '@/components/ui/Boton'
 import { hero } from '@/content/site'
+import { HeroTitulo } from '@/components/home/HeroTitulo'
 import { heroVideoListo } from '@/data/assets'
 
 /**
@@ -61,6 +62,7 @@ export function Hero() {
           width={766}
           height={1239}
           sizes="(max-width: 1024px) 40vw, 26vw"
+          data-plano="frente"
           className="cutout cutout--frente right-[-6%] top-[18%] w-[46vw] max-w-[420px] lg:right-[4%] lg:top-[14%] lg:w-[26vw]"
         />
         <Image
@@ -69,19 +71,14 @@ export function Hero() {
           width={1000}
           height={1200}
           sizes="24vw"
+          data-plano="fondo"
           className="cutout cutout--fondo left-[-8%] top-[8%] w-[38vw] max-w-[300px] lg:left-[3%] lg:w-[16vw]"
         />
       </div>
 
       {/* --- contenido --- */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-8 pt-24 sm:px-6 lg:px-10 lg:pt-28">
-        <h1 className="display text-display-1">
-          {hero.titulo.map((linea) => (
-            <span key={linea.texto} className="block">
-              <span className={linea.contorno ? 'contorno' : undefined}>{linea.texto}</span>
-            </span>
-          ))}
-        </h1>
+        <HeroTitulo />
 
         <p className="mt-7 max-w-[46ch] text-body-lg text-papel-suave">{hero.bajada}</p>
 
