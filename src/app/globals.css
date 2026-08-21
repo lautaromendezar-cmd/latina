@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   LaTiNa · tokens
+
+   Los hex salen del packaging (ver ../contenido-latina/MARCA.md), no del
+   sitio viejo. Son los mismos que usan las piezas de Instagram: el
+   recorrido real del cliente es posteo → sitio, y no puede cambiar de
+   marca en el camino.
+
+   Contrastes medidos (WCAG 2.1, texto normal necesita 4.5:1):
+     papel / yerba-oscuro ........ 14.54:1  AA
+     dorado / yerba-oscuro ........ 9.99:1  AA
+     yerba-oscuro / dorado ........ 9.99:1  AA   (texto dentro del botón)
+     yerba-seca / yerba-oscuro .... 5.86:1  AA
+     yerba-oscuro / papel ........ 14.54:1  AA
+     verde / papel ................ 7.44:1  AA
+     sello / papel ................ 4.89:1  AA
+     ─── los que NO pasan, y que por eso son reglas de abajo ───
+     dorado / papel ............... 1.45:1
+     verde / yerba-oscuro ......... 1.95:1
+     sello / yerba-oscuro ......... 2.98:1
+     yerba-seca / papel ........... 2.48:1
+   ------------------------------------------------------------------ */
+@theme {
+  /* --- superficie --- */
+  --color-yerba-oscuro: #06250f; /* fondo dominante, ~85% de la superficie */
+  --color-yerba-media: #0a2e17; /* superficie elevada sobre el fondo */
+  --color-yerba-alta: #0e3b1f; /* bordes y separadores sobre oscuro */
+
+  /* --- tinta --- */
+  --color-papel: #f6f1e2;
+  --color-papel-suave: #cfc9b8; /* texto secundario sobre oscuro */
+
+  /* --- acción --- */
+  --color-dorado: #f4c430; /* acción, nunca decoración */
+  --color-dorado-claro: #ffd957;
+  --color-dorado-oscuro: #e0a800;
+
+  /* --- estructura --- */
+  --color-verde: #14592f; /* NUNCA es texto sobre el fondo oscuro */
+  --color-yerba-seca: #94a06a; /* sólo vive sobre oscuro */
+  --color-sello: #b8402b; /* sólo vive sobre papel */
+
+  /* --- tipografía --- */
+  --font-display: var(--fuente-display), "Arial Black", system-ui, sans-serif;
+  --font-sans: var(--fuente-sans), system-ui, -apple-system, sans-serif;
+
+  /* --- escala --- */
+  --text-display-1: clamp(2rem, 11vw, 9.5rem);
+  --text-display-1--line-height: 0.92;
+  --text-display-2: clamp(1.9rem, 7vw, 5.5rem);
+  --text-display-2--line-height: 0.95;
+  --text-display-3: clamp(1.6rem, 4.5vw, 3rem);
+  --text-display-3--line-height: 1;
+  --text-dato: clamp(3.5rem, 18vw, 14rem);
+  --text-dato--line-height: 0.82;
+  --text-body-lg: clamp(1.05rem, 1.6vw, 1.375rem);
+  --text-body-lg--line-height: 1.5;
+  --text-body: 1rem;
+  --text-body--line-height: 1.55;
+  --text-etiqueta: 0.6875rem;
+  --text-etiqueta--line-height: 1.2;
+
+  /* --- ritmo --- */
+  --spacing-seccion: clamp(5rem, 12vh, 10rem);
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background-color: var(--color-yerba-oscuro);
+  color: var(--color-papel);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-dorado);
+  color: var(--color-yerba-oscuro);
+}
+
+/* El foco por defecto del browser desaparece sobre el verde oscuro. */
+:focus-visible {
+  outline: 2px solid var(--color-dorado);
+  outline-offset: 3px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ------------------------------------------------------------------
+   Display
+
+   Archivo variable: un solo archivo cubre los dos ejes. wdth 110 arriba
+   de 1024px; 100 abajo de 640px, porque "EL MATE CAMBIA" en expanded 800
+   no entra en los ~320px útiles de un teléfono de 360.
+   ------------------------------------------------------------------ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" 100;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  font-feature-settings: "tnum";
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .display {
+    font-variation-settings: "wdth" 106;
+  }
+}
+
+@media (min-width: 1024px) {
+  .display {
+    font-variation-settings: "wdth" 110;
+  }
+}
+
+/* Contorno. Regla del brief: si no se rellena o no significa nada, va sólida.
+   En Fase 1 queda estático; el relleno con scrub entra en Fase 3. */
+.contorno {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-papel);
+  paint-order: stroke fill;
+}
+
+@media (min-width: 1024px) {
+  .contorno {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Etiquetas
+
+   El registro de "ficha técnica" sale de Montserrat traqueado, no de una
+   mono: MARCA.md prohíbe una tercera familia, y un archivo de fuente
+   menos ayuda al piso de Lighthouse en mobile con video en el hero.
+   ------------------------------------------------------------------ */
+.etiqueta {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-etiqueta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-feature-settings: "tnum";
+}
+
+/* ------------------------------------------------------------------
+   Grano · sobre el fondo oscuro. Sin gradientes de color.
+   ------------------------------------------------------------------ */
+.grano {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* ------------------------------------------------------------------
+   Cutouts ambiente · dos planos, no tres.
+   aria-hidden + pointer-events:none es piso, no opción.
+   ------------------------------------------------------------------ */
+.cutout {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+.cutout--fondo {
+  filter: blur(8px);
+  opacity: 0.4;
+}
+
+.cutout--frente {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------
+   Movimiento reducido
+
+   Esto es la red, no el diseño: cada sección tiene además su estado
+   estático propio. Acá sólo se apagan deriva, parallax y transiciones.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cutout {
+    display: none;
+  }
+}
