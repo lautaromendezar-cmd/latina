@@ -58,8 +58,8 @@ export function Hero() {
         <Image
           src="/imagenes/cutouts/pack-1kg.png"
           alt=""
-          width={1080}
-          height={1420}
+          width={766}
+          height={1239}
           sizes="(max-width: 1024px) 40vw, 26vw"
           className="cutout cutout--frente right-[-6%] top-[18%] w-[46vw] max-w-[420px] lg:right-[4%] lg:top-[14%] lg:w-[26vw]"
         />

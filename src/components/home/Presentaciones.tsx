@@ -34,8 +34,8 @@ export function Presentaciones() {
               <Image
                 src={p.imagen}
                 alt={p.alt}
-                width={1200}
-                height={1500}
+                width={p.ancho}
+                height={p.alto}
                 sizes="(max-width: 640px) 46vw, 340px"
                 className="h-auto w-full"
               />

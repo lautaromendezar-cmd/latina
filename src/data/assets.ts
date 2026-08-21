@@ -33,10 +33,10 @@ export const assets = {
   cutouts: [
     {
       path: '/imagenes/cutouts/pack-1kg.png',
-      ancho: 1080,
-      alto: 1420,
+      ancho: 766,
+      alto: 1239,
       descripcion:
-        'Paquete de 1 kg recortado. YA EXISTE: ../contenido-latina/assets/img/pack-cutout.png',
+        'Paquete de 1 kg, foto REAL recortada con alfa. El pack-cutout.png del banco NO estaba recortado (traía la mesa y la pared): se rehizo el matting. Etiqueta verificada letra por letra.',
       pendiente: false,
       transparente: true,
     },
@@ -45,24 +45,26 @@ export const assets = {
       ancho: 1200,
       alto: 600,
       descripcion:
-        'Un palo de yerba suelto, nítido. Es el cutout que se va de cuadro donde el copy dice despalada: tiene que leerse como palo, no como ramita genérica.',
-      pendiente: true,
+        'Palo de yerba suelto. RESUELTO: generado y matteado (el keyer de luminancia le dejaba la sombra como halo). Es el cutout que se va de cuadro donde el copy dice despalada.',
+      pendiente: false,
       transparente: true,
     },
     {
       path: '/imagenes/cutouts/hoja-entera.png',
       ancho: 1000,
       alto: 1200,
-      descripcion: 'Hoja de yerba entera, con nervadura visible.',
-      pendiente: true,
+      descripcion:
+        'Hoja de yerba entera, nervadura visible. RESUELTO: generada (Nano Banana Pro) y recortada con keyer de luminancia. No lleva producto ni etiqueta.',
+      pendiente: false,
       transparente: true,
     },
     {
       path: '/imagenes/cutouts/hoja-partida.png',
       ancho: 1000,
       alto: 900,
-      descripcion: 'Hoja partida, borde irregular.',
-      pendiente: true,
+      descripcion:
+        'Hoja partida, borde irregular. RESUELTO: generada y recortada igual que la entera.',
+      pendiente: false,
       transparente: true,
     },
     {
@@ -91,8 +93,8 @@ export const assets = {
       ancho: 1920,
       alto: 1080,
       descripcion:
-        'Frame del loop del hero. Es el LCP en mobile y en conexiones lentas es lo único que se ve, así que tiene que funcionar como foto fija.',
-      pendiente: true,
+        'Nube de yerba a contraluz sobre verde profundo, con el tercio izquierdo vacío para el display. RESUELTO: generada sin paquete a propósito (ver nota abajo). Es el LCP en mobile.',
+      pendiente: false,
     },
   ],
 
@@ -156,8 +158,8 @@ export const assets = {
   producto: [
     {
       path: '/imagenes/pack-1kg.png',
-      ancho: 1080,
-      alto: 1420,
+      ancho: 766,
+      alto: 1239,
       descripcion: 'Paquete de 1 kg, foto real recortada. RESUELTO (mismo archivo que el cutout).',
       pendiente: false,
       transparente: true,

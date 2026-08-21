@@ -1,88 +1,121 @@
-# Assets pendientes
+# Assets
 
-Todo lo de acá está construido con un placeholder del tamaño exacto, en el
-path final. **Reemplazar es pisar el archivo en `public/imagenes/`. No hay
-que tocar código.**
-
-Los placeholders se regeneran con:
+Todo se construye con un placeholder del tamaño exacto **en el path final**.
+Reemplazar un asset es pisar el archivo en `public/imagenes/`: cero cambios
+de código.
 
 ```
-node tools/placeholders.mjs          # sólo los que faltan
-node tools/placeholders.mjs --force  # todos
+node tools/placeholders.mjs          # escribe sólo los que faltan
+node tools/placeholders.mjs --force  # reescribe todos
 ```
 
 El inventario vive en `src/data/assets.ts`, que es el mismo archivo que lee
-el generador. Cuando llega un asset real, poner `pendiente: false` ahí para
-que esta lista quede al día.
+el generador. Al llegar un asset real se pone `pendiente: false` ahí.
 
-> Nota sobre el brief: los paths finales apuntan a `/imagenes/`, no a
-> `/placeholders/`. Con dos carpetas separadas, reemplazar un asset obliga
-> a editar el path en el código, que es justo lo que el brief prohíbe dos
-> renglones más abajo ("reemplazar un placeholder tiene que ser mover un
-> archivo, nada más").
+> Nota sobre el brief: los paths apuntan a `/imagenes/`, no a
+> `/placeholders/`. Con dos carpetas, reemplazar obligaba a editar el path
+> en el código — justo lo que el brief prohíbe dos renglones más abajo.
 
 ---
 
-## Ya resueltos
+## Resueltos · 9 de 14
 
 | Path | De dónde salió |
 |---|---|
-| `imagenes/cutouts/pack-1kg.png` | `../contenido-latina/assets/img/pack-cutout.png`, 1080×1420 con alfa |
-| `marca/logo.png` | `images/logo.PNG`, recortado circular con alfa en las esquinas |
+| `imagenes/cutouts/pack-1kg.png` | Foto real del paquete, **matting rehecho**. Ver nota ⚠ abajo. |
+| `imagenes/pack-1kg.png` | El mismo archivo. |
+| `imagenes/cutouts/palo.png` | Generado (Nano Banana Pro) + matting. |
+| `imagenes/cutouts/hoja-entera.png` | Generado + recorte por luminancia. |
+| `imagenes/cutouts/hoja-partida.png` | Generado + recorte por luminancia. |
+| `imagenes/hero-poster.jpg` | Generado: nube de yerba a contraluz, sin paquete. |
+| `imagenes/origen-brasil.jpg` | `brasil.jpg` del banco, 3:2 nativo. |
+| `imagenes/origen-uruguay.jpg` | `mate-close.jpg`, recortado 3:2 para sacarle el logo quemado del pie. |
+| `imagenes/origen-argentina.jpg` | `amigos.jpg` del banco. |
+| `imagenes/textura-molienda.jpg` | `yerba.jpg`, macro **real** de la molienda. |
+
+> ⚠ **`pack-cutout.png` del banco nunca estuvo recortado.** Trae la mesa de
+> madera y la pared de fondo; el `remove_background` con el que se hizo
+> falló y quedó guardado igual. Se rehízo el matting sobre la misma foto y
+> ahora sí tiene alfa. Si alguien vuelve a tomar ese archivo de
+> `contenido-latina`, va a repetir el error.
 
 ---
 
-## Cutouts — PNG, fondo transparente
+## Pendientes
 
-| Path | Medidas | Qué tiene que mostrar |
+### En cola (generación arrancada, no bloquean)
+
+| Path | Estado |
+|---|---|
+| `imagenes/cutouts/polvo.png` | Generado OK, esperando el matting. El keyer de luminancia no sirve: el polvo es casi tan claro como el fondo blanco y quedó 33% semitransparente. |
+| `imagenes/cutouts/bombilla.png` | Ídem, peor: la plata dejó sólo 2% de píxeles opacos. Un objeto metálico claro sobre blanco no se puede separar por luminancia. |
+
+### Los tiene que sacar una cámara — no se generan
+
+| Path | Medidas |
+|---|---|
+| `imagenes/molienda-comun.jpg` | 2000×2000 |
+| `imagenes/molienda-padron.jpg` | 2000×2000 |
+
+**Estas dos son el elemento firma: son la prueba del sitio.** Generarlas con
+IA sería fabricar la evidencia de un claim de producto. No se hace.
+
+La buena noticia es que `yerba.jpg` demuestra que la toma sale con un
+teléfono. Son quince minutos:
+
+1. Tabla de madera, luz de ventana, teléfono apoyado o en trípode.
+2. Un montoncito de LaTiNa, cenital o casi. Foto.
+3. **Sin mover la cámara ni la luz**, se cambia el montón por cualquier
+   yerba de supermercado con palo. Foto.
+
+Lo único que no puede cambiar entre las dos tomas es la cámara. Si el
+encuadre no coincide, la comparación no prueba nada y se nota.
+
+### Los tiene que mandar Nahuel
+
+| Path | Nota |
+|---|---|
+| `imagenes/pack-500g.png` | **No existe en ningún lado**: todo el material del cliente es del kilo. |
+
+> Cuidado con lo que mande: mezcla fotos reales con renders de IA. `pack-dark.jpg`
+> y `pack-hero.jpg` de `contenido-latina` tienen el microtexto roto
+> ("lex picagrammeic" en vez de *Ilex paraguariensis*). Mirar con lupa siempre.
+
+### Video del hero
+
+`imagenes/hero-loop.webm` + `.mp4`, 1920×1080, ~6s. Cuando estén, poner
+`heroVideoListo = true` en `src/data/assets.ts` y no tocar nada más.
+
+**El loop va SIN el paquete**, igual que el poster. El paquete entra como
+cutout encima, en su propio plano de parallax. Dos motivos: es lo que pide
+la arquitectura de capas del brief, y evita el problema de la etiqueta
+generada (ver abajo).
+
+---
+
+## ⚠ La etiqueta generada no aguanta el tamaño de un sitio
+
+Las dos tomas que probaste en Higgsfield con el paquete como referencia
+quedan muy bien de composición, pero el microtexto del envase salió mal en
+las dos:
+
+| Toma | Dice | Tendría que decir |
 |---|---|---|
-| `imagenes/cutouts/palo.png` | 1200×600 | Un palo de yerba suelto, nítido. **Es el cutout que más trabaja del sitio**: se va de cuadro justo donde el copy dice *despalada*. Tiene que leerse como palo, no como ramita. |
-| `imagenes/cutouts/polvo.png` | 1200×800 | Polvo de molienda suspendido. Fino, no arena gruesa: sostiene el argumento del padrón. |
-| `imagenes/cutouts/hoja-entera.png` | 1000×1200 | Hoja de yerba entera, nervadura visible. |
-| `imagenes/cutouts/hoja-partida.png` | 1000×900 | Hoja partida, borde irregular. |
-| `imagenes/cutouts/bombilla.png` | 500×1200 | Bombilla de alpaca, sin mate. |
+| Campo, atardecer | `YERBA MATE ELAGRRADA DESPALADA LIBRE DE OLUTEO` | `…ELABORADA DESPALADA LIBRE DE GLUTEN` |
+| Verde, flotando | `YERBA MATE ELABORADA DESTILLARA LIBRE DE GLUTEN` | `…ELABORADA DESPALADA…` |
 
-## Producto
+En un slide de Instagram a 1080 px eso pasa. En el hero de un sitio, que se
+sirve a 1920 px y en pantallas retina, esa línea **se lee**. Y el sitio cita
+el envase en dos lugares: el pilar "Libre de gluten, dice el envase" y la
+denominación legal del pie. Contradecir nuestro propio claim con la etiqueta
+mal escrita es el tipo de detalle que después no se puede defender.
 
-| Path | Medidas | Qué tiene que mostrar |
-|---|---|---|
-| `imagenes/pack-1kg.png` | 1200×1500 | Paquete de 1 kg, **foto real**. |
-| `imagenes/pack-500g.png` | 1200×1500 | Paquete de ½ kg, **foto real**. ⚠ No existe en el banco: todo el material del cliente es del 1 kg. |
-
-> **No usar `pack-dark.jpg` ni `pack-hero.jpg`** de `contenido-latina`: son
-> renders de IA con el microtexto de la etiqueta roto ("lex picagrammeic"
-> en vez de *Ilex paraguariensis*). En pantalla grande se lee.
-
-## Hero
-
-| Path | Medidas | Qué tiene que mostrar |
-|---|---|---|
-| `imagenes/hero-poster.jpg` | 1920×1080 | Frame del loop. **Es el LCP en mobile.** Mientras el video no exista es lo único que se ve, así que tiene que funcionar como foto fija. |
-| `imagenes/hero-loop.webm` + `.mp4` | 1920×1080, ~6s | Nube de yerba suspendida, contraluz. Cuando estén, poner `heroVideoListo = true` en `src/data/assets.ts`. |
-
-## Origen
-
-| Path | Medidas | Qué tiene que mostrar |
-|---|---|---|
-| `imagenes/origen-brasil.jpg` | 2400×1600 | Yerbal en las montañas, atardecer. **Ya hay una buena**: `../contenido-latina/assets/img/brasil.jpg`. |
-| `imagenes/origen-uruguay.jpg` | 2400×1600 | Mate cebado con molienda fina, macro. Tiene que verse el polvo: es el panel que explica qué es el padrón. |
-| `imagenes/origen-argentina.jpg` | 2400×1600 | Ronda de mate rioplatense. Es el panel donde la marca todavía no está instalada: mejor calle y gente que góndola. |
-
-## La firma — las dos moliendas
-
-| Path | Medidas | Qué tiene que mostrar |
-|---|---|---|
-| `imagenes/molienda-comun.jpg` | 2000×2000 | Macro extremo de molienda común, con palo visible. |
-| `imagenes/molienda-padron.jpg` | 2000×2000 | Macro extremo del padrón despalado. |
-
-> ⚠ **Mismo encuadre, misma luz, misma distancia y mismo fondo en las dos.**
-> Es una comparación: si las tomas no coinciden, no prueba nada y se nota.
-> Lo ideal es no mover el trípode entre una y otra.
-
-| Path | Medidas | Qué tiene que mostrar |
-|---|---|---|
-| `imagenes/textura-molienda.jpg` | 2400×1200 | Macro para el relleno tipográfico del manifiesto. Textura pareja, sin foco dominante ni zonas vacías: se ve a través de las letras. |
-| `imagenes/cebada-sequence/` | 60 frames webp | **Fase 3.** Secuencia scrubbeable de los dos mates cebándose. Definir junto con la sección, no antes. |
+**Por eso el sitio no usa ningún paquete generado.** Donde el paquete
+aparece grande usa la foto real recortada, que tiene la etiqueta perfecta y
+ya está resuelta. Si en algún momento hace falta una escena generada con el
+paquete, la receta es la de `MARCA.md`: `nano_banana_pro` a **4k** (a 2k el
+microtexto se rompe siempre), pedir integración y no collage, y revisar la
+etiqueta letra por letra antes de usarla.
 
 ---
 
@@ -90,27 +123,24 @@ que esta lista quede al día.
 
 | Qué | Dónde bloquea |
 |---|---|
-| **Cuántas cebadas sostiene el sabor** | El contador del elemento firma. Hoy muestra `[VERIFICAR]` en pantalla, a propósito. Sin el dato la sección se rediseña; no se completa con un número creíble. |
-| **Lista mayorista al día** | `src/data/mayorista.ts`. Los precios que circulan son de julio y MARCA.md avisa que cambian seguido. La escalera se muestra sin importes hasta que llegue. |
-| **Mail de destino de los formularios** | Fase 2. La marca no tiene mail público y Resend necesita un destinatario real. |
-| **¿Está viva `tienda.yerbamatelatina.com.ar`?** | Es el destino del fallback de "no llegamos a tu ciudad", que es el camino más transitado de `/donde-comprar`. Si no está viva, ese fallback manda a la nada. |
+| **Cuántas cebadas sostiene el sabor** | El contador del elemento firma. Hoy muestra `[VERIFICAR]` en pantalla a propósito. |
+| **Lista mayorista al día** | `src/data/mayorista.ts`. La escalera se muestra sin importes hasta que llegue. |
+| **Mail de destino de los formularios** | Fase 2. La marca no tiene mail público y Resend necesita un destinatario. |
+| **¿Está viva `tienda.yerbamatelatina.com.ar`?** | Es el destino del fallback de "no llegamos a tu ciudad", el camino más transitado de `/donde-comprar`. |
 
 ---
 
-## Dos cosas del material que conviene mirar
+## Dos cosas del material
 
-**El logo dice `ERVA-MATE`, no `YERBA-MATE`.** El `images/logo.PNG` que
-pasaste es la versión brasilera/portuguesa. MARCA.md aclara que la etiqueta
-argentina dice *YERBA-MATE ELABORADA*. Para un sitio dirigido al mercado
-argentino, conviene la versión en castellano si existe. Está usado igual
-por ahora.
+**El `logo.PNG` dice `ERVA-MATE`.** Es la versión brasilera. El paquete real
+—`images/PAQUETE-USAR.jpg`— dice `YERBA-MATE` en castellano. Para un sitio
+dirigido al mercado argentino conviene la versión en castellano, y esa foto
+sirve de fuente para redibujarla.
 
-**Falta una versión del logo en vector o en monocromo claro.** Hoy es un
-PNG con el disco blanco: funciona como sello, pero sobre el verde oscuro un
-isotipo en `--papel` se vería mejor, y el load orquestado de la Fase 3
-necesitaría paths SVG. No hay ningún `.svg` en `contenido-latina`,
-`latina-links` ni `pdf-latina`; el único vector posible es el que se pueda
-extraer de `pdf-latina/export/Folleto-Latina.pdf`.
+**Falta el logo en vector.** No hay ningún `.svg` en `contenido-latina`,
+`latina-links` ni `pdf-latina`. El único vector posible es el que se pueda
+extraer de `pdf-latina/export/Folleto-Latina.pdf`. No bloquea nada hoy: el
+load orquestado de la Fase 3 va sin DrawSVG.
 
 ---
 
@@ -119,5 +149,5 @@ extraer de `pdf-latina/export/Folleto-Latina.pdf`.
 Vienen del scrape del sitio viejo, no se tocaron a mano:
 
 - **`Rosario del Talar`** (Entre Ríos) es casi seguro **Rosario del Tala**.
-- **`Zona Oeste`** (Buenos Aires) no es una localidad, y no va a matchear
-  con nada que escriba una persona en el buscador.
+- **`Zona Oeste`** (Buenos Aires) no es una localidad y no va a matchear con
+  nada que escriba una persona en el buscador.
