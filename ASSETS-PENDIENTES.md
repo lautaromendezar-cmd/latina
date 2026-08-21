@@ -50,27 +50,6 @@ el generador. Al llegar un asset real se pone `pendiente: false` ahí.
 | `imagenes/cutouts/polvo.png` | Generado OK, esperando el matting. El keyer de luminancia no sirve: el polvo es casi tan claro como el fondo blanco y quedó 33% semitransparente. |
 | `imagenes/cutouts/bombilla.png` | Ídem, peor: la plata dejó sólo 2% de píxeles opacos. Un objeto metálico claro sobre blanco no se puede separar por luminancia. |
 
-### Los tiene que sacar una cámara — no se generan
-
-| Path | Medidas |
-|---|---|
-| `imagenes/molienda-comun.jpg` | 2000×2000 |
-| `imagenes/molienda-padron.jpg` | 2000×2000 |
-
-**Estas dos son el elemento firma: son la prueba del sitio.** Generarlas con
-IA sería fabricar la evidencia de un claim de producto. No se hace.
-
-La buena noticia es que `yerba.jpg` demuestra que la toma sale con un
-teléfono. Son quince minutos:
-
-1. Tabla de madera, luz de ventana, teléfono apoyado o en trípode.
-2. Un montoncito de LaTiNa, cenital o casi. Foto.
-3. **Sin mover la cámara ni la luz**, se cambia el montón por cualquier
-   yerba de supermercado con palo. Foto.
-
-Lo único que no puede cambiar entre las dos tomas es la cámara. Si el
-encuadre no coincide, la comparación no prueba nada y se nota.
-
 ### Los tiene que mandar Nahuel
 
 | Path | Nota |
@@ -125,11 +104,16 @@ etiqueta letra por letra antes de usarla.
 
 ---
 
+> **La sección "La prueba" se eliminó** (21-ago-2026, decisión del cliente).
+> Con ella se fueron dos pedidos que estaban acá: la sesión de fotos de las
+> dos moliendas con encuadre compartido, y el dato de cuántas cebadas
+> sostiene el sabor. Si algún día se saca esa foto, la sección está en el
+> historial de git — el commit dice cuál.
+
 ## Datos que faltan, no archivos
 
 | Qué | Dónde bloquea |
 |---|---|
-| **Cuántas cebadas sostiene el sabor** | El contador del elemento firma. Hoy muestra `[VERIFICAR]` en pantalla a propósito. |
 | **Lista mayorista al día** | `src/data/mayorista.ts`. La escalera se muestra sin importes hasta que llegue. |
 | **Mail de destino de los formularios** | Fase 2. La marca no tiene mail público y Resend necesita un destinatario. |
 | **¿Está viva `tienda.yerbamatelatina.com.ar`?** | Es el destino del fallback de "no llegamos a tu ciudad", el camino más transitado de `/donde-comprar`. |

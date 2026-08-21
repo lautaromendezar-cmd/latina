@@ -127,30 +127,14 @@ export const assets = {
     },
   ],
 
-  /* --- la firma: las dos moliendas --- */
-  firma: [
-    {
-      path: '/imagenes/molienda-comun.jpg',
-      ancho: 2000,
-      alto: 2000,
-      descripcion:
-        'Macro extremo de molienda argentina común, con palo visible. MISMO ENCUADRE, MISMA LUZ Y MISMA DISTANCIA que la siguiente: si no coinciden, la comparación no prueba nada.',
-      pendiente: true,
-    },
-    {
-      path: '/imagenes/molienda-padron.jpg',
-      ancho: 2000,
-      alto: 2000,
-      descripcion:
-        'Macro del padrón despalado. PROVISORIA: hoy usa yerba.jpg del banco, que es foto real de la molienda de LaTiNa pero NO comparte encuadre con la otra. Cuando se haga la toma de las dos, se pisan LAS DOS JUNTAS.',
-      pendiente: true,
-    },
+  /* --- textura para el relleno tipografico del manifiesto --- */
+  textura: [
     {
       path: '/imagenes/textura-molienda.jpg',
       ancho: 1600,
       alto: 800,
       descripcion:
-        'Macro de la molienda real para el relleno tipográfico. RESUELTO con yerba.jpg del banco (foto real del producto, no IA).',
+        'Macro de la molienda real para el relleno tipografico del manifiesto. RESUELTO con yerba.jpg del banco: foto real del producto, no IA.',
       pendiente: false,
     },
   ],

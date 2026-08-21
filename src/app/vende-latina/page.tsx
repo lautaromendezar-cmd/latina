@@ -134,8 +134,8 @@ export default function VendeLatinaPage() {
               Yerba mate elaborada despalada, libre de gluten, de industria brasilera. Molienda
               fina y mucho polvo: es la que le vas a vender al que toma muchos mates por día.
             </p>
-            <Boton href="/#firma" variante="secundario">
-              Ver la diferencia de molienda
+            <Boton href="/#manifiesto" variante="secundario">
+              Qué es el padrón despalado
             </Boton>
           </div>
         </div>

@@ -124,58 +124,6 @@ export const origen = {
   ],
 } as const
 
-/**
- * El elemento firma. Reemplaza al "contador de 40 mates" del brief.
- *
- * Motivo (queda escrito acá para que no se pierda): "rinde más" es el
- * claim más disputado de la categoría — lo dicen todas las marcas — y el
- * número 40 no está en MARCA.md, ni en el folleto aprobado, ni en la
- * etiqueta. La sección compara moliendas en vez de afirmar un número, y
- * el conteo queda sin cifra final dura hasta que el cliente la confirme.
- */
-export const firma = {
-  etiqueta: 'La prueba',
-  titulo: 'El mismo mate, dos yerbas',
-  bajada:
-    'Mismo mate, misma agua, misma mano. Lo único que cambia es lo que hay adentro.',
-  lados: [
-    {
-      id: 'comun',
-      etiqueta: 'Yerba con palo',
-      descripcion: 'Se lava antes. El sabor se va cayendo cebada a cebada.',
-      imagen: '/imagenes/molienda-comun.jpg',
-      alt: 'Macro extremo de molienda gruesa con palo',
-    },
-    {
-      id: 'latina',
-      etiqueta: 'Padrón despalado',
-      descripcion: 'Aguanta. El cuerpo se sostiene hasta el final del termo.',
-      imagen: '/imagenes/molienda-padron.jpg',
-      alt: 'Macro extremo de molienda fina de padrón uruguayo',
-    },
-  ],
-  contador: {
-    unidad: 'Cebadas',
-    /**
-     * [VERIFICAR: cuántas cebadas sostiene el sabor.]
-     *
-     * Mientras esto sea null la sección corre con `hastaProvisorio` y deja
-     * el aviso a la vista. La cifra no se inventa: el "40" del brief no
-     * está en el envase, ni en el folleto aprobado, ni en MARCA.md.
-     */
-    hasta: null as number | null,
-    /** Sólo para que el contador tenga hasta dónde correr. No es un claim. */
-    hastaProvisorio: 30,
-  },
-  ficha: [
-    { campo: 'Hoja', valor: 'Fina, alta proporción' },
-    { campo: 'Palo', valor: 'Despalada' },
-    { campo: 'Polvo', valor: 'Alto — más cuerpo' },
-    { campo: 'Cebadas', valor: 'Sostiene el sabor' },
-  ],
-  cierre: 'No sos vos, es tu yerba.',
-} as const
-
 export const pilares = {
   etiqueta: 'Qué la hace distinta',
   items: [
