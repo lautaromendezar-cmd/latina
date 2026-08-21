@@ -126,9 +126,16 @@ export const origen = {
 
 export const pilares = {
   etiqueta: 'Qué la hace distinta',
+  titulo: 'Por qué cambia el mate',
+  // Cada pilar lleva un recorte REAL del producto, no un icono de línea:
+  // el paquete, la molienda y el sello impreso en el envase. Un set de
+  // iconos genérico es lo que tiene cualquier marca; esto es lo que hay
+  // adentro de esta bolsa.
   items: [
     {
       id: 'rendimiento',
+      imagen: '/imagenes/pack-1kg.png',
+      alt: 'Paquete de LaTiNa de 1 kg',
       pestana: 'Más rendimiento',
       titulo: 'Rinde más por paquete',
       cuerpo:
@@ -136,6 +143,8 @@ export const pilares = {
     },
     {
       id: 'padron',
+      imagen: '/imagenes/cutouts/polvo.png',
+      alt: 'Molienda fina de padrón uruguayo, macro',
       pestana: 'Padrón uruguayo',
       titulo: 'El padrón que no se consigue acá',
       cuerpo:
@@ -143,6 +152,8 @@ export const pilares = {
     },
     {
       id: 'sintacc',
+      imagen: '/imagenes/pilares/sello-sin-gluten.png',
+      alt: 'Sello Sin Gluten impreso en el envase',
       pestana: 'Sin T.A.C.C.',
       titulo: 'Libre de gluten, con sello',
       cuerpo:
