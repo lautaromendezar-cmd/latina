@@ -74,7 +74,7 @@ export function Manifiesto() {
         sizes="40vw"
         data-plano="frente"
         data-salida=""
-        className="cutout -right-[6%] top-[14%] w-[52vw] max-w-[520px] rotate-[8deg]"
+        className="cutout absolute -right-[6%] top-[14%] w-[52vw] max-w-[520px] rotate-[8deg]"
       />
 
       <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">

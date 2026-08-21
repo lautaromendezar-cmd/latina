@@ -344,8 +344,13 @@ textarea {
    Cutouts ambiente · dos planos, no tres.
    aria-hidden + pointer-events:none es piso, no opción.
    ------------------------------------------------------------------ */
+/* Sin `position` a propósito: cada cutout decide cómo se ubica.
+   Los que van clavados a una esquina usan la utilidad `absolute`; el
+   paquete del hero se centra con flexbox contra la caja del texto.
+   Centrarlo con `top-1/2 -translate-y-1/2` sería lo natural, pero deja un
+   `transform` puesto desde el CSS y ahí GSAP lee el `translateY(-50%)`
+   como px al animar la deriva. Flexbox no toca `transform`. */
 .cutout {
-  position: absolute;
   pointer-events: none;
   user-select: none;
   will-change: transform;

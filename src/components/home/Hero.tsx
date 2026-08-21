@@ -61,21 +61,6 @@ export function Hero() {
           dejaba de leerse como parte de la misma composición que el título. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="relative mx-auto h-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
-          {/* Desde tablet ocupa la columna derecha. En teléfono NO se
-              muestra: a 360px hay una sola columna y el paquete, en
-              cualquier tamaño útil, se le monta al título o a los botones.
-              Un cutout no puede costarle legibilidad al hero, y el producto
-              igual aparece en grande en la franja de presentaciones. */}
-          <Image
-            src="/imagenes/cutouts/pack-1kg.png"
-            alt=""
-            width={960}
-            height={1547}
-            priority
-            sizes="(max-width: 768px) 1px, (max-width: 1024px) 30vw, 26vw"
-            data-plano="frente"
-            className="cutout cutout--frente hidden md:block md:right-0 md:top-[20%] md:w-[30vw] md:max-w-[240px] lg:right-6 lg:top-[19%] lg:w-[26vw] lg:max-w-[340px]"
-          />
           <Image
             src="/imagenes/cutouts/hoja-entera.png"
             alt=""
@@ -83,7 +68,7 @@ export function Hero() {
             height={1200}
             sizes="20vw"
             data-plano="fondo"
-            className="cutout cutout--fondo hidden md:block md:left-0 md:top-[6%] md:w-[22vw] md:max-w-[200px] lg:left-2 lg:w-[15vw]"
+            className="cutout cutout--fondo absolute hidden md:block md:left-0 md:top-[6%] md:w-[22vw] md:max-w-[200px] lg:left-2 lg:w-[15vw]"
           />
         </div>
       </div>
@@ -93,6 +78,31 @@ export function Hero() {
           de correr a lo ancho: si no, el título pasa por debajo del paquete
           y las dos cosas se pelean el mismo lugar. */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-8 pt-24 sm:px-6 lg:px-10 lg:pt-28">
+        {/* El paquete vive DENTRO de esta caja y se centra con flexbox
+            contra ella. Es el mismo centro óptico que usa el texto: la
+            sección entera no sirve de referencia porque arriba tiene el nav
+            y abajo la banda de especificaciones, así que su centro cae más
+            alto que el del contenido.
+
+            En teléfono no se muestra: a 360px hay una sola columna y el
+            paquete, en cualquier tamaño útil, se le monta al título o a los
+            botones. El producto igual aparece en grande más abajo. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-4 hidden items-center pb-8 pt-24 sm:right-6 md:flex lg:right-10 lg:pt-28"
+        >
+          <Image
+            src="/imagenes/cutouts/pack-1kg.png"
+            alt=""
+            width={960}
+            height={1547}
+            priority
+            sizes="(max-width: 768px) 1px, (max-width: 1024px) 30vw, 26vw"
+            data-plano="frente"
+            className="cutout cutout--frente w-[30vw] max-w-[240px] lg:w-[26vw] lg:max-w-[340px]"
+          />
+        </div>
+
         <div className="md:max-w-[66%]">
           <HeroTitulo />
         </div>

@@ -40,17 +40,24 @@ export function CutoutsAmbiente() {
           // escribirían `rotation` sobre el mismo elemento y GSAP resolvería
           // el conflicto matando uno de los dos, con el que gane cambiando
           // según el orden en que arrancan.
-          gsap.to(el, {
-            xPercent: 140,
-            rotation: 22,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el.closest('section') ?? el,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
+          // fromTo con la rotación inicial explícita: el palo trae un
+          // `rotate-[8deg]` del CSS, y hacer que GSAP lo deduzca del
+          // transform computado es pedirle que adivine.
+          gsap.fromTo(
+            el,
+            { xPercent: 0, rotation: 8 },
+            {
+              xPercent: 140,
+              rotation: 26,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el.closest('section') ?? el,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+              },
             },
-          })
+          )
           return
         }
 
