@@ -17,12 +17,14 @@ import { presentaciones } from '@/data/producto'
  */
 export function Presentaciones() {
   return (
-    <section className="border-t border-yerba-alta py-seccion">
+    <section className="bg-papel py-seccion text-yerba-oscuro">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <header className="mb-12 max-w-2xl">
-          <Etiqueta className="mb-4 block">{copy.etiqueta}</Etiqueta>
+          <Etiqueta fondo="papel" className="mb-4 block">
+            {copy.etiqueta}
+          </Etiqueta>
           <h2 className="display mb-5 text-display-2">{copy.titulo}</h2>
-          <p className="text-body-lg text-papel-suave">{copy.bajada}</p>
+          <p className="text-body-lg text-verde">{copy.bajada}</p>
         </header>
 
         <ul className="flex flex-wrap items-end gap-10 lg:gap-16">
@@ -40,13 +42,13 @@ export function Presentaciones() {
                 className="h-auto w-full"
               />
               <p className="display mt-5 text-display-3">{p.gramaje}</p>
-              <p className="mt-2 text-sm text-papel-suave">{p.descripcion}</p>
+              <p className="mt-2 text-sm text-verde">{p.descripcion}</p>
             </li>
           ))}
         </ul>
 
         <div className="mt-12">
-          <Boton href={contacto.tienda} externo variante="secundario">
+          <Boton href={contacto.tienda} externo variante="oscuro">
             {copy.ctaTienda}
           </Boton>
         </div>

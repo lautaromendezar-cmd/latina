@@ -119,13 +119,32 @@ export function Hero() {
         </div>
       </div>
 
-      {/* --- pie: la greca del packaging con las especificaciones --- */}
-      <div className="relative z-10 mt-auto bg-yerba-oscuro">
-        <Greca tono="dorado" alto={12} opacidad={0.5} />
+      {/* --- pie: la banda de especificaciones ---
+          Dorada y quieta. Es el corte de color que la home necesitaba —
+          venía siendo siete secciones verdes seguidas— y es el mismo
+          recurso que usa el folleto, que alterna oro, crema y verde.
+
+          Quieta y no una tira que scrollea: acá viven las cuatro
+          especificaciones del producto, y es el único lugar del sitio
+          donde la legibilidad le gana al efecto. Moverlas las hace más
+          difíciles de leer, no más vistosas. Además una tira infinita es
+          el elemento más templado de la web de estos años, y contenido en
+          movimiento automático que dura más de 5s necesita un control de
+          pausa por accesibilidad.
+
+          El separador es la greca del packaging, en verde sobre el oro
+          (5.11:1). El texto va en yerba-oscuro (9.99:1). */}
+      <div className="relative z-10 mt-auto bg-dorado text-yerba-oscuro">
+        <Greca tono="verde" alto={12} opacidad={0.55} />
         <ul className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6 lg:gap-x-16 lg:px-10">
-          {hero.etiquetas.map((e) => (
-            <li key={e} className="etiqueta text-papel">
-              {e}
+          {hero.etiquetas.map((e, i) => (
+            <li key={e} className="flex items-center gap-x-7 lg:gap-x-16">
+              {i > 0 && (
+                <span aria-hidden="true" className="hidden text-verde/60 lg:inline">
+                  ◇
+                </span>
+              )}
+              <span className="etiqueta font-semibold">{e}</span>
             </li>
           ))}
         </ul>

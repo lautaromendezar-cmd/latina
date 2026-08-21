@@ -30,8 +30,14 @@ export function Etiqueta({
   as: Tag = 'span',
   className = '',
 }: Props) {
+  // El acento cambia con el fondo, no es un color fijo: el dorado sobre
+  // papel da 1.45:1 y desaparece. Sobre claro el acento es el rojo del
+  // sello del envase (4.89:1), que además es el único lugar donde ese
+  // color entra al sitio.
   const color = acento
-    ? 'text-dorado'
+    ? fondo === 'oscuro'
+      ? 'text-dorado'
+      : 'text-sello'
     : fondo === 'oscuro'
       ? 'text-yerba-seca'
       : 'text-verde'

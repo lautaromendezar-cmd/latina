@@ -94,11 +94,13 @@ export function Origen() {
   return (
     <section
       ref={seccion}
-      className="border-t border-yerba-alta bg-yerba-media py-seccion"
+      className="border-t border-verde/20 bg-papel py-seccion text-yerba-oscuro"
     >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <header className="mb-14 lg:mb-20">
-          <Etiqueta className="mb-4 block">{origen.etiqueta}</Etiqueta>
+          <Etiqueta fondo="papel" className="mb-4 block">
+            {origen.etiqueta}
+          </Etiqueta>
           <h2 className="display max-w-[18ch] text-display-2">{origen.titulo}</h2>
         </header>
 
@@ -140,22 +142,22 @@ export function Origen() {
                   />
                 </div>
 
-                <Etiqueta acento className="mb-3 block">
+                <Etiqueta acento fondo="papel" className="mb-3 block">
                   {momento.lugar}
                 </Etiqueta>
 
                 {/* hairline de avance: es el único que queda en el sistema,
                     y queda porque carga dato — marca en qué punto del
                     recorrido estás— en vez de decorar. */}
-                <div className="mb-4 hidden h-px w-full bg-yerba-alta lg:block">
+                <div className="mb-4 hidden h-px w-full bg-verde/25 lg:block">
                   <div
                     data-marca={i}
-                    className="h-full origin-left bg-dorado"
+                    className="h-full origin-left bg-sello"
                   />
                 </div>
 
                 <h3 className="display mb-4 text-display-3">{momento.titulo}</h3>
-                <p className="max-w-[52ch] text-body-lg text-papel-suave">
+                <p className="max-w-[52ch] text-body-lg text-verde">
                   {momento.cuerpo}
                 </p>
               </li>
