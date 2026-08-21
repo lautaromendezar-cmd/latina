@@ -18,7 +18,8 @@ import { CargaVista } from './CargaVista'
  * Y como una animación de CSS siempre termina, no existe el estado
  * "quedó tapado porque algo no cargó".
  *
- * Los cuatro tiempos, ~1,85s en total:
+ * Los cuatro tiempos, ~2,75s en total (el detalle con los números está
+ * en globals.css, junto a los keyframes):
  *   1. el isotipo entra en escala
  *   2. el aro dorado se dibuja alrededor (stroke-dashoffset — el gesto de
  *      DrawSVG, sobre un círculo propio: el logo del cliente es un PNG y

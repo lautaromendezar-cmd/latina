@@ -168,14 +168,25 @@ textarea {
    quedarse trabado: no hay estado en el que el sitio quede tapado porque
    algo no cargó.
 
-   Los tiempos son los mismos de antes; lo que cambia es quién los corre.
+   TIEMPOS (2,75s en total, una sola vez por sesión):
+     0,00 – 0,70  el isotipo entra en escala
+     0,15 – 1,35  el aro dorado se dibuja  ← la vuelta completa, sin apuro
+     0,50 – 1,25  el mate se ceba de abajo hacia arriba
+     1,05 – 1,60  se abre la greca del packaging
+     1,25 – 1,70  entra el slogan
+     1,35 – 1,85  DESCANSO: medio segundo con la marca entera a la vista
+     1,85 – 2,15  la marca se va
+     1,95 – 2,75  el velo se parte en dos hojas
+   El descanso es el punto: antes el aro cerraba a los 0,8s y a los 1,05s
+   ya se estaba yendo todo, así que el círculo completo se veía un cuarto
+   de segundo y se leía como que nunca había cerrado.
    ------------------------------------------------------------------ */
 .preloader {
   position: fixed;
   inset: 0;
   z-index: 95;
   pointer-events: none;
-  animation: preloader-salir 0s linear 1.85s forwards;
+  animation: preloader-salir 0s linear 2.75s forwards;
 }
 
 @keyframes preloader-salir {
@@ -190,8 +201,8 @@ textarea {
   inset-inline: 0;
   height: 50%;
   background-color: var(--color-yerba-oscuro);
-  animation-duration: 0.7s;
-  animation-delay: 1.15s;
+  animation-duration: 0.8s;
+  animation-delay: 1.95s;
   animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
   animation-fill-mode: both;
 }
@@ -226,7 +237,7 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  animation: preloader-marca-salir 0.25s ease-in 1.05s both;
+  animation: preloader-marca-salir 0.3s ease-in 1.85s both;
 }
 
 @keyframes preloader-marca-salir {
@@ -237,7 +248,7 @@ textarea {
 
 /* 1 · el isotipo entra en escala */
 .preloader__logo {
-  animation: preloader-logo 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: preloader-logo 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes preloader-logo {
@@ -250,7 +261,7 @@ textarea {
 /* 2 · el aro dorado se dibuja alrededor */
 .preloader__aro {
   stroke-dasharray: 302;
-  animation: preloader-aro 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
+  animation: preloader-aro 1.2s cubic-bezier(0.5, 0, 0.2, 1) 0.15s both;
 }
 
 @keyframes preloader-aro {
@@ -266,7 +277,7 @@ textarea {
 .preloader__fill {
   position: absolute;
   inset: 0;
-  animation: preloader-fill 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.35s both;
+  animation: preloader-fill 0.75s cubic-bezier(0.33, 1, 0.68, 1) 0.5s both;
 }
 
 @keyframes preloader-fill {
@@ -278,7 +289,7 @@ textarea {
 /* 4 · la greca del packaging se abre desde el centro */
 .preloader__greca {
   transform-origin: center;
-  animation: preloader-greca 0.5s cubic-bezier(0.33, 1, 0.68, 1) 0.55s both;
+  animation: preloader-greca 0.55s cubic-bezier(0.33, 1, 0.68, 1) 1.05s both;
 }
 
 @keyframes preloader-greca {
@@ -289,7 +300,7 @@ textarea {
 }
 
 .preloader__slogan {
-  animation: preloader-slogan 0.4s cubic-bezier(0.33, 1, 0.68, 1) 0.7s both;
+  animation: preloader-slogan 0.45s cubic-bezier(0.33, 1, 0.68, 1) 1.25s both;
 }
 
 @keyframes preloader-slogan {
