@@ -1,3 +1,4 @@
+import { Carga } from '@/components/layout/Carga'
 import { Hero } from '@/components/home/Hero'
 import { Manifiesto } from '@/components/home/Manifiesto'
 import { Origen } from '@/components/home/Origen'
@@ -28,6 +29,8 @@ import { CierreB2B } from '@/components/home/CierreB2B'
 export default function Home() {
   return (
     <>
+      {/* Solo en la home: no tiene sentido velar /contacto. */}
+      <Carga />
       <Hero />
       <Manifiesto />
       <Origen />

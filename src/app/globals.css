@@ -47,19 +47,25 @@
   --font-sans: var(--fuente-sans), system-ui, -apple-system, sans-serif;
 
   /* --- escala --- */
-  --text-display-1: clamp(2rem, 11vw, 9.5rem);
-  --text-display-1--line-height: 0.92;
-  --text-display-2: clamp(1.9rem, 7vw, 5.5rem);
-  --text-display-2--line-height: 0.95;
-  --text-display-3: clamp(1.6rem, 4.5vw, 3rem);
-  --text-display-3--line-height: 1;
-  --text-dato: clamp(3.5rem, 18vw, 14rem);
-  --text-dato--line-height: 0.82;
-  --text-body-lg: clamp(1.05rem, 1.6vw, 1.375rem);
-  --text-body-lg--line-height: 1.5;
+  /* Rebalanceada: el display estaba en 152px contra un cuerpo de 22px
+     (casi 7x). Aplastaba todo lo demas y el hero no entraba en pantalla.
+     Ahora el salto es ~4.5x, que sigue siendo grande pero deja respirar
+     al resto de la escala. */
+  --text-display-1: clamp(2.25rem, 7.2vw, 6.25rem);
+  --text-display-1--line-height: 0.94;
+  --text-display-2: clamp(1.75rem, 4.6vw, 3.75rem);
+  --text-display-2--line-height: 0.98;
+  --text-display-3: clamp(1.375rem, 2.6vw, 2.125rem);
+  --text-display-3--line-height: 1.08;
+  --text-dato: clamp(3rem, 12vw, 9rem);
+  --text-dato--line-height: 0.85;
+  --text-body-lg: clamp(1.0625rem, 1.15vw, 1.25rem);
+  --text-body-lg--line-height: 1.55;
   --text-body: 1rem;
-  --text-body--line-height: 1.55;
-  --text-etiqueta: 0.6875rem;
+  --text-body--line-height: 1.6;
+  /* 12px, no 11: a 11 con 0.14em de tracking las especificaciones del
+     hero se perdian sobre la foto. */
+  --text-etiqueta: 0.75rem;
   --text-etiqueta--line-height: 1.2;
 
   /* --- ritmo --- */
@@ -147,6 +153,160 @@ textarea {
 @media (min-width: 1024px) {
   .contorno {
     -webkit-text-stroke-width: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Preloader · CSS puro, sin una línea de JavaScript
+
+   Antes lo montaba React en un efecto, o sea DESPUÉS de hidratar: el hero
+   alcanzaba a pintarse, aparecía el velo y volvía el hero. Un preloader
+   que se ve después de la página no es un preloader.
+
+   Hecho con keyframes, el velo está en el HTML del servidor y se pinta en
+   el primer frame. Y como una animación de CSS siempre termina, no puede
+   quedarse trabado: no hay estado en el que el sitio quede tapado porque
+   algo no cargó.
+
+   Los tiempos son los mismos de antes; lo que cambia es quién los corre.
+   ------------------------------------------------------------------ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  animation: preloader-salir 0s linear 1.85s forwards;
+}
+
+@keyframes preloader-salir {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* las dos hojas que al final se abren */
+.preloader__hoja {
+  position: absolute;
+  inset-inline: 0;
+  height: 50%;
+  background-color: var(--color-yerba-oscuro);
+  animation-duration: 0.7s;
+  animation-delay: 1.15s;
+  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+  animation-fill-mode: both;
+}
+
+.preloader__hoja--arriba {
+  top: 0;
+  animation-name: preloader-hoja-arriba;
+}
+
+.preloader__hoja--abajo {
+  bottom: 0;
+  animation-name: preloader-hoja-abajo;
+}
+
+@keyframes preloader-hoja-arriba {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes preloader-hoja-abajo {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.preloader__marca {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  animation: preloader-marca-salir 0.25s ease-in 1.05s both;
+}
+
+@keyframes preloader-marca-salir {
+  to {
+    opacity: 0;
+  }
+}
+
+/* 1 · el isotipo entra en escala */
+.preloader__logo {
+  animation: preloader-logo 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes preloader-logo {
+  from {
+    transform: scale(0.72);
+    opacity: 0;
+  }
+}
+
+/* 2 · el aro dorado se dibuja alrededor */
+.preloader__aro {
+  stroke-dasharray: 302;
+  animation: preloader-aro 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
+}
+
+@keyframes preloader-aro {
+  from {
+    stroke-dashoffset: 302;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 3 · el mate se ceba: la capa sube y tiñe el isotipo */
+.preloader__fill {
+  position: absolute;
+  inset: 0;
+  animation: preloader-fill 0.55s cubic-bezier(0.33, 1, 0.68, 1) 0.35s both;
+}
+
+@keyframes preloader-fill {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* 4 · la greca del packaging se abre desde el centro */
+.preloader__greca {
+  transform-origin: center;
+  animation: preloader-greca 0.5s cubic-bezier(0.33, 1, 0.68, 1) 0.55s both;
+}
+
+@keyframes preloader-greca {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+.preloader__slogan {
+  animation: preloader-slogan 0.4s cubic-bezier(0.33, 1, 0.68, 1) 0.7s both;
+}
+
+@keyframes preloader-slogan {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Ya lo vio en esta sesión: se saca de una, sin animar. */
+.preloader[data-visto="1"] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
   }
 }
 

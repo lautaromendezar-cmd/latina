@@ -54,35 +54,42 @@ export function Hero() {
         <div className="absolute inset-0 bg-yerba-oscuro/72" />
       </div>
 
-      {/* --- cutouts: en Fase 1 quietos; la deriva y el parallax entran en Fase 3 --- */}
+      {/* --- cutouts ---
+          Van DENTRO del mismo contenedor centrado de 1400px que el texto.
+          Antes estaban posicionados contra el ancho completo de la ventana,
+          así que en una pantalla grande el paquete se despegaba del marco y
+          dejaba de leerse como parte de la misma composición que el título. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <Image
-          src="/imagenes/cutouts/pack-1kg.png"
-          alt=""
-          width={960}
-          height={1547}
-          sizes="(max-width: 1024px) 40vw, 26vw"
-          data-plano="frente"
-          className="cutout cutout--frente right-[-6%] top-[18%] w-[46vw] max-w-[420px] lg:right-[4%] lg:top-[14%] lg:w-[26vw]"
-        />
-        <Image
-          src="/imagenes/cutouts/hoja-entera.png"
-          alt=""
-          width={1000}
-          height={1200}
-          sizes="24vw"
-          data-plano="fondo"
-          className="cutout cutout--fondo left-[-8%] top-[8%] w-[38vw] max-w-[300px] lg:left-[3%] lg:w-[16vw]"
-        />
+        <div className="relative mx-auto h-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          <Image
+            src="/imagenes/cutouts/pack-1kg.png"
+            alt=""
+            width={960}
+            height={1547}
+            priority
+            sizes="(max-width: 1024px) 42vw, 30vw"
+            data-plano="frente"
+            className="cutout cutout--frente right-4 top-[16%] w-[42vw] max-w-[380px] sm:right-6 lg:right-10 lg:top-[13%] lg:w-[30vw]"
+          />
+          <Image
+            src="/imagenes/cutouts/hoja-entera.png"
+            alt=""
+            width={1000}
+            height={1200}
+            sizes="20vw"
+            data-plano="fondo"
+            className="cutout cutout--fondo left-0 top-[6%] w-[34vw] max-w-[260px] lg:left-2 lg:w-[15vw]"
+          />
+        </div>
       </div>
 
       {/* --- contenido --- */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-8 pt-24 sm:px-6 lg:px-10 lg:pt-28">
         <HeroTitulo />
 
-        <p className="mt-7 max-w-[46ch] text-body-lg text-papel-suave">{hero.bajada}</p>
+        <p className="mt-8 max-w-[42ch] text-body-lg text-papel-suave">{hero.bajada}</p>
 
-        <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Boton href={hero.cta.primario.href} variante="primario">
             {hero.cta.primario.texto}
           </Boton>
@@ -93,11 +100,11 @@ export function Hero() {
       </div>
 
       {/* --- pie: la greca del packaging con las especificaciones --- */}
-      <div className="relative z-10 mt-auto">
-        <Greca tono="yerba-seca" alto={14} opacidad={0.55} />
-        <ul className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-4 sm:px-6 lg:gap-x-14 lg:px-10">
+      <div className="relative z-10 mt-auto bg-yerba-oscuro">
+        <Greca tono="dorado" alto={12} opacidad={0.5} />
+        <ul className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6 lg:gap-x-16 lg:px-10">
           {hero.etiquetas.map((e) => (
-            <li key={e} className="etiqueta text-yerba-seca">
+            <li key={e} className="etiqueta text-papel">
               {e}
             </li>
           ))}

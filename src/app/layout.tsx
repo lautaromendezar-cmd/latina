@@ -7,7 +7,6 @@ import { Footer } from '@/components/layout/Footer'
 import { WhatsAppFlotante } from '@/components/layout/WhatsAppFlotante'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { CutoutsAmbiente } from '@/components/layout/CutoutsAmbiente'
-import { Carga } from '@/components/layout/Carga'
 import { meta, marca, nav } from '@/content/site'
 
 /**
@@ -69,7 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {nav.saltarAlContenido}
         </a>
 
-        <Carga />
         <SmoothScroll />
         <CutoutsAmbiente />
         <Nav />

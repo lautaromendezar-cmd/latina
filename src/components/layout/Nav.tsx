@@ -46,7 +46,7 @@ export function Nav() {
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         scrolleado || abierto
           ? 'bg-yerba-oscuro/95 backdrop-blur-sm'
-          : 'bg-transparent'
+          : 'bg-yerba-oscuro/40 backdrop-blur-[2px]'
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 sm:px-6 lg:px-10">
@@ -72,7 +72,9 @@ export function Nav() {
               key={item.href}
               href={item.href}
               aria-current={ruta === item.href ? 'page' : undefined}
-              className={`text-sm transition-colors hover:text-dorado ${
+              // El problema no era el cuerpo, era el peso: Montserrat 400
+              // sobre la foto del hero se deshace. 500 lo sostiene.
+              className={`text-[0.9375rem] font-medium tracking-[0.01em] transition-colors hover:text-dorado ${
                 ruta === item.href ? 'text-dorado' : 'text-papel'
               }`}
             >
@@ -83,7 +85,7 @@ export function Nav() {
             href={nav.externo.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-papel/35 px-4 py-2 text-sm text-papel transition-colors hover:border-dorado hover:text-dorado"
+            className="rounded-full border border-papel/45 px-4 py-2 text-[0.9375rem] font-medium text-papel transition-colors hover:border-dorado hover:text-dorado"
           >
             {nav.externo.texto}
             <span aria-hidden="true"> ↗</span>
@@ -124,7 +126,7 @@ export function Nav() {
                 key={item.href}
                 href={item.href}
                 aria-current={ruta === item.href ? 'page' : undefined}
-                className={`border-b border-yerba-alta py-4 text-lg ${
+                className={`border-b border-yerba-alta py-4 text-lg font-medium ${
                   ruta === item.href ? 'text-dorado' : 'text-papel'
                 }`}
               >
