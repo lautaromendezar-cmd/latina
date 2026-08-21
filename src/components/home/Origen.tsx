@@ -54,12 +54,20 @@ export function Origen() {
 
       if (!lugares.length || !fotos.length || !textos.length) return
 
+      // El activo y el inactivo se distinguen por COLOR, no por opacidad.
+      // Medido: yerba-oscuro al 28% sobre papel da 1.80:1, o sea que los
+      // dos momentos que no están activos serían texto ilegible. Con el
+      // salto verde -> yerba-oscuro el énfasis va de 7.44:1 a 14.54:1 y
+      // los dos estados se leen.
+      const INACTIVO = '#14592f' // --color-verde
+      const ACTIVO = '#06250f' // --color-yerba-oscuro
+
       // El estado inicial lo pone GSAP, no el JSX. Si el JS no corre, los
       // tres momentos quedan a la vista: la sección cuenta la historia
       // entera igual. Esconder dos de tres desde el CSS dejaría el sitio
       // contando un tercio.
       gsap.set(textos, { position: 'absolute', top: 0, left: 0, right: 0 })
-      gsap.set(lugares.slice(1), { opacity: 0.28 })
+      gsap.set(lugares[0]!, { color: ACTIVO })
       gsap.set([...fotos.slice(1), ...textos.slice(1)], { autoAlpha: 0 })
       if (relleno) gsap.set(relleno, { scaleY: 1 / total, transformOrigin: 'top center' })
 
@@ -80,8 +88,8 @@ export function Origen() {
           .to(fotos[i - 1]!, { autoAlpha: 0, duration: 0.35 }, t)
           .to(textos[i]!, { autoAlpha: 1, duration: 0.3 }, t)
           .to(textos[i - 1]!, { autoAlpha: 0, duration: 0.3 }, t)
-          .to(lugares[i]!, { opacity: 1, duration: 0.25 }, t)
-          .to(lugares[i - 1]!, { opacity: 0.28, duration: 0.25 }, t)
+          .to(lugares[i]!, { color: ACTIVO, duration: 0.25 }, t)
+          .to(lugares[i - 1]!, { color: INACTIVO, duration: 0.25 }, t)
 
         if (relleno) tl.to(relleno, { scaleY: (i + 1) / total, duration: 0.35 }, t)
       }
@@ -108,13 +116,13 @@ export function Origen() {
             {/* Regla de avance. Única vertical del sistema, y está porque
                 dice en qué punto del recorrido estás. */}
             <div className="relative w-px bg-verde/20" aria-hidden="true">
-              <div data-relleno-avance className="absolute inset-x-0 top-0 h-full bg-sello" />
+              <div data-relleno-avance className="absolute inset-x-0 top-0 h-full bg-yerba-oscuro" />
             </div>
 
             <div className="flex flex-col justify-between gap-10">
               <ol className="space-y-1">
                 {origen.momentos.map((m) => (
-                  <li key={m.id} data-lugar className="display text-display-3">
+                  <li key={m.id} data-lugar className="display text-display-3 text-verde">
                     {m.lugar}
                   </li>
                 ))}
@@ -123,7 +131,7 @@ export function Origen() {
               <div className="relative min-h-[14rem]">
                 {origen.momentos.map((m) => (
                   <div key={m.id} data-texto>
-                    <h3 className="display mb-4 text-display-3 text-sello">{m.titulo}</h3>
+                    <h3 className="display mb-4 text-display-3">{m.titulo}</h3>
                     <p className="max-w-[46ch] text-body-lg text-verde">{m.cuerpo}</p>
                   </div>
                 ))}

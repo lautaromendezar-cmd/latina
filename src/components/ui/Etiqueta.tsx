@@ -31,13 +31,19 @@ export function Etiqueta({
   className = '',
 }: Props) {
   // El acento cambia con el fondo, no es un color fijo: el dorado sobre
-  // papel da 1.45:1 y desaparece. Sobre claro el acento es el rojo del
-  // sello del envase (4.89:1), que además es el único lugar donde ese
-  // color entra al sitio.
+  // papel da 1.45:1 y desaparece.
+  //
+  // Sobre claro el acento NO es el rojo del sello. Se probó y queda
+  // desubicado: el rojo del envase es un sello —una marca puntual sobre el
+  // packaging— y usado como acento de sistema se lee como alerta. Queda
+  // reservado para los errores de formulario, que es donde el rojo
+  // significa algo. Acá el acento es simplemente la tinta más oscura
+  // (14.54:1 contra los 7.44:1 del cuerpo en verde): el énfasis lo da el
+  // contraste, no un color nuevo.
   const color = acento
     ? fondo === 'oscuro'
       ? 'text-dorado'
-      : 'text-sello'
+      : 'text-yerba-oscuro'
     : fondo === 'oscuro'
       ? 'text-yerba-seca'
       : 'text-verde'

@@ -105,7 +105,7 @@ export default function VendeLatinaPage() {
                 className="flex items-baseline justify-between gap-4 border-b border-verde/25 py-5"
               >
                 <span className="flex items-baseline gap-4">
-                  <span className="etiqueta text-sello">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="etiqueta text-verde/70">{String(i + 1).padStart(2, '0')}</span>
                   <span className="display text-display-3">{escala.nombre}</span>
                 </span>
                 <span className="text-right text-sm text-verde">{escala.detalle}</span>
