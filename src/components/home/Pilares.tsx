@@ -65,8 +65,17 @@ export function Pilares() {
             return (
               <div
                 key={item.id}
-                className="flex min-w-0 transition-[flex-grow] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]"
-                style={{ flexGrow: activo ? 7 : 0 }}
+                className="flex overflow-hidden transition-[flex-grow,flex-basis] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                style={{
+                  flexGrow: activo ? 7 : 0,
+                  // El basis NO es opcional. Sin él, `flex-basis: auto` mide
+                  // el contenido: los paneles cerrados se dimensionan por
+                  // su texto en vez de colapsar al ancho de la barra, y los
+                  // tres terminan repartiéndose la fila con el texto roto
+                  // en una palabra por línea.
+                  flexBasis: activo ? 0 : '5rem',
+                  flexShrink: 0,
+                }}
               >
                 <button
                   type="button"
@@ -87,7 +96,7 @@ export function Pilares() {
                   id={panelId}
                   className="flex min-w-0 flex-1 overflow-hidden border border-l-0 border-yerba-alta bg-yerba-media"
                 >
-                  <div className="relative w-[42%] shrink-0 bg-yerba-oscuro">
+                  <div className="relative w-[42%] min-w-0 shrink-0 bg-yerba-oscuro">
                     <Image
                       src={item.imagen}
                       alt={item.alt}
@@ -97,11 +106,17 @@ export function Pilares() {
                     />
                   </div>
 
+                  {/* min-w-0 en las dos columnas: sin eso, el contenido
+                      impone un ancho mínimo y el panel cerrado no puede
+                      colapsar del todo.
+
+                      El título va en display-3 y no en display-2: la
+                      columna de texto mide ~520px con el panel abierto, y
+                      "El padrón que no se consigue acá" a 60px no entra
+                      ni partido en tres líneas. */}
                   <div className="flex min-w-0 flex-col justify-center p-8 xl:p-12">
-                    <h3 className="display mb-5 whitespace-nowrap text-display-2">
-                      {item.titulo}
-                    </h3>
-                    <p className="w-[46ch] max-w-full text-body-lg text-papel-suave">
+                    <h3 className="display mb-5 text-display-3">{item.titulo}</h3>
+                    <p className="max-w-[46ch] text-body-lg text-papel-suave">
                       {item.cuerpo}
                     </p>
                   </div>
