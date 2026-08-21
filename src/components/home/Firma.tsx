@@ -107,7 +107,7 @@ export function Firma() {
   }, [reducido, total])
 
   return (
-    <section ref={seccion} className="relative">
+    <section id="firma" ref={seccion} className="relative scroll-mt-24">
       <div ref={pin} className="flex min-h-[100svh] flex-col justify-center py-16">
         <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <header className="mb-8 max-w-3xl lg:mb-12">

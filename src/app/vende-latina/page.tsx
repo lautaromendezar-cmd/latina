@@ -1,8 +1,13 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import { EncabezadoPagina } from '@/components/ui/EncabezadoPagina'
+import { Formulario, type Campo } from '@/components/ui/Formulario'
 import { Boton } from '@/components/ui/Boton'
 import { Etiqueta } from '@/components/ui/Etiqueta'
+import { Greca } from '@/components/ui/Greca'
 import { paginas, contacto } from '@/content/site'
-import { escalas, preciosPublicados, piePrecios } from '@/data/mayorista'
+import { escalas, preciosPublicados, piePrecios, tiposDeNegocio, comoNosConociste } from '@/data/mayorista'
+import { PROVINCIAS } from '@/data/provincias'
 
 export const metadata: Metadata = {
   title: paginas.vendeLatina.titulo,
@@ -10,57 +15,165 @@ export const metadata: Metadata = {
   alternates: { canonical: '/vende-latina' },
 }
 
-/**
- * FASE 1 — la escalera y los dos canales de contacto.
- *
- * El formulario (Server Action + Zod + Resend, honeypot y rate limit)
- * entra en Fase 2, y está bloqueado por un dato: la marca no tiene mail
- * público, así que no hay a dónde mandar el lead. Ver [VERIFICAR] en
- * content/site.ts.
- *
- * Mientras tanto WhatsApp NO es el plan B: es como este cliente recibe el
- * negocio de verdad. Cuando esté el formulario, los dos van a convivir con
- * la misma jerarquía.
- */
+const ARGUMENTOS = [
+  {
+    titulo: 'Se repone menos seguido',
+    cuerpo:
+      'Una yerba que rinde más se termina más tarde. El cliente vuelve igual, pero el kilo en góndola le dura, y eso es margen que no se va en reposición.',
+  },
+  {
+    titulo: 'Un solo SKU, dos tamaños',
+    cuerpo:
+      'No hay diez variantes para ordenar ni surtido que armar. Entra el kilo, y el medio kilo para el que quiere probar.',
+  },
+  {
+    titulo: 'Una marca que recién entra',
+    cuerpo:
+      'Estamos en 8 provincias. Si en tu zona todavía no hay nadie vendiéndola, sos el primero, no el quinto.',
+  },
+]
+
+const CAMPOS: Campo[] = [
+  { nombre: 'nombre', etiqueta: 'Nombre', requerido: true, ancho: 'medio', error: 'Falta el nombre' },
+  { nombre: 'apellido', etiqueta: 'Apellido', requerido: true, ancho: 'medio', error: 'Falta el apellido' },
+  { nombre: 'email', etiqueta: 'Email', tipo: 'email', ancho: 'medio' },
+  { nombre: 'telefono', etiqueta: 'Teléfono', tipo: 'tel', requerido: true, ancho: 'medio', error: 'Falta el teléfono' },
+  { nombre: 'provincia', etiqueta: 'Provincia', tipo: 'select', opciones: PROVINCIAS, requerido: true, ancho: 'medio', error: 'Elegí tu provincia' },
+  { nombre: 'localidad', etiqueta: 'Localidad', requerido: true, ancho: 'medio', error: 'Falta la localidad' },
+  { nombre: 'negocio', etiqueta: 'Tipo de negocio', tipo: 'select', opciones: tiposDeNegocio, requerido: true, ancho: 'medio', error: 'Contanos qué comercio tenés' },
+  { nombre: 'conociste', etiqueta: 'Cómo nos conociste', tipo: 'select', opciones: comoNosConociste, ancho: 'medio' },
+  { nombre: 'mensaje', etiqueta: 'Mensaje', tipo: 'textarea' },
+]
+
 export default function VendeLatinaPage() {
   return (
-    <div className="pt-28 lg:pt-36">
-      <div className="mx-auto max-w-[1400px] px-4 py-seccion sm:px-6 lg:px-10">
-        <header className="mb-14 max-w-3xl">
-          <h1 className="display mb-5 text-display-2">{paginas.vendeLatina.titulo}</h1>
-          <p className="text-body-lg text-papel-suave">{paginas.vendeLatina.bajada}</p>
-        </header>
+    <>
+      <EncabezadoPagina
+        etiqueta="Mayoristas"
+        titulo="Vendé LaTiNa"
+        bajada={paginas.vendeLatina.bajada}
+        imagen="/imagenes/paginas/vende-latina.jpg"
+        alt="Depósito con bolsas de yerba apiladas y big bags sobre pallets"
+        posicion="50% 55%"
+      />
 
-        <section className="mb-16 max-w-2xl">
-          <Etiqueta as="h2" className="mb-5 block">
-            Escalas de compra · paquete de 1 kg
-          </Etiqueta>
-          <ol className="border-t border-yerba-alta">
-            {escalas.map((escala) => (
+      {/* --- por qué --- */}
+      <section className="mx-auto max-w-[1400px] px-4 py-seccion sm:px-6 lg:px-10">
+        <Etiqueta as="h2" className="mb-10 block">
+          Por qué conviene
+        </Etiqueta>
+        <ul className="grid gap-10 lg:grid-cols-3 lg:gap-8">
+          {ARGUMENTOS.map((a) => (
+            <li key={a.titulo}>
+              <Greca tono="dorado" alto={10} opacidad={0.5} className="mb-5 max-w-[7rem]" />
+              <h3 className="display mb-3 text-display-3">{a.titulo}</h3>
+              <p className="text-papel-suave">{a.cuerpo}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* --- la escalera, sobre papel para cortar el verde --- */}
+      <section className="bg-papel text-yerba-oscuro">
+        <Greca tono="verde" alto={12} opacidad={0.35} />
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-seccion sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
+          <div>
+            <Etiqueta fondo="papel" className="mb-4 block">
+              Escalas de compra
+            </Etiqueta>
+            <h2 className="display mb-6 text-display-2">Cuanto más llevás, menos te sale el kilo</h2>
+            <p className="mb-8 max-w-[46ch] text-body-lg text-verde">
+              La escalera es siempre sobre el paquete de 1 kg. El ½ kg no tiene precio
+              mayorista.
+            </p>
+            {preciosPublicados ? (
+              <Etiqueta fondo="papel" as="p">
+                {piePrecios}
+              </Etiqueta>
+            ) : (
+              <p className="text-sm text-verde">
+                Los precios cambian seguido, así que no los publicamos: pedí la lista del día y
+                te la pasamos al momento.
+              </p>
+            )}
+          </div>
+
+          <ol className="border-t border-verde/25">
+            {escalas.map((escala, i) => (
               <li
                 key={escala.id}
-                className="flex items-baseline justify-between gap-4 border-b border-yerba-alta py-4"
+                className="flex items-baseline justify-between gap-4 border-b border-verde/25 py-5"
               >
-                <span className="font-medium">{escala.nombre}</span>
-                <span className="text-right text-sm text-papel-suave">{escala.detalle}</span>
+                <span className="flex items-baseline gap-4">
+                  <span className="etiqueta text-sello">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="display text-display-3">{escala.nombre}</span>
+                </span>
+                <span className="text-right text-sm text-verde">{escala.detalle}</span>
               </li>
             ))}
           </ol>
-          {preciosPublicados ? (
-            <p className="etiqueta mt-4 text-yerba-seca">{piePrecios}</p>
-          ) : (
-            <p className="mt-4 text-sm text-papel-suave">
-              Los precios cambian seguido, así que no los publicamos: escribinos y te
-              pasamos la lista del día.
-            </p>
-          )}
-          <p className="mt-2 text-sm text-papel-suave">El ½ kg no tiene precio mayorista.</p>
-        </section>
+        </div>
+      </section>
 
-        <Boton href={`https://wa.me/${contacto.whatsappE164}`} externo variante="primario">
-          Pedir la lista por WhatsApp
-        </Boton>
-      </div>
-    </div>
+      {/* --- el exhibidor --- */}
+      <section className="relative overflow-hidden">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-4 py-seccion sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
+          <div className="relative aspect-[4/5] max-w-sm overflow-hidden">
+            <Image
+              src="/imagenes/pack-1kg.png"
+              alt="Paquete de LaTiNa yerba mate de 1 kg"
+              fill
+              sizes="(max-width: 1024px) 80vw, 380px"
+              className="object-contain"
+            />
+          </div>
+          <div>
+            <Etiqueta className="mb-4 block">El producto</Etiqueta>
+            <h2 className="display mb-6 text-display-2">Padrón uruguayo, sin T.A.C.C.</h2>
+            <p className="mb-8 max-w-[46ch] text-body-lg text-papel-suave">
+              Yerba mate elaborada despalada, libre de gluten, de industria brasilera. Molienda
+              fina y mucho polvo: es la que le vas a vender al que toma muchos mates por día.
+            </p>
+            <Boton href="/#firma" variante="secundario">
+              Ver la diferencia de molienda
+            </Boton>
+          </div>
+        </div>
+      </section>
+
+      {/* --- formulario --- */}
+      <section id="formulario" className="border-t border-yerba-alta bg-yerba-media">
+        <div className="mx-auto max-w-[1400px] px-4 py-seccion sm:px-6 lg:px-10">
+          <div className="mb-10 max-w-2xl">
+            <Etiqueta className="mb-4 block">Pedí la lista</Etiqueta>
+            <h2 className="display mb-5 text-display-2">Contanos qué comercio tenés</h2>
+            <p className="text-body-lg text-papel-suave">
+              Te pasamos la lista al día, los plazos de entrega y cómo llega a tu zona.
+            </p>
+          </div>
+
+          <div className="max-w-3xl">
+            <Formulario
+              campos={CAMPOS}
+              asunto="Consulta mayorista desde el sitio"
+              textoBoton="Pedir la lista"
+              nota="Se abre WhatsApp con el mensaje ya escrito. Podés revisarlo antes de mandarlo."
+            />
+          </div>
+
+          <p className="mt-10 text-sm text-papel-suave">
+            Si preferís escribir directo:{' '}
+            <a
+              href={`https://wa.me/${contacto.whatsappE164}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-dorado underline underline-offset-4"
+            >
+              {contacto.whatsapp}
+            </a>
+          </p>
+        </div>
+      </section>
+    </>
   )
 }
