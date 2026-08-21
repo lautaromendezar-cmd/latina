@@ -1,134 +1,133 @@
 'use client'
 
-import { useRef } from 'react'
+import { useId, useState } from 'react'
 import Image from 'next/image'
-import { gsap } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
 import { TexturaGreca } from '@/components/ui/TexturaGreca'
-import { useLayoutEffectSeguro, movimientoReducido } from '@/lib/motion'
 import { pilares } from '@/content/site'
 
 /**
- * Los tres pilares.
+ * Los tres pilares — acordeón horizontal.
  *
- * DOS COSAS DE LA REFERENCIA QUE NO SE COPIAN, a propósito:
+ * La versión anterior tenía los recortes flotando sobre el borde de cada
+ * card: se montaban encima de las pestañas, y el paquete —que es
+ * vertical— salía diminuto al lado del polvo, que es apaisado. Esto lo
+ * resuelve de raíz. El panel abierto tiene todo el ancho para la imagen y
+ * los cerrados son barras: nada se pisa con nada.
  *
- *  · Los marcadores 01 / 02 / 03. Ahí funcionan porque es un relato con
- *    orden. Estos tres son claims PARALELOS —rinde más, padrón, sin
- *    T.A.C.C.—, no pasos de un proceso. Numerar algo que no es secuencia
- *    está en la lista de antipatrones del brief: promete una progresión
- *    que no existe.
+ * POR QUÉ ESTE PATRÓN Y NO UN SCROLL HORIZONTAL PINEADO: acá el
+ * movimiento lo dispara el click, no el scroll. Origen ya está pineada y
+ * es la sección anterior; dos pines seguidos es donde un sitio empieza a
+ * sentirse como que te pelea el scroll. Con esto el visitante decide.
  *
- *  · El scroll horizontal pineado. Origen, la sección inmediatamente
- *    anterior, ya está pineada. Dos pines seguidos es donde un sitio
- *    empieza a sentirse como que te pelea el scroll.
+ * Sigue sin haber 01 / 02 / 03: los tres son claims paralelos —rinde más,
+ * padrón, sin T.A.C.C.—, no pasos de un proceso, y numerar algo que no es
+ * secuencia está en los antipatrones del brief.
  *
- * Lo que sí se toma: el alto de pantalla completa, el movimiento por
- * profundidad y el ícono grande por card.
+ * Las barras van en dorado porque en este sistema el dorado es ACCIÓN, y
+ * son justamente lo único clickeable de la sección. La abierta va en
+ * dorado pleno y las cerradas en dorado-oscuro, así el estado se ve sin
+ * depender del ancho.
  *
- * Y los íconos son RECORTES REALES del producto, no un set de línea: el
- * paquete, la molienda y el sello Sin Gluten recortado del propio envase.
- * Un set de iconos genérico lo tiene cualquier marca; esto es literalmente
- * lo que hay adentro de esta bolsa.
+ * ACCESIBILIDAD, y por eso está armado así:
+ *  · Son `button` de verdad con `aria-expanded` y `aria-controls`, no
+ *    divs con onClick. Se recorren con Tab y se abren con Enter o barra.
+ *  · La barra NUNCA se desmonta. Si el botón activo desapareciera del
+ *    DOM, el foco del teclado se caería al body en el momento en que lo
+ *    activás — y además React reemplazaría el nodo, matando la transición
+ *    de ancho. Lo que cambia es el ancho del panel, no qué existe.
+ *  · Abre también con `onFocus`: tabulando se ve el contenido sin tener
+ *    que apretar nada.
  *
- * El movimiento es profundidad, no entrada: las cards suben con el scroll
- * a una velocidad y los recortes a otra, así que dentro de la sección hay
- * paralaje. La entrada escalonada existe pero es corta — el momento fuerte
- * del sitio es Origen, no esto.
+ * En mobile no hay acordeón: los tres paneles van abiertos y apilados, que
+ * es el estado terminado, no una degradación.
  */
-
-/** Cuánto se desfasa cada card respecto de la anterior, en px de recorrido. */
-const PROFUNDIDAD = [64, 96, 78]
-
 export function Pilares() {
-  const seccion = useRef<HTMLElement>(null)
-
-  useLayoutEffectSeguro(() => {
-    if (!seccion.current) return
-    if (movimientoReducido()) return
-
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('[data-card]')
-      if (!cards.length) return
-
-      // Entrada: corta y escalonada. No es un fade-in por elemento — las
-      // tres son una sola tanda disparada por la sección.
-      gsap.fromTo(
-        cards,
-        { y: 48, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: seccion.current, start: 'top 72%' },
-        },
-      )
-
-      // Profundidad: cada card recorre distinto con el scroll. Es lo único
-      // que hace que tres rectángulos iguales se lean como tres planos.
-      cards.forEach((card, i) => {
-        gsap.fromTo(
-          card,
-          { yPercent: 0 },
-          {
-            y: -(PROFUNDIDAD[i] ?? 70),
-            ease: 'none',
-            scrollTrigger: {
-              trigger: seccion.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.9,
-            },
-          },
-        )
-      })
-    }, seccion)
-
-    return () => ctx.revert()
-  }, [])
+  const [abierto, setAbierto] = useState(0)
+  const idBase = useId()
 
   return (
-    <section
-      ref={seccion}
-      className="relative flex flex-col justify-center overflow-hidden border-t border-yerba-alta py-seccion lg:min-h-[100svh]"
-    >
+    <section className="relative flex flex-col justify-center overflow-hidden border-t border-yerba-alta py-seccion lg:min-h-[100svh]">
       <TexturaGreca tono="yerba-seca" escala={132} opacidad={0.04} />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <header className="mb-16 max-w-2xl lg:mb-24">
+        <header className="mb-12 max-w-2xl lg:mb-16">
           <Etiqueta className="mb-4 block">{pilares.etiqueta}</Etiqueta>
           <h2 className="display text-display-2">{pilares.titulo}</h2>
         </header>
 
-        <ul className="grid gap-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {pilares.items.map((item) => (
-            <li key={item.id} data-card className="flex flex-col">
-              {/* El recorte se monta sobre el borde de la card: es lo que
-                  le saca el aire de rectángulo prolijo.
+        {/* ---------- desktop: acordeón ---------- */}
+        <div className="hidden gap-2 lg:flex lg:h-[56svh] lg:min-h-[400px]">
+          {pilares.items.map((item, i) => {
+            const activo = i === abierto
+            const panelId = `${idBase}-panel-${item.id}`
 
-                  Caja cuadrada fija con object-contain para los tres. Si
-                  se dejan a alto libre, el paquete (vertical) sale flaco
-                  al lado del polvo (apaisado) y los tres pesan distinto
-                  sin que haya un motivo. */}
-              <div className="relative z-10 -mb-10 ml-4 h-32 w-32 lg:h-36 lg:w-36">
+            return (
+              <div
+                key={item.id}
+                className="flex min-w-0 transition-[flex-grow] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]"
+                style={{ flexGrow: activo ? 7 : 0 }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setAbierto(i)}
+                  onFocus={() => setAbierto(i)}
+                  aria-expanded={activo}
+                  aria-controls={panelId}
+                  className={`flex w-20 shrink-0 items-center justify-center transition-colors duration-300 ${
+                    activo ? 'bg-dorado' : 'bg-dorado-oscuro hover:bg-dorado'
+                  }`}
+                >
+                  <span className="etiqueta whitespace-nowrap text-yerba-oscuro [transform:rotate(180deg)] [writing-mode:vertical-rl]">
+                    {item.pestana}
+                  </span>
+                </button>
+
+                <div
+                  id={panelId}
+                  className="flex min-w-0 flex-1 overflow-hidden border border-l-0 border-yerba-alta bg-yerba-media"
+                >
+                  <div className="relative w-[42%] shrink-0 bg-yerba-oscuro">
+                    <Image
+                      src={item.imagen}
+                      alt={item.alt}
+                      fill
+                      sizes="30vw"
+                      className={`object-contain ${item.id === 'sintacc' ? 'p-14' : 'p-8'}`}
+                    />
+                  </div>
+
+                  <div className="flex min-w-0 flex-col justify-center p-8 xl:p-12">
+                    <h3 className="display mb-5 whitespace-nowrap text-display-2">
+                      {item.titulo}
+                    </h3>
+                    <p className="w-[46ch] max-w-full text-body-lg text-papel-suave">
+                      {item.cuerpo}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* ---------- mobile: los tres abiertos, apilados ---------- */}
+        <ul className="space-y-10 lg:hidden">
+          {pilares.items.map((item) => (
+            <li key={item.id} className="border border-yerba-alta bg-yerba-media">
+              <div className="relative aspect-[16/10] bg-yerba-oscuro">
                 <Image
                   src={item.imagen}
                   alt={item.alt}
-                  width={400}
-                  height={400}
-                  sizes="150px"
-                  data-plano="frente"
-                  className="cutout cutout--frente absolute inset-0 h-full w-full object-contain drop-shadow-[0_8px_0_rgba(6,37,15,0.5)]"
+                  fill
+                  sizes="100vw"
+                  className="object-contain p-8"
                 />
               </div>
-
-              <p className="etiqueta w-fit bg-dorado px-3 py-1.5 text-yerba-oscuro">
-                {item.pestana}
-              </p>
-
-              <div className="flex-1 border border-yerba-alta bg-yerba-media p-6 shadow-[5px_5px_0_0_var(--color-yerba-alta)] lg:p-8">
+              <div className="p-6">
+                <p className="etiqueta mb-4 w-fit bg-dorado px-3 py-1.5 text-yerba-oscuro">
+                  {item.pestana}
+                </p>
                 <h3 className="display mb-4 text-display-3">{item.titulo}</h3>
                 <p className="text-papel-suave">{item.cuerpo}</p>
               </div>
