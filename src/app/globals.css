@@ -431,6 +431,22 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
+   Origen · el título que se rearma letra por letra
+
+   Las dos clases se las pone SplitText desde el componente. El renglón
+   recorta: la letra sube desde atrás de su propia línea, no desde el
+   borde de la pantalla, que es lo que hace que se lea como que estaba
+   ahí y se acomoda.
+   ------------------------------------------------------------------ */
+.clip-linea {
+  overflow: hidden;
+}
+
+.letra-slide {
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------
    Grano · sobre el fondo oscuro. Sin gradientes de color.
    ------------------------------------------------------------------ */
 .grano {

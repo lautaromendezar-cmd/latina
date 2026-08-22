@@ -12,6 +12,10 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
+    // 72 es la de los fondos de Origen: son tres pantallas completas y van
+    // atrás de un velo al 75%, así que el detalle fino no se ve. Next 16
+    // exige declarar toda calidad que no sea la de fábrica (75).
+    qualities: [72, 75],
   },
 
   async redirects() {

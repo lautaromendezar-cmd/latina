@@ -28,10 +28,28 @@ el generador. Al llegar un asset real se pone `pendiente: false` ahí.
 | `imagenes/cutouts/hoja-entera.png` | Generado + recorte por luminancia. |
 | `imagenes/cutouts/hoja-partida.png` | Generado + recorte por luminancia. |
 | `imagenes/hero-poster.jpg` | Generado: nube de yerba a contraluz, sin paquete. |
-| `imagenes/origen-brasil.jpg` | `brasil.jpg` del banco, 3:2 nativo. |
-| `imagenes/origen-uruguay.jpg` | `mate-close.jpg`, recortado 3:2 para sacarle el logo quemado del pie. |
-| `imagenes/origen-argentina.jpg` | `amigos.jpg` del banco. |
+| `imagenes/origen/brasil.jpg` | Generado (Nano Banana Pro, 4k, 16:9). Ver nota de abajo. |
+| `imagenes/origen/uruguay.jpg` | Ídem. |
+| `imagenes/origen/argentina.jpg` | Ídem. |
 | `imagenes/textura-molienda.jpg` | `yerba.jpg`, macro **real** de la molienda. |
+
+> **Los tres fondos de Origen son generados, y es una decisión, no un
+> descarte.** La sección pasó a ser tres pantallas completas, y las fotos
+> del banco medían 1080-1600px de ancho: a pantalla completa en un monitor
+> grande se ven blandas. Se generaron seis (dos por momento) y se eligió
+> una de cada par. Salieron a 5504×3072 y se guardaron a 2880px, JPEG 78,
+> entre 329 y 450 KB.
+>
+> Son **paisajes, no producto**: montaña con yerbales, campo uruguayo
+> contra el río, ruta en la pampa. No aparece el paquete en ninguna, así
+> que no corren el riesgo de la etiqueta rota que está documentado más
+> abajo. Van atrás de un velo verde al 75% y con el texto encima.
+>
+> Las tres del banco —`imagenes/origen-brasil.jpg`, `origen-uruguay.jpg`,
+> `origen-argentina.jpg`— **siguen en el repo y ya no las usa nadie**. No
+> se borraron a propósito: son material real. Si el cliente manda fotos
+> propias de buena resolución, reemplazar es pisar los tres archivos de
+> `imagenes/origen/` y listo.
 
 > ⚠ **`pack-cutout.png` del banco nunca estuvo recortado.** Trae la mesa de
 > madera y la pared de fondo; el `remove_background` con el que se hizo

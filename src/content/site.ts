@@ -128,8 +128,8 @@ export const origen = {
       titulo: 'Acá se hace',
       cuerpo:
         'Entre montañas, con productores chicos y un secado que no se apura. La yerba sale con el sabor que tenía la hoja, no con el que le deja la máquina.',
-      imagen: '/imagenes/origen-brasil.jpg',
-      alt: 'Yerbal en las montañas del sur de Brasil al atardecer',
+      imagen: '/imagenes/origen/brasil.jpg',
+      alt: 'Yerbales en terrazas sobre las montañas del sur de Brasil, con niebla en el valle',
     },
     {
       id: 'uruguay',
@@ -137,8 +137,8 @@ export const origen = {
       titulo: 'Acá se probó',
       cuerpo:
         'Fuimos de los primeros en llevar este padrón a Uruguay, donde el mate se toma con molienda fina y mucho polvo. Ese padrón, el que allá es normal, es el que hoy está adentro del paquete.',
-      imagen: '/imagenes/origen-uruguay.jpg',
-      alt: 'Mate cebado con molienda fina, macro',
+      imagen: '/imagenes/origen/uruguay.jpg',
+      alt: 'Campo uruguayo al atardecer, con un ombú y el Río de la Plata al fondo',
     },
     {
       id: 'argentina',
@@ -146,8 +146,8 @@ export const origen = {
       titulo: 'Acá recién llegamos',
       cuerpo:
         'Estamos entrando. Todavía no hay LaTiNa en todas las góndolas del país: hay distribuidores en algunas provincias y una lista que se agranda cada mes. Si en tu ciudad no está, puede ser tu ciudad la próxima.',
-      imagen: '/imagenes/origen-argentina.jpg',
-      alt: 'Ronda de mate en contexto rioplatense',
+      imagen: '/imagenes/origen/argentina.jpg',
+      alt: 'Ruta vacía cruzando la pampa argentina al amanecer',
     },
   ],
 } as const

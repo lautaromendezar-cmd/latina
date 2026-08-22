@@ -27,7 +27,7 @@ trabajo), `ASSETS-PENDIENTES.md` (qué falta y de dónde salió cada imagen).
 | 3 · Movimiento | hecha |
 | 4 · Performance, a11y, OG, deploy | **pendiente** |
 
-La home son 7 secciones: Hero → Manifiesto → Origen → Pilares →
+La home son 8 secciones: Hero → Tira → Manifiesto → Origen → Pilares →
 Presentaciones → Dónde comprar → Cierre B2B.
 
 Las cuatro rutas responden 200, `tsc` limpio.
@@ -56,6 +56,20 @@ de git si algún día aparecen las fotos. Lo que se perdió: era el único
 argumento incopiable (padrón uruguayo despalado), que ahora se dice pero
 no se demuestra.
 
+**La tira de especificaciones se mueve, y por pedido del cliente.** Estaba
+quieta al pie del hero con un argumento escrito: contenido en movimiento
+automático que dura más de 5s necesita un control de pausa (WCAG 2.2.2).
+Ahora es una sección propia entre el hero y el manifiesto, en movimiento —
+y con botón de pausa, que es lo que hacía que la objeción se cayera. El
+hero, sin la banda, mide exactamente una pantalla.
+
+**Origen dejó de ser papel.** Era una de las dos secciones crema que rompían
+la corrida de verde; ahora son tres fotos a pantalla completa con velo. La
+corrida la rompen la tira dorada arriba y Presentaciones abajo, y los
+cielos de las tres fotos son claros, así que no quedó un bloque de verde
+seguido. Si en algún momento se ve pesado, la que tiene que volver a crema
+es Pilares, no Origen.
+
 **Dos familias tipográficas, no tres.** Se cayó Geist Mono; el registro de
 "ficha técnica" lo hace Montserrat traqueado. Las dos familias son
 variables: un archivo cada una.
@@ -72,14 +86,19 @@ formulario. Sobre papel el acento es la tinta más oscura.
 
 ## Presupuesto de movimiento
 
-Seis efectos, y la regla es: si entra uno, sale otro.
+Siete efectos, y la regla es: si entra uno, sale otro. El séptimo entró
+por pedido del cliente (la tira) y todavía no salió ninguno: es la deuda
+abierta del presupuesto.
 
-1. Origen pineada con indicador lateral — **el único pin del sitio**
+1. Origen: tres pantallas que se pasan con el scroll (la transición del
+   swipe-slider de GSAP: dos máscaras encastradas, fondo con desfasaje y el
+   título rearmándose letra por letra) — **el único pin del sitio**
 2. Cutouts ambiente (deriva + parallax por plano)
 3. Manifiesto: el contorno se llena con la macro real de la molienda
 4. Entrada del hero encadenada
 5. Preloader, CSS puro, 2,75s, una vez por sesión
 6. Acordeón de Pilares (lo dispara el click, no el scroll)
+7. La tira de especificaciones, con botón de pausa
 
 **Dos reglas que ya se rompieron una vez y costaron caro:**
 
