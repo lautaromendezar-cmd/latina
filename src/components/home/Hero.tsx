@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { Greca } from '@/components/ui/Greca'
 import { Boton } from '@/components/ui/Boton'
 import { hero } from '@/content/site'
 import { HeroTitulo } from '@/components/home/HeroTitulo'
@@ -9,10 +8,19 @@ import { HeroFondo } from '@/components/home/HeroFondo'
  * Hero.
  *
  * Reglas que gobiernan esta sección:
+ *  · **Mide exactamente una pantalla.** `h-[100svh]`, no `min-h`: la banda
+ *    de especificaciones se mudó a su propia sección (`Tira`) justo abajo,
+ *    y el punto de eso es que el pliegue caiga en el borde del hero. Con
+ *    `min-h` cualquier renglón de más lo empujaba y la tira dejaba de ser
+ *    lo primero que aparece al scrollear.
+ *    `svh` y no `vh`: en mobile la barra del browser se come 60-100px y con
+ *    `vh` los botones quedan abajo del pliegue.
+ *    El `min-h-[34rem]` es la red para el caso degenerado —un teléfono
+ *    acostado, 360px de alto—: ahí el alto fijo recortaría los botones
+ *    contra el `overflow-hidden`. Abajo de 544px de viewport el hero deja
+ *    de medir una pantalla, que es preferible a comerse un CTA.
  *  · Los dos CTAs tienen que estar visibles SIN scroll, también en 360×640.
- *    Por eso el alto es 100svh (no 100vh: en mobile la barra del browser se
- *    come 60-100px y con vh los botones quedan abajo del pliegue) y el
- *    display tiene el clamp con piso 2rem.
+ *    Por eso el display tiene el clamp con piso 2rem.
  *  · El velo sobre el video es VERDE, no negro. MARCA.md: nunca fondo
  *    negro puro.
  *  · "La yerba" va en contorno porque en Fase 3 se rellena con el scroll.
@@ -22,7 +30,7 @@ import { HeroFondo } from '@/components/home/HeroFondo'
  */
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
+    <section className="relative flex h-[100svh] min-h-[34rem] flex-col overflow-hidden">
       <HeroFondo />
 
       {/* --- cutouts ---
@@ -64,8 +72,8 @@ export function Hero() {
         {/* El paquete vive DENTRO de esta caja y se centra con flexbox
             contra ella. Es el mismo centro óptico que usa el texto: la
             sección entera no sirve de referencia porque arriba tiene el nav
-            y abajo la banda de especificaciones, así que su centro cae más
-            alto que el del contenido.
+            y abajo el indicador, así que su centro cae más alto que el del
+            contenido.
 
             En teléfono no se muestra: a 360px hay una sola columna y el
             paquete, en cualquier tamaño útil, se le monta al título o a los
@@ -104,50 +112,28 @@ export function Hero() {
         </div>
       </div>
 
-      {/* --- pie: la banda de especificaciones ---
-          Dorada y quieta. Es el corte de color que la home necesitaba —
-          venía siendo siete secciones verdes seguidas— y es el mismo
-          recurso que usa el folleto, que alterna oro, crema y verde.
+      {/* --- pie: el indicador ---
+          Lo único que queda al pie ahora que la banda dorada se mudó a su
+          propia sección. No flota abajo al centro, que es el cliché: va
+          alineado a la derecha, sobre la línea del contenido, y ADEMÁS
+          funciona — es un link a la tira, no un adorno.
 
-          Quieta y no una tira que scrollea: acá viven las cuatro
-          especificaciones del producto, y es el único lugar del sitio
-          donde la legibilidad le gana al efecto. Moverlas las hace más
-          difíciles de leer, no más vistosas. Además una tira infinita es
-          el elemento más templado de la web de estos años, y contenido en
-          movimiento automático que dura más de 5s necesita un control de
-          pausa por accesibilidad.
-
-          El separador es la greca del packaging, en verde sobre el oro
-          (5.11:1). El texto va en yerba-oscuro (9.99:1). */}
-      <div data-hero-entra className="relative z-10 mt-auto bg-dorado text-yerba-oscuro">
-        <Greca tono="verde" alto={12} opacidad={0.55} />
-        <ul className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6 lg:gap-x-16 lg:px-10">
-          {hero.etiquetas.map((e, i) => (
-            <li key={e} className="flex items-center gap-x-7 lg:gap-x-16">
-              {i > 0 && (
-                <span aria-hidden="true" className="hidden text-verde/60 lg:inline">
-                  ◇
-                </span>
-              )}
-              <span className="etiqueta font-semibold">{e}</span>
-            </li>
-          ))}
-          {/* Indicador de scroll. Va acá adentro y no flotando abajo al
-              centro, que es el cliché: es el último elemento de la banda,
-              alineado a la derecha, y ADEMÁS funciona — es un link que
-              baja a la sección siguiente, no un adorno. */}
-          <li className="ml-auto hidden lg:block">
-            <a
-              href="#manifiesto"
-              className="etiqueta flex items-center gap-2 font-semibold text-yerba-oscuro/80 transition-colors hover:text-yerba-oscuro"
-            >
-              Seguí bajando
-              <span aria-hidden="true" className="indicador-baja inline-block">
-                ↓
-              </span>
-            </a>
-          </li>
-        </ul>
+          Desde `sm`. En un teléfono de 360×640 el hero entra justo y estos
+          44px son la diferencia entre ver los dos botones y no verlos; y en
+          esa pantalla la tira asoma sola con el primer gesto. */}
+      <div
+        data-hero-entra
+        className="relative z-10 mx-auto hidden w-full max-w-[1400px] shrink-0 justify-end px-4 pb-6 sm:flex sm:px-6 lg:px-10"
+      >
+        <a
+          href={hero.indicador.href}
+          className="etiqueta flex items-center gap-2 text-papel-suave transition-colors hover:text-dorado"
+        >
+          {hero.indicador.texto}
+          <span aria-hidden="true" className="indicador-baja inline-block">
+            ↓
+          </span>
+        </a>
       </div>
     </section>
   )

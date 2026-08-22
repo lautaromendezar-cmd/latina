@@ -346,6 +346,91 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
+   La tira · la marquesina de especificaciones (sección propia, debajo
+   del hero)
+
+   El bucle desplaza UNA copia entera: la pista tiene tres copias
+   idénticas y la animación la corre -33.33%, así que el frame final es
+   idéntico al inicial y no hay costura. Con dos copias, en un monitor más
+   ancho que una copia se ve el hueco.
+
+   Velocidad, no duración: la duración cambia por breakpoint porque el
+   ancho de una copia cambia con el cuerpo tipográfico. Queda en ~45px/s
+   en teléfono y ~52px/s en desktop; sostenido, no una animación que
+   llama la atención sobre sí misma.
+
+   `transform` sólo acá y sin estado inicial declarado: GSAP no toca esta
+   sección, pero la regla de la casa es no dejarle transforms puestos
+   desde el CSS para leer mal.
+   ------------------------------------------------------------------ */
+.tira-pista {
+  --tira-dur: 20s;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tira-correr var(--tira-dur) linear infinite;
+}
+
+@media (min-width: 640px) {
+  .tira-pista {
+    --tira-dur: 24s;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tira-pista {
+    --tira-dur: 28s;
+  }
+}
+
+.tira-pista[data-pausada="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes tira-correr {
+  to {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+}
+
+.tira-grupo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+/* Más peso que la etiqueta traqueada que había antes: la display de la
+   marca (Archivo 800). Una tira en movimiento se lee de un vistazo o no se
+   lee, y el peso es lo que la sostiene mientras pasa.
+
+   El tracking va en ~0, no en el -0.03em del display: en movimiento las
+   letras apretadas se empastan. */
+.tira-item {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" 100;
+  font-size: clamp(1.0625rem, 2.2vw, 1.625rem);
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .tira-item {
+    font-variation-settings: "wdth" 106;
+  }
+}
+
+.tira-rombo {
+  color: var(--color-verde);
+  font-size: 0.6em;
+  padding-inline: clamp(0.85rem, 2.6vw, 2rem);
+}
+
+/* ------------------------------------------------------------------
    Grano · sobre el fondo oscuro. Sin gradientes de color.
    ------------------------------------------------------------------ */
 .grano {
@@ -427,6 +512,28 @@ textarea {
   }
 
   .cutout {
+    display: none;
+  }
+
+  /* La tira, quieta: no alcanza con apagar la animación —quedaría una fila
+     cortada por el borde—. Las copias se esconden con `motion-reduce`
+     desde el markup y la que queda envuelve y se centra, que es la misma
+     lista que leería un lector de pantalla. */
+  .tira-pista {
+    animation: none;
+    width: auto;
+    justify-content: center;
+  }
+
+  .tira-grupo {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.4rem;
+  }
+
+  /* El rombo de cierre sólo tiene sentido empalmando con la copia
+     siguiente. Sin movimiento, cuelga. */
+  .tira-grupo > li:last-child .tira-rombo {
     display: none;
   }
 }

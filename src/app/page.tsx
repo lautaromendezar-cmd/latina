@@ -1,5 +1,6 @@
 import { Carga } from '@/components/layout/Carga'
 import { Hero } from '@/components/home/Hero'
+import { Tira } from '@/components/home/Tira'
 import { Manifiesto } from '@/components/home/Manifiesto'
 import { Origen } from '@/components/home/Origen'
 import { Pilares } from '@/components/home/Pilares'
@@ -13,6 +14,7 @@ import { CierreB2B } from '@/components/home/CierreB2B'
  * Orden pensado como un argumento, no como una lista de secciones:
  *
  *   Hero            la promesa
+ *   Tira            la ficha del producto, de un vistazo
  *   Manifiesto      qué significa (padrón, despalada)
  *   Origen          de dónde viene y por qué recién llega
  *   Pilares         los tres argumentos, ya con la prueba vista
@@ -39,6 +41,9 @@ export default function Home() {
       {/* Solo en la home: no tiene sentido velar /contacto. */}
       <Carga />
       <Hero />
+      {/* La tira no es parte del hero: el hero mide una pantalla exacta y
+          esto es lo primero que aparece al scrollear. */}
+      <Tira />
       <Manifiesto />
       <Origen />
       <Pilares />

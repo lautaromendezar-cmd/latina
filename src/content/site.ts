@@ -67,11 +67,39 @@ export const hero = {
     primario: { href: '/donde-comprar', texto: 'Dónde comprar' },
     secundario: { href: '/vende-latina', texto: 'Quiero distribuir' },
   },
-  etiquetas: ['Padrón uruguayo', 'Despalada', 'Sin T.A.C.C.', '1 kg y ½ kg'],
+  // El indicador de scroll es un link que funciona, no un adorno: baja a
+  // la tira, que es lo primero que hay abajo del pliegue.
+  indicador: { texto: 'Seguí bajando', href: '#especificaciones' },
   video: {
     // Alt del poster: el video es decorativo, pero el poster carga primero.
     poster: 'Nube de yerba suspendida a contraluz',
   },
+} as const
+
+/* ------------------------------------------------------------------ */
+/* La tira                                                             */
+/*                                                                     */
+/* Las especificaciones vivían en una banda quieta al pie del hero.    */
+/* Ahora son una sección propia entre el hero y el manifiesto: el hero */
+/* mide exactamente una pantalla y la tira es lo primero que aparece   */
+/* al scrollear.                                                       */
+/*                                                                     */
+/* Los seis ítems ya estaban escritos: cuatro venían de la banda y los */
+/* otros dos salen de `marca.descripcionCorta` y de `hero.bajada`.     */
+/* Ninguno es un claim nuevo.                                          */
+/* ------------------------------------------------------------------ */
+
+export const tira = {
+  items: [
+    'Padrón uruguayo',
+    'Despalada',
+    'Molienda fina',
+    'Sin T.A.C.C.',
+    '1 kg y ½ kg',
+    'Elaborada en el sur de Brasil',
+  ],
+  pausar: 'Pausar la tira',
+  reanudar: 'Reanudar la tira',
 } as const
 
 export const manifiesto = {
