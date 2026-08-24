@@ -4,7 +4,6 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { Greca } from '@/components/ui/Greca'
-import { Etiqueta } from '@/components/ui/Etiqueta'
 import { useLayoutEffectSeguro, movimientoReducido } from '@/lib/motion'
 
 /**
@@ -83,7 +82,11 @@ export function EncabezadoPagina({
   }, [])
 
   return (
-    <section ref={raiz} className="relative overflow-hidden">
+    <section
+      ref={raiz}
+      data-bloque="verde"
+      className="relative overflow-hidden bg-verde-profundo text-crema"
+    >
       <div className="absolute inset-0" aria-hidden="true">
         <div data-encabezado-foto className="absolute inset-0 scale-[1.12]">
           <Image
@@ -96,14 +99,12 @@ export function EncabezadoPagina({
             style={{ objectPosition: posicion }}
           />
         </div>
-        {/* Velo verde, no negro (MARCA.md). */}
-        <div className="absolute inset-0 bg-yerba-oscuro/78" />
+        {/* Velo verde, más liviano que antes: las fotos se ven. */}
+        <div className="absolute inset-0 bg-verde-profundo/65" />
       </div>
 
       <div className="relative mx-auto flex min-h-[58svh] max-w-[1400px] flex-col justify-end px-4 pb-12 pt-32 sm:px-6 lg:px-10 lg:pb-16 lg:pt-40">
-        <Etiqueta acento className="mb-4 block">
-          {etiqueta}
-        </Etiqueta>
+        <p className="etiqueta mb-4 block text-amarillo">{etiqueta}</p>
 
         <h1 data-encabezado-titulo className="display max-w-[16ch] text-display-1">
           <span className="block overflow-hidden pb-[0.08em]">
@@ -111,7 +112,7 @@ export function EncabezadoPagina({
           </span>
         </h1>
 
-        <p className="mt-6 max-w-[52ch] text-body-lg text-papel-suave">{bajada}</p>
+        <p className="mt-6 max-w-[52ch] text-body-lg font-semibold text-crema">{bajada}</p>
       </div>
 
       {/* El alt real va en un elemento accesible: la foto de arriba es
@@ -119,7 +120,7 @@ export function EncabezadoPagina({
       <span className="sr-only">{alt}</span>
 
       <div className="relative">
-        <Greca tono="dorado" alto={12} opacidad={0.5} />
+        <Greca tono="amarillo" alto={12} opacidad={0.7} />
       </div>
     </section>
   )

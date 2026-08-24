@@ -111,16 +111,16 @@ export function Formulario({ campos, asunto, textoBoton, nota }: Props) {
   // Confirmación en la misma página, sin redirect a un /gracias vacío.
   if (enviado) {
     return (
-      <div className="border border-dorado/40 bg-yerba-media p-6 lg:p-10">
+      <div className="rounded-[--radius-card] border-2 border-verde bg-blanco p-6 sombra-dura lg:p-10">
         <h3 className="display mb-3 text-display-3">Listo, te abrimos el chat.</h3>
-        <p className="mb-6 max-w-[46ch] text-papel-suave">
+        <p className="mb-6 max-w-[46ch] text-tinta-suave">
           Si no se abrió solo, escribinos al {contacto.whatsapp} y contanos lo mismo. Te
           contestamos en el día.
         </p>
         <button
           type="button"
           onClick={() => setEnviado(false)}
-          className="etiqueta text-dorado underline underline-offset-4"
+          className="etiqueta text-verde-profundo underline underline-offset-4"
         >
           Volver al formulario
         </button>
@@ -134,15 +134,15 @@ export function Formulario({ campos, asunto, textoBoton, nota }: Props) {
         const id = `${idBase}-${campo.nombre}`
         const error = errores[campo.nombre]
         const entero = campo.ancho !== 'medio'
-        const clases = `w-full border bg-yerba-media px-4 py-3 text-papel transition-colors placeholder:text-papel-suave/50 focus:border-dorado ${
-          error ? 'border-sello' : 'border-yerba-alta'
+        const clases = `w-full rounded-xl border-2 bg-blanco px-4 py-3 text-tinta transition-colors placeholder:text-tinta-suave/70 focus:border-verde ${
+          error ? 'border-sello' : 'border-tinta/15'
         }`
 
         return (
           <div key={campo.nombre} className={entero ? 'sm:col-span-2' : undefined}>
-            <label htmlFor={id} className="etiqueta mb-2 block text-yerba-seca">
+            <label htmlFor={id} className="etiqueta mb-2 block text-verde-profundo">
               {campo.etiqueta}
-              {!campo.requerido && <span className="text-papel-suave/60"> (opcional)</span>}
+              {!campo.requerido && <span className="text-tinta-suave"> (opcional)</span>}
             </label>
 
             {campo.tipo === 'textarea' ? (

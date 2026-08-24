@@ -43,17 +43,18 @@ export function HeroTitulo() {
       const lineas = gsap.utils.toArray<HTMLElement>('[data-linea]')
       const siguen = gsap.utils.toArray<HTMLElement>('[data-hero-entra]')
 
-      // Arranca cuando el preloader ya se está abriendo, no cuando termina:
-      // los dos movimientos se encadenan en vez de turnarse.
-      const tl = gsap.timeline({ delay: 0.35 })
+      // Ya no hay preloader: la entrada arranca casi de una.
+      const tl = gsap.timeline({ delay: 0.1 })
 
       if (lineas.length) {
         // fromTo con valores explícitos: si GSAP tuviera que leer el estado
         // inicial del CSS, un transform en % se le vuelve px.
+        // back.out en vez de expo: el rebote corto es el carácter del
+        // rediseño — sticker, no telón.
         tl.fromTo(
           lineas,
           { yPercent: 108, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out' },
+          { yPercent: 0, opacity: 1, duration: 0.75, stagger: 0.09, ease: 'back.out(1.4)' },
         )
       }
 
@@ -77,7 +78,10 @@ export function HeroTitulo() {
         // overflow oculto: la línea sube desde atrás del renglón anterior
         <span key={linea.texto} className="block overflow-hidden pb-[0.08em]">
           <span data-linea className="block">
-            <span className={linea.contorno ? 'contorno' : undefined}>{linea.texto}</span>
+            {/* La línea destacada va en amarillo, el gesto de las piezas
+                de IG. Amarillo sobre verde da 3.1:1: alcanza porque esto
+                es display grande, nunca repetir en texto chico. */}
+            <span className={linea.destacada ? 'text-amarillo' : undefined}>{linea.texto}</span>
           </span>
         </span>
       ))}

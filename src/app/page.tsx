@@ -1,4 +1,3 @@
-import { Carga } from '@/components/layout/Carga'
 import { Hero } from '@/components/home/Hero'
 import { Tira } from '@/components/home/Tira'
 import { Manifiesto } from '@/components/home/Manifiesto'
@@ -38,8 +37,9 @@ import { CierreB2B } from '@/components/home/CierreB2B'
 export default function Home() {
   return (
     <>
-      {/* Solo en la home: no tiene sentido velar /contacto. */}
-      <Carga />
+      {/* El preloader de 2,75s se fue con el rediseño: un sitio juvenil
+          abre de una. De paso salda la deuda del presupuesto de
+          movimiento (siete efectos con la tira; ahora seis). */}
       <Hero />
       {/* La tira no es parte del hero: el hero mide una pantalla exacta y
           esto es lo primero que aparece al scrollear. */}

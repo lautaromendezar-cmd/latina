@@ -21,13 +21,14 @@
  *    puede costar un kilobyte de JavaScript.
  */
 
-type Tono = 'dorado' | 'papel' | 'yerba-seca' | 'verde'
+type Tono = 'amarillo' | 'crema' | 'verde' | 'verde-vivo' | 'tinta'
 
 const TONOS: Record<Tono, string> = {
-  dorado: 'var(--color-dorado)',
-  papel: 'var(--color-papel)',
-  'yerba-seca': 'var(--color-yerba-seca)',
+  amarillo: 'var(--color-amarillo)',
+  crema: 'var(--color-crema)',
   verde: 'var(--color-verde)',
+  'verde-vivo': 'var(--color-verde-vivo)',
+  tinta: 'var(--color-tinta)',
 }
 
 const RATIO = 20 / 14 // el tile del packaging es más ancho que alto
@@ -41,7 +42,7 @@ type Props = {
 }
 
 export function Greca({
-  tono = 'yerba-seca',
+  tono = 'verde',
   alto = 16,
   opacidad = 1,
   className = '',
@@ -99,7 +100,7 @@ export function Greca({
  */
 export function Reglas({
   children,
-  tono = 'dorado',
+  tono = 'amarillo',
   className = '',
 }: {
   children: React.ReactNode

@@ -1,27 +1,29 @@
 import Link from 'next/link'
 
 /**
- * Botón. Único gesto redondo del sistema (999px); todo lo demás es radio 0.
+ * Botón. Píldora (999px), mayúsculas, y el primario lleva la sombra dura
+ * del sistema: es un sticker, no un botón de app.
  *
- * `primario` es el dorado y significa acción — el token nunca se usa como
- * decoración. `secundario` es contorno de papel. Sobre fondo claro entra
- * `oscuro`, porque el dorado sobre papel da 1.45:1 y no se puede leer.
+ * `primario` es el amarillo y significa acción — el token nunca se usa
+ * como decoración. `secundario` es contorno de currentColor, así el mismo
+ * componente sirve sobre crema (tinta) y sobre verde (crema). `oscuro`
+ * es el bloque verde, para cuando el fondo es amarillo o crema.
  */
 
 type Variante = 'primario' | 'secundario' | 'oscuro'
 
 const VARIANTES: Record<Variante, string> = {
   primario:
-    'bg-dorado text-yerba-oscuro hover:bg-dorado-claro active:bg-dorado-oscuro',
+    'bg-amarillo text-tinta sombra-dura-chica hover:bg-amarillo-claro active:bg-amarillo-oscuro active:shadow-none active:translate-x-[3px] active:translate-y-[3px]',
   secundario:
-    'border border-papel text-papel hover:bg-papel hover:text-yerba-oscuro',
+    'border-2 border-current hover:-translate-y-[2px] active:translate-y-0',
   oscuro:
-    'bg-yerba-oscuro text-papel hover:bg-yerba-alta',
+    'bg-verde text-crema sombra-dura-chica hover:bg-verde-profundo active:shadow-none active:translate-x-[3px] active:translate-y-[3px]',
 }
 
 const BASE =
   'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 ' +
-  'text-sm font-bold tracking-wide transition-colors duration-200 ' +
+  'text-sm font-bold uppercase tracking-[0.06em] transition-[transform,background-color,box-shadow] duration-150 ' +
   'min-h-11 text-center'
 
 type Props = {

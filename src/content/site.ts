@@ -54,25 +54,19 @@ export const nav = {
 export const hero = {
   // Reordenamiento de la frase madre del cliente:
   // "Cuando cambiás la yerba, cambia el mate."
+  // `destacada`: la línea que va en amarillo, el gesto de las piezas de IG.
   titulo: [
-    { texto: 'El mate cambia', contorno: false },
-    { texto: 'cuando cambiás', contorno: false },
-    { texto: 'la yerba', contorno: true },
+    { texto: 'El mate cambia', destacada: false },
+    { texto: 'cuando cambiás', destacada: false },
+    { texto: 'la yerba', destacada: true },
   ],
   // Sin números: no tenemos una cifra de cebadas confirmada y no se
   // inventa una para que la frase suene mejor.
   bajada:
-    'Padrón uruguayo: molienda fina, mucho polvo, despalada. Más cuerpo en el primer mate, y el mismo sabor cuando el termo ya va por la mitad.',
+    'Molienda fina, mucho polvo, cero palo: padrón uruguayo. Más cuerpo en el primer mate y en el último del termo.',
   cta: {
     primario: { href: '/donde-comprar', texto: 'Dónde comprar' },
     secundario: { href: '/vende-latina', texto: 'Quiero distribuir' },
-  },
-  // El indicador de scroll es un link que funciona, no un adorno: baja a
-  // la tira, que es lo primero que hay abajo del pliegue.
-  indicador: { texto: 'Seguí bajando', href: '#especificaciones' },
-  video: {
-    // Alt del poster: el video es decorativo, pero el poster carga primero.
-    poster: 'Nube de yerba suspendida a contraluz',
   },
 } as const
 

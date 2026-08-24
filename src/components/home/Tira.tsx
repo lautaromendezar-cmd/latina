@@ -31,9 +31,9 @@ import { tira } from '@/content/site'
  *    porque ya no hay nada que pausar. Todo en CSS, así que no depende de
  *    que hidrate.
  *
- * La tipografía es la display (Archivo 800) y no la etiqueta traqueada:
- * una tira que se mueve se lee de un vistazo o no se lee. El contraste es
- * el mismo par que ya usaba la banda, yerba-oscuro sobre dorado (9.99:1).
+ * La tipografía es la display (Archivo condensada 850) y no la etiqueta
+ * traqueada: una tira que se mueve se lee de un vistazo o no se lee. El
+ * par es tinta sobre amarillo (8.6:1).
  */
 
 /** Copias de la lista dentro de la pista. Ver nota de arriba. */
@@ -43,7 +43,7 @@ export function Tira() {
   const [pausada, setPausada] = useState(false)
 
   return (
-    <section id="especificaciones" className="relative scroll-mt-16 bg-dorado text-yerba-oscuro">
+    <section id="especificaciones" className="relative scroll-mt-16 bg-amarillo text-tinta">
       <Greca tono="verde" alto={10} opacidad={0.55} />
 
       <div className="relative overflow-hidden py-3.5 sm:py-4">
@@ -77,7 +77,7 @@ export function Tira() {
         <button
           type="button"
           onClick={() => setPausada((p) => !p)}
-          className="absolute inset-y-0 right-0 z-10 flex w-11 items-center justify-center border-l border-verde/40 bg-dorado text-yerba-oscuro transition-colors hover:bg-dorado-claro focus-visible:outline-offset-[-3px] motion-reduce:hidden sm:w-12"
+          className="absolute inset-y-0 right-0 z-10 flex w-11 items-center justify-center border-l border-verde/40 bg-amarillo text-tinta transition-colors hover:bg-amarillo-claro focus-visible:outline-offset-[-3px] motion-reduce:hidden sm:w-12"
         >
           <span className="sr-only">{pausada ? tira.reanudar : tira.pausar}</span>
           <svg

@@ -16,19 +16,19 @@
  * Por eso va sin las reglas horizontales: apiladas cada 90px serían rayas,
  * y ahí sí se convertiría en un empapelado.
  *
- * Medido: sobre el trazo de la greca al 4,5%, el fondo pasa de #06250f a
- * #0c2b13, y el texto pierde menos de un punto de contraste — papel va de
- * 14.54:1 a 13.57:1, papel-suave de 9.93 a 9.27, dorado de 9.99 a 9.33.
- * Todos siguen muy por encima del 4.5:1 de AA.
+ * La opacidad por defecto (4%) está pensada para no comerle contraste al
+ * texto que tenga encima: sobre los bloques verdes se usa verde-vivo a
+ * ~16%, que sigue dejando a la crema por encima de AA.
  */
 
-type Tono = 'yerba-seca' | 'dorado' | 'verde' | 'papel'
+type Tono = 'amarillo' | 'crema' | 'verde' | 'verde-vivo' | 'tinta'
 
 const TONOS: Record<Tono, string> = {
-  'yerba-seca': 'var(--color-yerba-seca)',
-  dorado: 'var(--color-dorado)',
+  amarillo: 'var(--color-amarillo)',
+  crema: 'var(--color-crema)',
   verde: 'var(--color-verde)',
-  papel: 'var(--color-papel)',
+  'verde-vivo': 'var(--color-verde-vivo)',
+  tinta: 'var(--color-tinta)',
 }
 
 const RATIO = 20 / 14
@@ -42,7 +42,7 @@ type Props = {
 }
 
 export function TexturaGreca({
-  tono = 'yerba-seca',
+  tono = 'verde',
   escala = 96,
   opacidad = 0.04,
   className = '',

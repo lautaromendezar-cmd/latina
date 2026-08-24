@@ -1,6 +1,38 @@
 # LaTiNa — dónde quedó esto
 
-Última sesión: **21-ago-2026**.
+Última sesión: **24-ago-2026**.
+
+---
+
+## ⚠ REDISEÑO COMPLETO SIN PUSHEAR
+
+Al cliente NO le gustó el sitio oscuro/premium (leyó el hero como una
+"radiografía de huesos" y el palo del manifiesto como un hueso volando).
+Quiere algo joven, en la línea de su Instagram. El 24-ago se aplicó un
+rediseño total del sistema visual sobre la misma base:
+
+- **Página CLARA** (casi blanco #fcfbf7) con bloques de color de marca:
+  hero VERDE → tira AMARILLA → manifiesto claro → Origen fotos → pilares
+  claro → presentaciones VERDE → dónde-comprar claro → B2B AMARILLO →
+  footer verde profundo. Paleta extraída del packaging.
+- **Display Archivo CONDENSADA** (wdth 78, weight 850, caps): el registro
+  de las piezas de IG, mismo archivo de fuente variable, cero requests
+  nuevas. Escala con techo moderado (preferencia de Lautaro).
+- **Muertos**: el video/poster oscuro del hero, los 3 palos del
+  manifiesto, el preloader de 2,75s (salda la deuda del presupuesto de
+  movimiento), el grano.
+- **Sobreviven**: tira marquee (pedido del cliente, con pausa WCAG),
+  relleno tipográfico con la molienda real, pin de Origen (velo más
+  liviano, 60%), acordeón de Pilares, buscador, formularios→WhatsApp,
+  toda la arquitectura y el contenido.
+- Nuevo gesto del sistema: sombra dura (5px sin blur, color tinta) en
+  CTAs y cards de énfasis; cards radius 16px, botones píldora.
+- `tsc` limpio, `next build` limpio (todas las rutas estáticas).
+
+**Para revisar**: `npm run dev` y mirar la home + las 3 internas.
+Puntos donde el gusto de Lautaro y el brief juvenil chocan (decidir
+antes de pushear): (1) la tira marquee, (2) el pin de Origen, (3) el
+tamaño del display del hero. **NO está pusheado**: push a main = deploy.
 
 ```bash
 npm install

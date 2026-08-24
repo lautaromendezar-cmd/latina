@@ -51,8 +51,8 @@ import { origen } from '@/content/site'
  */
 
 /** Los dos colores del índice lateral. Nunca opacidad: ver globals.css. */
-const ACTIVO = '#f6f1e2' // --color-papel
-const INACTIVO = '#cfc9b8' // --color-papel-suave
+const ACTIVO = '#ffc81a' // --color-amarillo
+const INACTIVO = '#fcfbf7' // --color-crema
 
 export function Origen() {
   const seccion = useRef<HTMLElement>(null)
@@ -236,13 +236,13 @@ export function Origen() {
   }, [])
 
   return (
-    <section ref={seccion} className="relative bg-yerba-oscuro text-papel">
+    <section ref={seccion} data-bloque="verde" className="relative bg-verde-profundo text-crema">
       <div ref={marco} className="relative w-full overflow-hidden">
         {/* Encabezado. En el teléfono es un bloque más, arriba de la
             primera pantalla; en desktop se apoya sobre el marco pineado y
             se queda ahí mientras pasan los tres momentos. */}
         <header className="relative z-20 px-4 pb-10 pt-24 sm:px-6 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:top-0 lg:px-10 lg:pb-0 lg:pt-10">
-          <p className="etiqueta mb-2 text-papel-suave">{origen.etiqueta}</p>
+          <p className="etiqueta mb-2 text-amarillo">{origen.etiqueta}</p>
           <h2 className="display max-w-[18ch] text-display-3">{origen.titulo}</h2>
         </header>
 
@@ -256,12 +256,12 @@ export function Origen() {
           aria-hidden="true"
           className="pointer-events-none absolute right-10 top-1/2 z-20 hidden -translate-y-1/2 items-center gap-4"
         >
-          <div className="relative h-32 w-px bg-papel/25">
-            <div data-relleno className="absolute inset-x-0 top-0 h-full bg-papel" />
+          <div className="relative h-32 w-px bg-crema/30">
+            <div data-relleno className="absolute inset-x-0 top-0 h-full bg-amarillo" />
           </div>
           <ol className="space-y-2">
             {origen.momentos.map((m) => (
-              <li key={m.id} data-nombre className="etiqueta text-papel-suave">
+              <li key={m.id} data-nombre className="etiqueta text-crema">
                 {m.lugar}
               </li>
             ))}
@@ -284,21 +284,16 @@ export function Origen() {
                     priority={i === 0}
                     className="object-cover"
                   />
-                  {/* Velo verde, no negro (MARCA.md), y plano: el brief
-                      prohíbe gradientes de color. Es el mismo recurso del
-                      hero.
-
-                      Medido sobre la banda donde cae el texto, contra el
-                      papel, tomando el 1% de píxeles más claros de cada
-                      foto: brasil 8.29:1, argentina 7.65:1, uruguay
-                      6.83:1. Mediana entre 9.5 y 10.9. Si se cambia una
-                      foto por otra más clara, hay que volver a medir: el
-                      75% está calibrado para estas tres. */}
-                  <div aria-hidden="true" className="absolute inset-0 bg-yerba-oscuro/75" />
+                  {/* Velo verde, más liviano que el 75% del sitio viejo:
+                      las fotos son diurnas y el rediseño las deja verse.
+                      El texto sigue centrado sobre la banda más pareja de
+                      cada foto; si se cambia una foto por otra con el
+                      centro muy claro, subir el velo. */}
+                  <div aria-hidden="true" className="absolute inset-0 bg-verde-profundo/60" />
                 </div>
 
                 <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center">
-                  <p data-secundario className="etiqueta mb-5 text-papel">
+                  <p data-secundario className="etiqueta mb-5 text-amarillo">
                     {m.lugar}
                   </p>
                   <h3 data-titulo-slide className="display max-w-[14ch] text-display-1">
@@ -306,7 +301,7 @@ export function Origen() {
                   </h3>
                   <p
                     data-secundario
-                    className="mt-6 max-w-[52ch] text-balance text-body-lg text-papel-suave"
+                    className="mt-6 max-w-[52ch] text-balance text-body-lg font-semibold text-crema"
                   >
                     {m.cuerpo}
                   </p>

@@ -17,24 +17,16 @@ import {
 /**
  * Dónde comprar (preview de la home).
  *
- * Esta sección está diseñada AL REVÉS de como la pedía el brief, y es a
- * propósito. Los datos scrapeados dicen: 29 puntos, 8 provincias de 24,
- * cero coordenadas, cinco direcciones de calle.
+ * Los datos mandan: 29 puntos, 8 provincias de 24, cero coordenadas.
  *
- * De ahí salen tres decisiones:
+ *  1. NO hay geolocalización ni "los 3 más cercanos": sin coordenadas no
+ *     hay distancia que calcular.
+ *  2. El estado "no hay nadie cerca" es el CAMINO PRINCIPAL, no el
+ *     borde, y tiene dos salidas con jerarquía: comprar online, o
+ *     traerla vos.
+ *  3. Las provincias se muestran ANTES de buscar.
  *
- *  1. NO hay geolocalización ni "los 3 más cercanos". Sin coordenadas no
- *     se puede calcular una distancia, y pedir permiso de ubicación para
- *     después no poder usarlo es peor que no pedirlo.
- *  2. El estado "no hay nadie cerca" es el CAMINO PRINCIPAL, no el borde:
- *     con 8 provincias cubiertas, la mayoría de las búsquedas van a caer
- *     ahí. Por eso tiene dos salidas escritas y con jerarquía —comprar
- *     online, o traerla vos— y no es un cartelito gris.
- *  3. Las provincias se muestran ANTES de buscar. Si la tuya no está en la
- *     lista, la respuesta llega en un segundo y sin escribir nada.
- *
- * Una búsqueda de retail que fracasa se convierte en un lead mayorista,
- * que es la página que hace plata.
+ * Una búsqueda de retail que fracasa se convierte en un lead mayorista.
  */
 export function DondeComprar() {
   const [consulta, setConsulta] = useState('')
@@ -52,22 +44,21 @@ export function DondeComprar() {
   const listaLocalidades = useMemo(() => localidades(), [])
 
   return (
-    <section className="border-t border-yerba-alta bg-yerba-media py-seccion">
+    <section className="border-t-2 border-tinta/10 py-seccion">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <header className="mb-10 max-w-3xl">
           <Etiqueta className="mb-4 block">{copy.etiqueta}</Etiqueta>
           <h2 className="display mb-5 text-display-2">{copy.titulo}</h2>
-          <p className="text-body-lg text-papel-suave">{copy.bajada}</p>
+          <p className="text-body-lg text-tinta-suave">{copy.bajada}</p>
         </header>
 
-        {/* Cobertura declarada sin inflarla: se dice en cuántas provincias
-            estamos, no "en todo el país". */}
-        <p className="etiqueta mb-8 text-yerba-seca">
+        {/* Cobertura declarada sin inflarla. */}
+        <p className="etiqueta mb-8 text-verde-profundo">
           {total} puntos de venta · {totalProvincias} de {PROVINCIAS_ARGENTINA} provincias
         </p>
 
         <div className="max-w-xl">
-          <label htmlFor={inputId} className="etiqueta mb-2 block text-yerba-seca">
+          <label htmlFor={inputId} className="etiqueta mb-2 block text-verde-profundo">
             {copy.etiquetaBusqueda}
           </label>
           <input
@@ -78,7 +69,7 @@ export function DondeComprar() {
             onChange={(e) => setConsulta(e.target.value)}
             placeholder={copy.placeholderBusqueda}
             autoComplete="off"
-            className="w-full border border-yerba-alta bg-yerba-oscuro px-4 py-3.5 text-papel placeholder:text-papel-suave/60"
+            className="w-full rounded-[--radius-card] border-2 border-tinta/15 bg-blanco px-4 py-3.5 text-tinta transition-colors placeholder:text-tinta-suave/70 focus:border-verde"
           />
           <datalist id={listaId}>
             {listaLocalidades.map((l) => (
@@ -97,9 +88,9 @@ export function DondeComprar() {
               <ul className="flex flex-wrap gap-2">
                 {listaProvincias.map((p) => (
                   <li key={p.nombre}>
-                    <span className="etiqueta inline-flex items-center gap-2 border border-yerba-alta px-3 py-2 text-papel">
+                    <span className="etiqueta inline-flex items-center gap-2 rounded-full border-2 border-tinta/15 bg-blanco px-3.5 py-2 text-tinta">
                       {p.nombre}
-                      <span className="text-yerba-seca">{p.cantidad}</span>
+                      <span className="text-verde-profundo">{p.cantidad}</span>
                     </span>
                   </li>
                 ))}
@@ -114,20 +105,23 @@ export function DondeComprar() {
                   ? '1 punto de venta'
                   : `${resultados.length} puntos de venta`}
               </Etiqueta>
-              <ul className="grid gap-px border border-yerba-alta bg-yerba-alta sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {resultados.slice(0, 6).map((d) => (
-                  <li key={d.id} className="bg-yerba-media p-5">
-                    <p className="etiqueta mb-2 text-yerba-seca">
+                  <li
+                    key={d.id}
+                    className="rounded-[--radius-card] border-2 border-tinta/10 bg-blanco p-5"
+                  >
+                    <p className="etiqueta mb-2 text-verde-profundo">
                       {d.localidad} · {d.provincia}
                     </p>
-                    <p className="mb-1 font-medium text-papel">{d.nombre}</p>
+                    <p className="mb-1 font-bold text-tinta">{d.nombre}</p>
                     {d.direccion && (
-                      <p className="text-sm text-papel-suave">{d.direccion}</p>
+                      <p className="text-sm text-tinta-suave">{d.direccion}</p>
                     )}
                     {d.telefono && (
                       <a
                         href={`tel:${d.telefono.replace(/[^\d+]/g, '')}`}
-                        className="mt-2 inline-block text-sm text-dorado underline underline-offset-4"
+                        className="mt-2 inline-block text-sm font-semibold text-verde-profundo underline underline-offset-4"
                       >
                         {d.telefono}
                       </a>
@@ -136,9 +130,12 @@ export function DondeComprar() {
                 ))}
               </ul>
               {resultados.length > 6 && (
-                <p className="mt-4 text-sm text-papel-suave">
+                <p className="mt-4 text-sm text-tinta-suave">
                   Y {resultados.length - 6} más en{' '}
-                  <Link href="/donde-comprar" className="text-dorado underline underline-offset-4">
+                  <Link
+                    href="/donde-comprar"
+                    className="font-semibold text-verde-profundo underline underline-offset-4"
+                  >
                     el listado completo
                   </Link>
                   .
@@ -147,18 +144,18 @@ export function DondeComprar() {
             </div>
           )}
 
-          {/* El estado que más se va a ver. Tiene el mismo peso visual que
-              el estado de éxito, no menos. */}
+          {/* El estado que más se va a ver. Mismo peso visual que el
+              estado de éxito. */}
           {sinResultados && (
-            <div className="border border-dorado/40 p-6 lg:p-8">
+            <div className="rounded-[--radius-card] border-2 border-verde bg-blanco p-6 sombra-dura lg:p-8">
               <h3 className="display mb-2 text-display-3">{copy.sinResultados.titulo}</h3>
-              <p className="mb-8 text-papel-suave">{copy.sinResultados.cuerpo}</p>
+              <p className="mb-8 text-tinta-suave">{copy.sinResultados.cuerpo}</p>
 
               <ul className="grid gap-6 sm:grid-cols-2">
                 {copy.sinResultados.opciones.map((op) => (
                   <li key={op.id} className="flex flex-col items-start gap-3">
-                    <h4 className="text-lg font-semibold text-papel">{op.titulo}</h4>
-                    <p className="flex-1 text-sm text-papel-suave">{op.cuerpo}</p>
+                    <h4 className="text-lg font-bold text-tinta">{op.titulo}</h4>
+                    <p className="flex-1 text-sm text-tinta-suave">{op.cuerpo}</p>
                     <Boton
                       href={op.href}
                       externo={op.externo}

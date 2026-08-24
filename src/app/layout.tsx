@@ -11,8 +11,9 @@ import { meta, marca, nav } from '@/content/site'
 
 /**
  * Display: Archivo variable. Un solo archivo cubre wght 100-900 y wdth
- * 62-125, así que el eje ancho del sistema (110 en desktop, 100 en
- * mobile, ver .display en globals.css) no cuesta una request extra.
+ * 62-125. El rediseño usa el extremo CONDENSADO del eje (wdth 78, ver
+ * .display en globals.css): el registro de las piezas de Instagram sin
+ * costear una request extra.
  */
 const archivo = Archivo({
   subsets: ['latin'],
@@ -57,8 +58,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#06250f',
-  colorScheme: 'dark',
+  themeColor: '#17813a',
+  colorScheme: 'light',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a
           href="#contenido"
-          className="sr-only rounded-full focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-dorado focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-yerba-oscuro"
+          className="sr-only rounded-full focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-amarillo focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-tinta"
         >
           {nav.saltarAlContenido}
         </a>
@@ -80,9 +81,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Footer />
         <WhatsAppFlotante />
-
-        {/* Grano al final: va arriba de todo pero no participa del flujo. */}
-        <div className="grano" aria-hidden="true" />
       </body>
     </html>
   )

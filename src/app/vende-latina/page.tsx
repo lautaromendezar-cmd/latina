@@ -65,50 +65,40 @@ export default function VendeLatinaPage() {
         <ul className="grid gap-10 lg:grid-cols-3 lg:gap-8">
           {ARGUMENTOS.map((a) => (
             <li key={a.titulo}>
-              <Greca tono="dorado" alto={10} opacidad={0.5} className="mb-5 max-w-[7rem]" />
+              <Greca tono="amarillo" alto={10} opacidad={0.9} className="mb-5 max-w-[7rem]" />
               <h3 className="display mb-3 text-display-3">{a.titulo}</h3>
-              <p className="text-papel-suave">{a.cuerpo}</p>
+              <p className="text-tinta-suave">{a.cuerpo}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* --- la escalera, sobre papel para cortar el verde --- */}
-      <section className="bg-papel text-yerba-oscuro">
-        <Greca tono="verde" alto={12} opacidad={0.35} />
+      {/* --- la escalera, en bloque amarillo: es el argumento de plata --- */}
+      <section className="bg-amarillo text-tinta">
+        <Greca tono="verde" alto={12} opacidad={0.5} />
         <div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-seccion sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
           <div>
-            <Etiqueta fondo="papel" className="mb-4 block">
-              Escalas de compra
-            </Etiqueta>
+            <p className="etiqueta mb-4 block">Escalas de compra</p>
             <h2 className="display mb-6 text-display-2">Cuanto más llevás, menos te sale el kilo</h2>
-            <p className="mb-8 max-w-[46ch] text-body-lg text-verde">
+            <p className="mb-8 max-w-[46ch] text-body-lg font-semibold">
               La escalera es siempre sobre el paquete de 1 kg. El ½ kg no tiene precio
               mayorista.
             </p>
             {preciosPublicados ? (
-              <Etiqueta fondo="papel" as="p">
-                {piePrecios}
-              </Etiqueta>
+              <p className="etiqueta">{piePrecios}</p>
             ) : (
-              <p className="text-sm text-verde">
+              <p className="text-sm font-semibold">
                 Los precios cambian seguido, así que no los publicamos: pedí la lista del día y
                 te la pasamos al momento.
               </p>
             )}
           </div>
 
-          <ol className="border-t border-verde/25">
-            {escalas.map((escala, i) => (
-              <li
-                key={escala.id}
-                className="flex items-baseline justify-between gap-4 border-b border-verde/25 py-5"
-              >
-                <span className="flex items-baseline gap-4">
-                  <span className="etiqueta text-verde/70">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="display text-display-3">{escala.nombre}</span>
-                </span>
-                <span className="text-right text-sm text-verde">{escala.detalle}</span>
+          <ol className="divide-y-2 divide-tinta/20">
+            {escalas.map((escala) => (
+              <li key={escala.id} className="flex items-baseline justify-between gap-4 py-5">
+                <span className="display text-display-3">{escala.nombre}</span>
+                <span className="text-right text-sm font-semibold">{escala.detalle}</span>
               </li>
             ))}
           </ol>
@@ -130,7 +120,7 @@ export default function VendeLatinaPage() {
           <div>
             <Etiqueta className="mb-4 block">El producto</Etiqueta>
             <h2 className="display mb-6 text-display-2">Padrón uruguayo, sin T.A.C.C.</h2>
-            <p className="mb-8 max-w-[46ch] text-body-lg text-papel-suave">
+            <p className="mb-8 max-w-[46ch] text-body-lg text-tinta-suave">
               Yerba mate elaborada despalada, libre de gluten, de industria brasilera. Molienda
               fina y mucho polvo: es la que le vas a vender al que toma muchos mates por día.
             </p>
@@ -142,12 +132,12 @@ export default function VendeLatinaPage() {
       </section>
 
       {/* --- formulario --- */}
-      <section id="formulario" className="border-t border-yerba-alta bg-yerba-media">
+      <section id="formulario" className="border-t-2 border-tinta/10">
         <div className="mx-auto max-w-[1400px] px-4 py-seccion sm:px-6 lg:px-10">
           <div className="mb-10 max-w-2xl">
             <Etiqueta className="mb-4 block">Pedí la lista</Etiqueta>
             <h2 className="display mb-5 text-display-2">Contanos qué comercio tenés</h2>
-            <p className="text-body-lg text-papel-suave">
+            <p className="text-body-lg text-tinta-suave">
               Te pasamos la lista al día, los plazos de entrega y cómo llega a tu zona.
             </p>
           </div>
@@ -161,13 +151,13 @@ export default function VendeLatinaPage() {
             />
           </div>
 
-          <p className="mt-10 text-sm text-papel-suave">
+          <p className="mt-10 text-sm text-tinta-suave">
             Si preferís escribir directo:{' '}
             <a
               href={`https://wa.me/${contacto.whatsappE164}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-dorado underline underline-offset-4"
+              className="font-semibold text-verde-profundo underline underline-offset-4"
             >
               {contacto.whatsapp}
             </a>

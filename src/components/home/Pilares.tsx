@@ -24,10 +24,10 @@ import { pilares } from '@/content/site'
  * padrón, sin T.A.C.C.—, no pasos de un proceso, y numerar algo que no es
  * secuencia está en los antipatrones del brief.
  *
- * Las barras van en dorado porque en este sistema el dorado es ACCIÓN, y
- * son justamente lo único clickeable de la sección. La abierta va en
- * dorado pleno y las cerradas en dorado-oscuro, así el estado se ve sin
- * depender del ancho.
+ * Las barras van en amarillo porque en este sistema el amarillo es
+ * ACCIÓN, y son justamente lo único clickeable de la sección. La abierta
+ * va en amarillo pleno y las cerradas en amarillo-oscuro, así el estado
+ * se ve sin depender del ancho.
  *
  * ACCESIBILIDAD, y por eso está armado así:
  *  · Son `button` de verdad con `aria-expanded` y `aria-controls`, no
@@ -47,8 +47,8 @@ export function Pilares() {
   const idBase = useId()
 
   return (
-    <section className="relative flex flex-col justify-center overflow-hidden border-t border-yerba-alta py-seccion lg:min-h-[100svh]">
-      <TexturaGreca tono="yerba-seca" escala={132} opacidad={0.04} />
+    <section className="relative flex flex-col justify-center overflow-hidden py-seccion lg:min-h-[100svh]">
+      <TexturaGreca tono="verde" escala={132} opacidad={0.05} />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <header className="mb-12 max-w-2xl lg:mb-16">
@@ -83,20 +83,20 @@ export function Pilares() {
                   onFocus={() => setAbierto(i)}
                   aria-expanded={activo}
                   aria-controls={panelId}
-                  className={`flex w-20 shrink-0 items-center justify-center transition-colors duration-300 ${
-                    activo ? 'bg-dorado' : 'bg-dorado-oscuro hover:bg-dorado'
+                  className={`flex w-20 shrink-0 items-center justify-center rounded-l-[--radius-card] transition-colors duration-300 ${
+                    activo ? 'bg-amarillo' : 'bg-amarillo-oscuro hover:bg-amarillo'
                   }`}
                 >
-                  <span className="etiqueta whitespace-nowrap text-yerba-oscuro [transform:rotate(180deg)] [writing-mode:vertical-rl]">
+                  <span className="etiqueta whitespace-nowrap text-tinta [transform:rotate(180deg)] [writing-mode:vertical-rl]">
                     {item.pestana}
                   </span>
                 </button>
 
                 <div
                   id={panelId}
-                  className="flex min-w-0 flex-1 overflow-hidden border border-l-0 border-yerba-alta bg-yerba-media"
+                  className="flex min-w-0 flex-1 overflow-hidden rounded-r-[--radius-card] border-2 border-l-0 border-tinta/10 bg-blanco"
                 >
-                  <div className="relative w-[42%] min-w-0 shrink-0 bg-yerba-oscuro">
+                  <div className="relative w-[42%] min-w-0 shrink-0 bg-verde">
                     <Image
                       src={item.imagen}
                       alt={item.alt}
@@ -116,7 +116,7 @@ export function Pilares() {
                       ni partido en tres líneas. */}
                   <div className="flex min-w-0 flex-col justify-center p-8 xl:p-12">
                     <h3 className="display mb-5 text-display-3">{item.titulo}</h3>
-                    <p className="max-w-[46ch] text-body-lg text-papel-suave">
+                    <p className="max-w-[46ch] text-body-lg text-tinta-suave">
                       {item.cuerpo}
                     </p>
                   </div>
@@ -129,8 +129,11 @@ export function Pilares() {
         {/* ---------- mobile: los tres abiertos, apilados ---------- */}
         <ul className="space-y-10 lg:hidden">
           {pilares.items.map((item) => (
-            <li key={item.id} className="border border-yerba-alta bg-yerba-media">
-              <div className="relative aspect-[16/10] bg-yerba-oscuro">
+            <li
+              key={item.id}
+              className="overflow-hidden rounded-[--radius-card] border-2 border-tinta/10 bg-blanco"
+            >
+              <div className="relative aspect-[16/10] bg-verde">
                 <Image
                   src={item.imagen}
                   alt={item.alt}
@@ -140,11 +143,11 @@ export function Pilares() {
                 />
               </div>
               <div className="p-6">
-                <p className="etiqueta mb-4 w-fit bg-dorado px-3 py-1.5 text-yerba-oscuro">
+                <p className="etiqueta mb-4 w-fit rounded-full bg-amarillo px-3.5 py-1.5 text-tinta">
                   {item.pestana}
                 </p>
                 <h3 className="display mb-4 text-display-3">{item.titulo}</h3>
-                <p className="text-papel-suave">{item.cuerpo}</p>
+                <p className="text-tinta-suave">{item.cuerpo}</p>
               </div>
             </li>
           ))}

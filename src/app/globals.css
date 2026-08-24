@@ -1,82 +1,90 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   LaTiNa · tokens
+   LaTiNa · tokens — rediseño "diurno" (ago-2026)
 
-   Los hex salen del packaging (ver ../contenido-latina/MARCA.md), no del
-   sitio viejo. Son los mismos que usan las piezas de Instagram: el
-   recorrido real del cliente es posteo → sitio, y no puede cambiar de
-   marca en el camino.
+   El sistema anterior era 85% verde oscurísimo y el cliente lo leyó
+   como una radiografía. Este sale del packaging y del Instagram de la
+   marca, que es el recorrido real del visitante: posteo → sitio.
+   Página CLARA (el paquete es blanco), bloques de verde pasto y una
+   banda amarilla. El humor lo pone la foto y el copy, no la solemnidad.
 
-   Contrastes medidos (WCAG 2.1, texto normal necesita 4.5:1):
-     papel / yerba-oscuro ........ 14.54:1  AA
-     dorado / yerba-oscuro ........ 9.99:1  AA
-     yerba-oscuro / dorado ........ 9.99:1  AA   (texto dentro del botón)
-     yerba-seca / yerba-oscuro .... 5.86:1  AA
-     yerba-oscuro / papel ........ 14.54:1  AA
-     verde / papel ................ 7.44:1  AA
-     sello / papel ................ 4.89:1  AA
-     ─── los que NO pasan, y que por eso son reglas de abajo ───
-     dorado / papel ............... 1.45:1
-     verde / yerba-oscuro ......... 1.95:1
-     sello / yerba-oscuro ......... 2.98:1
-     yerba-seca / papel ........... 2.48:1
+   Contrastes medidos (WCAG 2.1, texto normal 4.5:1, grande 3:1):
+     tinta / crema ................ 12.9:1  AA
+     tinta-suave / crema ........... 7.1:1  AA
+     verde-profundo / crema ........ 9.2:1  AA
+     crema / verde ................. 4.7:1  AA
+     tinta / amarillo .............. 8.6:1  AA
+     crema / verde-profundo ........ 9.0:1  AA
+     amarillo / verde-profundo ..... 6.2:1  AA
+     sello / crema ................. 5.0:1  AA
+     ─── los que NO pasan, y que por eso son reglas ───
+     amarillo / crema .............. 1.5:1   nunca texto sobre claro
+     amarillo / verde .............. 3.1:1   sólo display grande sobre verde
+     verde / crema ................. 4.3:1   sólo display grande sobre claro
+   Regla heredada que sigue: NADA de opacidad para atenuar texto.
+   Sobre verde no hay "texto secundario" por color: es crema o no va.
    ------------------------------------------------------------------ */
 @theme {
   /* --- superficie --- */
-  --color-yerba-oscuro: #06250f; /* fondo dominante, ~85% de la superficie */
-  --color-yerba-media: #0a2e17; /* superficie elevada sobre el fondo */
-  --color-yerba-alta: #0e3b1f; /* bordes y separadores sobre oscuro */
+  /* Casi blanco, no crema: preferencia de Lautaro (LGA, 24/8) y además
+     el paquete es blanco. El escalón con las cards lo dan los bordes. */
+  --color-crema: #fcfbf7; /* fondo de página */
+  --color-blanco: #ffffff; /* superficie elevada (cards, inputs) */
+  --color-verde: #17813a; /* bloque de marca; crema encima pasa AA */
+  --color-verde-vivo: #23a24a; /* decoración sobre verde, nunca texto */
+  --color-verde-profundo: #0c5223; /* hover, footer, etiquetas sobre claro */
 
   /* --- tinta --- */
-  --color-papel: #f6f1e2;
-  --color-papel-suave: #cfc9b8; /* texto secundario sobre oscuro */
+  --color-tinta: #0b3a1c; /* texto sobre claro y sobre amarillo */
+  --color-tinta-suave: #33593f; /* texto secundario sobre claro */
 
   /* --- acción --- */
-  --color-dorado: #f4c430; /* acción, nunca decoración */
-  --color-dorado-claro: #ffd957;
-  --color-dorado-oscuro: #e0a800;
+  --color-amarillo: #ffc81a; /* acción y banda; nunca texto sobre claro */
+  --color-amarillo-claro: #ffd84d;
+  --color-amarillo-oscuro: #e8b000;
 
-  /* --- estructura --- */
-  --color-verde: #14592f; /* NUNCA es texto sobre el fondo oscuro */
-  --color-yerba-seca: #94a06a; /* sólo vive sobre oscuro */
-  --color-sello: #b8402b; /* sólo vive sobre papel */
+  /* --- sello --- */
+  --color-sello: #b8402b; /* SÓLO errores de formulario */
 
   /* --- tipografía --- */
-  --font-display: var(--fuente-display), "Arial Black", system-ui, sans-serif;
+  --font-display: var(--fuente-display), "Arial Narrow", "Arial Black", system-ui, sans-serif;
   --font-sans: var(--fuente-sans), system-ui, -apple-system, sans-serif;
 
   /* --- escala --- */
-  /* Rebalanceada: el display estaba en 152px contra un cuerpo de 22px
-     (casi 7x). Aplastaba todo lo demas y el hero no entraba en pantalla.
-     Ahora el salto es ~4.5x, que sigue siendo grande pero deja respirar
-     al resto de la escala. */
-  --text-display-1: clamp(2.25rem, 6.6vw, 5.75rem);
-  --text-display-1--line-height: 0.94;
-  --text-display-2: clamp(1.75rem, 4.6vw, 3.75rem);
-  --text-display-2--line-height: 0.98;
-  --text-display-3: clamp(1.375rem, 2.6vw, 2.125rem);
-  --text-display-3--line-height: 1.08;
+  /* Condensada, y con techo moderado: a Lautaro los displays "enormes"
+     no le gustan (LGA, 24/8). El registro poster lo pone la condensada
+     en caps, no el tamaño. */
+  --text-display-1: clamp(2.5rem, 6.8vw, 6rem);
+  --text-display-1--line-height: 0.92;
+  --text-display-2: clamp(1.875rem, 4.6vw, 3.875rem);
+  --text-display-2--line-height: 0.95;
+  --text-display-3: clamp(1.5rem, 2.8vw, 2.375rem);
+  --text-display-3--line-height: 1.02;
   --text-dato: clamp(3rem, 12vw, 9rem);
   --text-dato--line-height: 0.85;
   --text-body-lg: clamp(1.0625rem, 1.15vw, 1.25rem);
   --text-body-lg--line-height: 1.55;
   --text-body: 1rem;
   --text-body--line-height: 1.6;
-  /* 12px, no 11: a 11 con 0.14em de tracking las especificaciones del
-     hero se perdian sobre la foto. */
   --text-etiqueta: 0.75rem;
   --text-etiqueta--line-height: 1.2;
 
   /* --- ritmo --- */
   --spacing-seccion: clamp(5rem, 12vh, 10rem);
+
+  /* --- radios ---
+     Regla de formas del sistema: botones y chips en píldora (999px),
+     cards e inputs en 16px, imágenes de card en 16px. Nada cuadrado
+     salvo los bloques a sangre. */
+  --radius-card: 1rem;
 }
 
 /* ------------------------------------------------------------------
    Base
    ------------------------------------------------------------------ */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -85,14 +93,10 @@ html {
 }
 
 body {
-  background-color: var(--color-yerba-oscuro);
-  color: var(--color-papel);
+  background-color: var(--color-crema);
+  color: var(--color-tinta);
   font-family: var(--font-sans);
   font-size: var(--text-body);
-  /* 500, no 400. Casi todo el texto del sitio es claro sobre verde muy
-     oscuro, y ahí el 400 de Montserrat se deshilacha: el trazo fino pierde
-     cuerpo contra el fondo. Medio paso de peso lo devuelve sin que el
-     texto se vuelva pesado. */
   font-weight: 500;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -100,14 +104,18 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-dorado);
-  color: var(--color-yerba-oscuro);
+  background-color: var(--color-amarillo);
+  color: var(--color-tinta);
 }
 
-/* El foco por defecto del browser desaparece sobre el verde oscuro. */
 :focus-visible {
-  outline: 2px solid var(--color-dorado);
+  outline: 2px solid var(--color-verde-profundo);
   outline-offset: 3px;
+}
+
+/* Sobre los bloques verdes el foco verde desaparece. */
+[data-bloque="verde"] :focus-visible {
+  outline-color: var(--color-amarillo);
 }
 
 button,
@@ -121,224 +129,41 @@ textarea {
 /* ------------------------------------------------------------------
    Display
 
-   Archivo variable: un solo archivo cubre los dos ejes. wdth 110 arriba
-   de 1024px; 100 abajo de 640px, porque "EL MATE CAMBIA" en expanded 800
-   no entra en los ~320px útiles de un teléfono de 360.
+   Archivo variable, ahora por el OTRO extremo del eje: wdth 78
+   (condensada) con peso 850. Es el registro de las piezas de
+   Instagram — condensada, alta, en mayúsculas — con el mismo único
+   archivo de fuente que ya cargaba el sitio.
    ------------------------------------------------------------------ */
 .display {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-variation-settings: "wdth" 100;
+  font-weight: 850;
+  font-variation-settings: "wdth" 78;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.005em;
   font-feature-settings: "tnum";
   text-wrap: balance;
 }
 
-@media (min-width: 640px) {
-  .display {
-    font-variation-settings: "wdth" 106;
-  }
-}
-
-@media (min-width: 1024px) {
-  .display {
-    font-variation-settings: "wdth" 110;
-  }
-}
-
-/* Contorno. Regla del brief: si no se rellena o no significa nada, va sólida.
-   En Fase 1 queda estático; el relleno con scrub entra en Fase 3. */
+/* Contorno: hereda el color del texto, así funciona sobre claro y
+   sobre verde. Sólo existe si algo lo rellena (manifiesto). */
 .contorno {
   color: transparent;
-  -webkit-text-stroke: 1px var(--color-papel);
+  -webkit-text-stroke: 1.5px currentColor;
   paint-order: stroke fill;
 }
 
 @media (min-width: 1024px) {
   .contorno {
-    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-width: 2.5px;
   }
 }
 
 /* ------------------------------------------------------------------
-   Preloader · CSS puro, sin una línea de JavaScript
-
-   Antes lo montaba React en un efecto, o sea DESPUÉS de hidratar: el hero
-   alcanzaba a pintarse, aparecía el velo y volvía el hero. Un preloader
-   que se ve después de la página no es un preloader.
-
-   Hecho con keyframes, el velo está en el HTML del servidor y se pinta en
-   el primer frame. Y como una animación de CSS siempre termina, no puede
-   quedarse trabado: no hay estado en el que el sitio quede tapado porque
-   algo no cargó.
-
-   TIEMPOS (2,75s en total, una sola vez por sesión):
-     0,00 – 0,70  el isotipo entra en escala
-     0,15 – 1,35  el aro dorado se dibuja  ← la vuelta completa, sin apuro
-     0,50 – 1,25  el mate se ceba de abajo hacia arriba
-     1,05 – 1,60  se abre la greca del packaging
-     1,25 – 1,70  entra el slogan
-     1,35 – 1,85  DESCANSO: medio segundo con la marca entera a la vista
-     1,85 – 2,15  la marca se va
-     1,95 – 2,75  el velo se parte en dos hojas
-   El descanso es el punto: antes el aro cerraba a los 0,8s y a los 1,05s
-   ya se estaba yendo todo, así que el círculo completo se veía un cuarto
-   de segundo y se leía como que nunca había cerrado.
-   ------------------------------------------------------------------ */
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  pointer-events: none;
-  animation: preloader-salir 0s linear 2.75s forwards;
-}
-
-@keyframes preloader-salir {
-  to {
-    visibility: hidden;
-  }
-}
-
-/* las dos hojas que al final se abren */
-.preloader__hoja {
-  position: absolute;
-  inset-inline: 0;
-  height: 50%;
-  background-color: var(--color-yerba-oscuro);
-  animation-duration: 0.8s;
-  animation-delay: 1.95s;
-  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-  animation-fill-mode: both;
-}
-
-.preloader__hoja--arriba {
-  top: 0;
-  animation-name: preloader-hoja-arriba;
-}
-
-.preloader__hoja--abajo {
-  bottom: 0;
-  animation-name: preloader-hoja-abajo;
-}
-
-@keyframes preloader-hoja-arriba {
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes preloader-hoja-abajo {
-  to {
-    transform: translateY(100%);
-  }
-}
-
-.preloader__marca {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  animation: preloader-marca-salir 0.3s ease-in 1.85s both;
-}
-
-@keyframes preloader-marca-salir {
-  to {
-    opacity: 0;
-  }
-}
-
-/* 1 · el isotipo entra en escala */
-.preloader__logo {
-  animation: preloader-logo 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes preloader-logo {
-  from {
-    transform: scale(0.72);
-    opacity: 0;
-  }
-}
-
-/* 2 · el aro dorado se dibuja alrededor */
-.preloader__aro {
-  stroke-dasharray: 302;
-  animation: preloader-aro 1.2s cubic-bezier(0.5, 0, 0.2, 1) 0.15s both;
-}
-
-@keyframes preloader-aro {
-  from {
-    stroke-dashoffset: 302;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* 3 · el mate se ceba: la capa sube y tiñe el isotipo */
-.preloader__fill {
-  position: absolute;
-  inset: 0;
-  animation: preloader-fill 0.75s cubic-bezier(0.33, 1, 0.68, 1) 0.5s both;
-}
-
-@keyframes preloader-fill {
-  from {
-    transform: translateY(100%);
-  }
-}
-
-/* 4 · la greca del packaging se abre desde el centro */
-.preloader__greca {
-  transform-origin: center;
-  animation: preloader-greca 0.55s cubic-bezier(0.33, 1, 0.68, 1) 1.05s both;
-}
-
-@keyframes preloader-greca {
-  from {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-}
-
-.preloader__slogan {
-  animation: preloader-slogan 0.45s cubic-bezier(0.33, 1, 0.68, 1) 1.25s both;
-}
-
-@keyframes preloader-slogan {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
-/* Ya lo vio en esta sesión: se saca de una, sin animar. */
-.preloader[data-visto="1"] {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .preloader {
-    display: none;
-  }
-}
-
-/* ------------------------------------------------------------------
-   Etiquetas
-
-   El registro de "ficha técnica" sale de Montserrat traqueado, no de una
-   mono: MARCA.md prohíbe una tercera familia, y un archivo de fuente
-   menos ayuda al piso de Lighthouse en mobile con video en el hero.
+   Etiquetas — Montserrat traqueado, sin tercera familia.
    ------------------------------------------------------------------ */
 .etiqueta {
   font-family: var(--font-sans);
-  /* 600: tiene que seguir leyéndose como un escalón por encima del cuerpo,
-     que ahora está en 500. Y con 0.14em de tracking, el peso extra es lo
-     que evita que la etiqueta se desarme. */
-  font-weight: 600;
+  font-weight: 700;
   font-size: var(--text-etiqueta);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -346,22 +171,22 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
-   La tira · la marquesina de especificaciones (sección propia, debajo
-   del hero)
+   Sombra dura — el gesto "sticker" del rediseño.
 
-   El bucle desplaza UNA copia entera: la pista tiene tres copias
-   idénticas y la animación la corre -33.33%, así que el frame final es
-   idéntico al inicial y no hay costura. Con dos copias, en un monitor más
-   ancho que una copia se ve el hueco.
+   Un solo tipo de sombra en todo el sitio: dura, sin blur, del color
+   de la tinta. Es la sombra de las piezas gráficas de la marca, no la
+   elevación difusa de una app.
+   ------------------------------------------------------------------ */
+.sombra-dura {
+  box-shadow: 5px 5px 0 0 var(--color-tinta);
+}
 
-   Velocidad, no duración: la duración cambia por breakpoint porque el
-   ancho de una copia cambia con el cuerpo tipográfico. Queda en ~45px/s
-   en teléfono y ~52px/s en desktop; sostenido, no una animación que
-   llama la atención sobre sí misma.
+.sombra-dura-chica {
+  box-shadow: 3px 3px 0 0 var(--color-tinta);
+}
 
-   `transform` sólo acá y sin estado inicial declarado: GSAP no toca esta
-   sección, pero la regla de la casa es no dejarle transforms puestos
-   desde el CSS para leer mal.
+/* ------------------------------------------------------------------
+   La tira · marquesina de especificaciones (amarilla, con pausa)
    ------------------------------------------------------------------ */
 .tira-pista {
   --tira-dur: 20s;
@@ -399,29 +224,17 @@ textarea {
   align-items: center;
 }
 
-/* Más peso que la etiqueta traqueada que había antes: la display de la
-   marca (Archivo 800). Una tira en movimiento se lee de un vistazo o no se
-   lee, y el peso es lo que la sostiene mientras pasa.
-
-   El tracking va en ~0, no en el -0.03em del display: en movimiento las
-   letras apretadas se empastan. */
 .tira-item {
   display: flex;
   align-items: center;
   font-family: var(--font-display);
-  font-weight: 800;
-  font-variation-settings: "wdth" 100;
-  font-size: clamp(1.0625rem, 2.2vw, 1.625rem);
+  font-weight: 850;
+  font-variation-settings: "wdth" 82;
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
   line-height: 1;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   white-space: nowrap;
-}
-
-@media (min-width: 1024px) {
-  .tira-item {
-    font-variation-settings: "wdth" 106;
-  }
 }
 
 .tira-rombo {
@@ -431,12 +244,7 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
-   Origen · el título que se rearma letra por letra
-
-   Las dos clases se las pone SplitText desde el componente. El renglón
-   recorta: la letra sube desde atrás de su propia línea, no desde el
-   borde de la pantalla, que es lo que hace que se lea como que estaba
-   ahí y se acomoda.
+   Origen · el título que se rearma letra por letra (SplitText)
    ------------------------------------------------------------------ */
 .clip-linea {
   overflow: hidden;
@@ -447,48 +255,8 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
-   Grano · sobre el fondo oscuro. Sin gradientes de color.
+   Cutouts ambiente
    ------------------------------------------------------------------ */
-.grano {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 140px 140px;
-}
-
-/* ------------------------------------------------------------------
-   Indicador de scroll
-   Se apaga solo con prefers-reduced-motion: el bloque de abajo le pone
-   duración 0.01ms a toda animación.
-   ------------------------------------------------------------------ */
-.indicador-baja {
-  animation: indicador-baja 1.8s ease-in-out infinite;
-}
-
-@keyframes indicador-baja {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(3px);
-  }
-}
-
-/* ------------------------------------------------------------------
-   Cutouts ambiente · dos planos, no tres.
-   aria-hidden + pointer-events:none es piso, no opción.
-   ------------------------------------------------------------------ */
-/* Sin `position` a propósito: cada cutout decide cómo se ubica.
-   Los que van clavados a una esquina usan la utilidad `absolute`; el
-   paquete del hero se centra con flexbox contra la caja del texto.
-   Centrarlo con `top-1/2 -translate-y-1/2` sería lo natural, pero deja un
-   `transform` puesto desde el CSS y ahí GSAP lee el `translateY(-50%)`
-   como px al animar la deriva. Flexbox no toca `transform`. */
 .cutout {
   pointer-events: none;
   user-select: none;
@@ -497,25 +265,20 @@ textarea {
 
 .cutout--fondo {
   filter: blur(8px);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .cutout--frente {
   opacity: 1;
 }
 
-/* Más atrás todavía: hojas que sólo tienen que romper el fondo plano.
-   Si se notan, están mal calibradas. */
 .cutout--tenue {
   filter: blur(14px);
-  opacity: 0.16;
+  opacity: 0.22;
 }
 
 /* ------------------------------------------------------------------
-   Movimiento reducido
-
-   Esto es la red, no el diseño: cada sección tiene además su estado
-   estático propio. Acá sólo se apagan deriva, parallax y transiciones.
+   Movimiento reducido — la red, además del estado propio por sección.
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -531,10 +294,6 @@ textarea {
     display: none;
   }
 
-  /* La tira, quieta: no alcanza con apagar la animación —quedaría una fila
-     cortada por el borde—. Las copias se esconden con `motion-reduce`
-     desde el markup y la que queda envuelve y se centra, que es la misma
-     lista que leería un lector de pantalla. */
   .tira-pista {
     animation: none;
     width: auto;
@@ -547,8 +306,6 @@ textarea {
     row-gap: 0.4rem;
   }
 
-  /* El rombo de cierre sólo tiene sentido empalmando con la copia
-     siguiente. Sin movimiento, cuelga. */
   .tira-grupo > li:last-child .tira-rombo {
     display: none;
   }

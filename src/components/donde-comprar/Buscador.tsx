@@ -84,8 +84,8 @@ export function Buscador() {
     <div className="mx-auto max-w-[1400px] px-4 py-seccion sm:px-6 lg:px-10">
       {/* --- cobertura, sin inflarla --- */}
       <div className="mb-10 flex flex-wrap items-baseline gap-x-8 gap-y-2">
-        <p className="display text-display-3 text-dorado">
-          {total} <span className="text-papel">puntos de venta</span>
+        <p className="display text-display-3 text-verde">
+          {total} <span className="text-tinta">puntos de venta</span>
         </p>
         <Etiqueta as="p">
           En {totalProvincias} de {PROVINCIAS_ARGENTINA} provincias
@@ -94,7 +94,7 @@ export function Buscador() {
 
       {/* --- búsqueda --- */}
       <div className="max-w-xl">
-        <label htmlFor={inputId} className="etiqueta mb-2 block text-yerba-seca">
+        <label htmlFor={inputId} className="etiqueta mb-2 block text-verde-profundo">
           Buscá tu localidad
         </label>
         <div className="relative">
@@ -106,13 +106,13 @@ export function Buscador() {
             onChange={(e) => setConsulta(e.target.value)}
             placeholder="Paraná, Olavarría, Rafaela…"
             autoComplete="off"
-            className="w-full border border-yerba-alta bg-yerba-media px-4 py-3.5 pr-12 text-papel transition-colors placeholder:text-papel-suave/50 focus:border-dorado"
+            className="w-full rounded-[--radius-card] border-2 border-tinta/15 bg-blanco px-4 py-3.5 pr-12 text-tinta transition-colors placeholder:text-tinta-suave/70 focus:border-verde"
           />
           {consulta && (
             <button
               type="button"
               onClick={() => setConsulta('')}
-              className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-papel-suave hover:text-dorado"
+              className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-tinta-suave hover:text-verde"
             >
               <span className="sr-only">Borrar la búsqueda</span>
               <span aria-hidden="true">×</span>
@@ -140,16 +140,14 @@ export function Buscador() {
                   type="button"
                   aria-pressed={activa}
                   onClick={() => setProvincia(activa ? null : p.nombre)}
-                  className={`etiqueta inline-flex items-center gap-2 rounded-full border px-4 py-2 transition-colors ${
+                  className={`etiqueta inline-flex items-center gap-2 rounded-full border-2 px-4 py-2 transition-colors ${
                     activa
-                      ? 'border-dorado bg-dorado text-yerba-oscuro'
-                      : 'border-yerba-alta text-papel hover:border-yerba-seca'
+                      ? 'border-tinta bg-amarillo text-tinta'
+                      : 'border-tinta/15 bg-blanco text-tinta hover:border-verde'
                   }`}
                 >
                   {p.nombre}
-                  <span className={activa ? 'text-yerba-oscuro/70' : 'text-yerba-seca'}>
-                    {p.cantidad}
-                  </span>
+                  <span className="text-verde-profundo">{p.cantidad}</span>
                 </button>
               </li>
             )
@@ -171,7 +169,7 @@ export function Buscador() {
             <button
               type="button"
               onClick={limpiar}
-              className="etiqueta text-dorado underline underline-offset-4"
+              className="etiqueta text-verde-profundo underline underline-offset-4"
             >
               Ver todos
             </button>
@@ -179,22 +177,23 @@ export function Buscador() {
         </div>
 
         {!vacio && (
-          <ul
-            ref={grilla}
-            className="grid gap-px border border-yerba-alta bg-yerba-alta sm:grid-cols-2 lg:grid-cols-3"
-          >
+          <ul ref={grilla} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {resultados.map((d) => (
-              <li key={d.id} data-ficha className="bg-yerba-oscuro p-5">
+              <li
+                key={d.id}
+                data-ficha
+                className="rounded-[--radius-card] border-2 border-tinta/10 bg-blanco p-5"
+              >
                 <Etiqueta className="mb-2 block">
                   {d.localidad} · {d.provincia}
                 </Etiqueta>
-                <p className="mb-1 font-medium text-papel">{d.nombre}</p>
-                {d.direccion && <p className="text-sm text-papel-suave">{d.direccion}</p>}
+                <p className="mb-1 font-bold text-tinta">{d.nombre}</p>
+                {d.direccion && <p className="text-sm text-tinta-suave">{d.direccion}</p>}
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                   {d.telefono && (
                     <a
                       href={`tel:${d.telefono.replace(/[^\d+]/g, '')}`}
-                      className="text-sm text-dorado underline underline-offset-4"
+                      className="text-sm font-semibold text-verde-profundo underline underline-offset-4"
                     >
                       {d.telefono}
                     </a>
@@ -204,7 +203,7 @@ export function Buscador() {
                       href={`https://instagram.com/${d.instagram}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-papel-suave underline underline-offset-4 hover:text-papel"
+                      className="text-sm text-tinta-suave underline underline-offset-4 hover:text-tinta"
                     >
                       @{d.instagram}
                     </a>
@@ -217,21 +216,21 @@ export function Buscador() {
 
         {/* El estado que más se va a ver. Mismo peso que el de éxito. */}
         {vacio && (
-          <div className="border border-dorado/40 bg-yerba-media p-6 lg:p-10">
+          <div className="rounded-[--radius-card] border-2 border-verde bg-blanco p-6 sombra-dura lg:p-10">
             <h2 className="display mb-3 text-display-3">
               Todavía no llegamos a {consulta.trim() || provincia}.
             </h2>
-            <p className="mb-8 max-w-[46ch] text-papel-suave">
+            <p className="mb-8 max-w-[46ch] text-tinta-suave">
               Somos {total} puntos en {totalProvincias} provincias y la lista crece todos los
               meses. Mientras tanto hay dos formas de tomar LaTiNa igual.
             </p>
 
-            <Greca tono="dorado" alto={10} opacidad={0.45} className="mb-8 max-w-xs" />
+            <Greca tono="amarillo" alto={10} opacidad={0.9} className="mb-8 max-w-xs" />
 
             <ul className="grid gap-8 sm:grid-cols-2">
               <li className="flex flex-col items-start gap-3">
-                <h3 className="text-lg font-semibold text-papel">Pedila online</h3>
-                <p className="flex-1 text-sm text-papel-suave">
+                <h3 className="text-lg font-bold text-tinta">Pedila online</h3>
+                <p className="flex-1 text-sm text-tinta-suave">
                   Te llega a cualquier punto del país, sin depender de que haya un comercio
                   cerca.
                 </p>
@@ -240,8 +239,8 @@ export function Buscador() {
                 </Boton>
               </li>
               <li className="flex flex-col items-start gap-3">
-                <h3 className="text-lg font-semibold text-papel">Traela vos</h3>
-                <p className="flex-1 text-sm text-papel-suave">
+                <h3 className="text-lg font-bold text-tinta">Traela vos</h3>
+                <p className="flex-1 text-sm text-tinta-suave">
                   Si tenés un comercio, podés ser el primero que la venda en tu ciudad.
                 </p>
                 <Boton href="/vende-latina" variante="secundario">
@@ -253,7 +252,7 @@ export function Buscador() {
         )}
       </div>
 
-      <p className="mt-10 text-sm text-papel-suave">
+      <p className="mt-10 text-sm text-tinta-suave">
         ¿Falta un punto de venta o hay un dato mal?{' '}
         <a
           href={`https://wa.me/${contacto.whatsappE164}?text=${encodeURIComponent(
@@ -261,7 +260,7 @@ export function Buscador() {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-dorado underline underline-offset-4"
+          className="font-semibold text-verde-profundo underline underline-offset-4"
         >
           Avisanos por WhatsApp
         </a>
