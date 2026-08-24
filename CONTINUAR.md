@@ -4,7 +4,10 @@
 
 ---
 
-## ⚠ REDISEÑO COMPLETO SIN PUSHEAR
+## REDISEÑO DIURNO — PUSHEADO Y EN PRODUCCIÓN (24-ago)
+
+Lautaro lo revisó y dio el OK; el push a main del 24-ago lo deployó en
+Vercel. Lo que sigue abajo es el detalle de ese rediseño.
 
 Al cliente NO le gustó el sitio oscuro/premium (leyó el hero como una
 "radiografía de huesos" y el palo del manifiesto como un hueso volando).
