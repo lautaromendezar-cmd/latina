@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Greca } from '@/components/ui/Greca'
+import { MarcaMate } from '@/components/ui/MarcaMate'
 import { tira } from '@/content/site'
 
 /**
@@ -58,12 +59,12 @@ export function Tira() {
               {tira.items.map((item) => (
                 <li key={item} className="tira-item">
                   {item}
-                  {/* El rombo de la greca, que es el ornamento de la marca.
-                      Va DESPUÉS de cada ítem, incluido el último: así el
-                      empalme entre una copia y la siguiente tiene el mismo
-                      ritmo que el resto y la costura no se ve. */}
-                  <span aria-hidden="true" className="tira-rombo">
-                    ◇
+                  {/* El mate de la marca. Va DESPUÉS de cada ítem, incluido
+                      el último: así el empalme entre una copia y la
+                      siguiente tiene el mismo ritmo que el resto y la
+                      costura no se ve. */}
+                  <span aria-hidden="true" className="tira-marca">
+                    <MarcaMate />
                   </span>
                 </li>
               ))}

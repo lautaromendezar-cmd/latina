@@ -194,7 +194,7 @@ textarea {
    ------------------------------------------------------------------ */
 .manuscrita-calco {
   --filete: 10px;
-  -webkit-text-stroke: var(--filete) var(--color-crema);
+  -webkit-text-stroke: var(--filete) var(--filete-color, var(--color-crema));
   paint-order: stroke fill;
   text-shadow: 7px 8px 0 rgba(11, 58, 28, 0.42);
   /* El filete engorda la palabra hacia afuera y le come el aire a la
@@ -211,6 +211,30 @@ textarea {
   }
 }
 
+/* La variante para fondo CLARO, y no es un capricho de color.
+
+   Amarillo sobre crema da 1.5:1: no pasa ni como display grande, y por
+   eso el sistema tiene escrito que el amarillo nunca va de texto sobre
+   claro. Con el filete verde-profundo la palabra deja de apoyarse en el
+   relleno: lo que dibuja la letra es el contorno, que sobre crema da
+   9.2:1. El amarillo adentro es relleno, no es lo que se lee.
+
+   Justamente por eso esto vale SOLO para el remate manuscrito, que es
+   enorme. En cuerpo de texto no existe: ahi no hay contorno que salve
+   un par que no pasa.
+
+   Y por eso el filete es mas gordo que en la version sobre verde: si es
+   fino, la letra vuelve a depender del relleno amarillo. */
+.manuscrita-calco--tinta {
+  --filete-color: var(--color-verde-profundo);
+  --filete: 13px;
+}
+
+@media (max-width: 640px) {
+  .manuscrita-calco--tinta {
+    --filete: 8px;
+  }
+}
 /* Contorno: hereda el color del texto, así funciona sobre claro y
    sobre verde. Sólo existe si algo lo rellena (manifiesto). */
 .contorno {
@@ -348,10 +372,24 @@ textarea {
   white-space: nowrap;
 }
 
-.tira-rombo {
-  color: var(--color-verde);
-  font-size: 0.6em;
+/* El separador de la tira: el mate de la marca, no un rombo.
+
+   Va en verde-profundo y no en verde. El rombo era una figura maciza y
+   con el verde de marca alcanzaba; esto es un icono de CONTORNO, con
+   trazos de ~2px a este tamano, y el verde sobre el amarillo da 3.2:1:
+   se deshilacha. Verde-profundo da 6:1 y se lee, y sigue por debajo del
+   texto (8.6:1), que es donde tiene que estar en la jerarquia. */
+.tira-marca {
+  display: flex;
+  align-items: center;
+  color: var(--color-verde-profundo);
   padding-inline: clamp(0.85rem, 2.6vw, 2rem);
+}
+
+.tira-marca svg {
+  display: block;
+  width: 1em;
+  height: 1em;
 }
 
 /* ------------------------------------------------------------------
@@ -417,7 +455,7 @@ textarea {
     row-gap: 0.4rem;
   }
 
-  .tira-grupo > li:last-child .tira-rombo {
+  .tira-grupo > li:last-child .tira-marca {
     display: none;
   }
 }

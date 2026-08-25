@@ -145,7 +145,17 @@ etiqueta letra por letra antes de usarla.
 | `imagenes/hero-yerbal.webp` | Generada. Monte de araucarias del sur de Brasil con arbustos de yerba adelante. **Mide 1280×714**: a pantalla completa en un monitor grande se ve blanda. Atrás del velo se disimula; se arregla sola cuando llegue el cuadro del video. |
 | `imagenes/stickers/mate.png` | Recortado de `pdf-latina/latina-material/IMG_4579.PNG` (la pieza "No sos vos, es tu yerba") con `colorkey` sobre el verde. Arte propio de la marca, no dibujado de nuevo. |
 | `imagenes/stickers/messi.png` | " |
+| `imagenes/manifiesto-ronda.webp` | Recorte cuadrado de `pdf-latina/latina-material/IMG_5266.HEIC`, foto REAL del cliente. ffmpeg decodifica el HEIC sin ayuda. Va enmascarada en circulo. |
 | `imagenes/mate-foto.webp` | Recorte de `images/mate.png`. **Hoy no la usa nadie**: quedó del intento de poner el mate en el hero. Sirve para Presentaciones o el manifiesto. |
+
+> **`imagenes/textura-molienda.jpg` ya no la usa nadie.** Era el relleno
+> tipografico del manifiesto, que se elimino: sobre el fondo casi blanco la
+> yerba adentro de la letra quedaba como una mancha marron. No se borro
+> porque es la unica macro REAL del producto que hay.
+
+> **La ronda tiene cuatro personas identificables.** Sale del material del
+> cliente, asi que se asume que hay permiso, pero en la home es mas
+> exposicion que en un posteo. Mismo criterio que el sticker de Messi.
 
 > **No intentes calar `images/mate.png`. Ya falló por los dos caminos.**
 > El matting automático de Higgsfield le borra la mano y deja muñones colgando

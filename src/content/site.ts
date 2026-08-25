@@ -102,17 +102,32 @@ export const tira = {
 } as const
 
 export const manifiesto = {
-  antes: 'Cuando cambiás la yerba,',
-  despues: 'cambia el mate.',
-  // Las dos palabras que se rellenan con la molienda real en Fase 3.
-  // Se eligen porque son las dos que están impresas en el envase: el
-  // efecto sólo se sostiene si lo que se llena es verificable.
-  palabras: ['Padrón', 'Despalada'],
-  cierre: 'Con LaTiNa, cambia tu ritual.',
+  // La frase madre del cliente, entera y partida en renglones.
+  //
+  // El remate va MANUSCRITO y en amarillo: la misma logica que
+  // "la yerba" en el hero. Es el segundo y ultimo lugar del sitio
+  // donde aparece la manuscrita, y la regla es una por seccion como
+  // mucho, siempre sobre el REMATE de una frase y nunca sobre una
+  // palabra suelta: si se usa en cualquier lado deja de ser un gesto
+  // y pasa a ser una fuente mas.
+  frase: ['Cuando cambiás', 'la yerba, cambia'],
+  remate: 'el mate.',
+  // La ronda. Foto REAL del cliente, no de un banco: cuatro pibes
+  // cebando en una rampa al atardecer, con el paquete apoyado al
+  // borde. Es lo mas cerca que tiene la marca de mostrar a quien le
+  // habla.
+  foto: {
+    src: '/imagenes/manifiesto-ronda.webp',
+    alt: 'Cuatro amigos sentados en una rampa de skate al atardecer, cebando un mate, con un paquete de LaTiNa apoyado al lado',
+  },
   cuerpo: [
     'El padrón uruguayo es otra molienda. Más hoja, más polvo, sin palo grueso. Del otro lado del río el mate se toma así hace décadas y por algo es.',
     '«Despalada» no es una palabra de marketing: está impresa en el envase. Es el término técnico de sacarle el palo. Menos relleno adentro del paquete es más yerba haciendo el trabajo.',
   ],
+  // Estaban escritas a mano adentro del componente, que es justo lo
+  // que este archivo existe para evitar.
+  etiquetas: ['El padrón', 'La palabra'],
+  cierre: 'Con LaTiNa, cambia tu ritual.',
 } as const
 
 export const origen = {

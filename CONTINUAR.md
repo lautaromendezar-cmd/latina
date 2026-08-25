@@ -52,6 +52,40 @@ que dejó el preloader.
 
 ---
 
+## LA TIRA Y EL MANIFIESTO (24-ago)
+
+**El separador de la tira es el mate de la marca, no un rombo.** El emblema
+real no sirve a ese tamaño: a 34px la greca se hace papilla y el oliva del
+porongo sobre el amarillo casi no contrasta. `MarcaMate.tsx` es ese mismo
+isotipo simplificado a lo que sobrevive a 30px — greca maciza, porongo de
+contorno — en verde-profundo, porque el verde de marca da 3.2:1 sobre
+amarillo y un icono de trazo fino ahí se deshilacha. Sin `clipPath`: se
+repite dieciocho veces y serian dieciocho ids iguales.
+
+**El manifiesto perdió el relleno de molienda.** PADRON y DESPALADA se
+dibujaban de contorno y se llenaban con la macro real al scrollear; sobre el
+fondo casi blanco la yerba adentro de la letra quedaba como una mancha. Las
+dos palabras siguen encabezando las columnas del cuerpo, que es donde se
+explican.
+
+En su lugar: la frase del cliente entera con el remate MANUSCRITO, y **la
+ronda** — la foto real de cuatro pibes cebando en una rampa, en circulo con
+aro verde y el sticker del mate mordiendo el borde.
+
+El calco sobre fondo claro lleva **filete verde-profundo y mas gordo**, no
+crema. Amarillo sobre crema da 1.5:1 y no pasa ni como display: con el
+contorno oscuro lo que dibuja la letra es el filete (9.2:1) y el amarillo es
+relleno. **Vale solo para el remate manuscrito**, que es enorme.
+
+### La regla nueva de movimiento
+
+Lautaro pidió que **cada seccion que toquemos tenga una animacion de
+entrada**. Convive con el presupuesto de siete si cada seccion aporta
+tambien lo que saca: aca entro la entrada del manifiesto y salio el relleno
+de molienda. Si en alguna no hay nada que sacar, hay que avisarle.
+
+---
+
 ## REDISEÑO DIURNO — PUSHEADO Y EN PRODUCCIÓN (24-ago)
 
 Lautaro lo revisó y dio el OK; el push a main del 24-ago lo deployó en

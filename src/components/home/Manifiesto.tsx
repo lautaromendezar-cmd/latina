@@ -1,71 +1,95 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
-import { gsap } from '@/lib/gsap'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
-import { useMovimientoReducido } from '@/lib/motion'
+import { useLayoutEffectSeguro, movimientoReducido } from '@/lib/motion'
 import { manifiesto } from '@/content/site'
 
 /**
- * Manifiesto — el contorno que se llena de yerba.
+ * Manifiesto.
  *
- * Cada palabra se dibuja dos veces: abajo el contorno, encima una copia
- * rellena con la macro REAL de la molienda (background-clip: text). El
- * scroll sube un clip-path y el texto se llena de yerba mientras leés que
- * la yerba cambia el mate.
+ * Antes las dos palabras del envase —PADRON y DESPALADA— se dibujaban de
+ * contorno y se rellenaban con la macro real de la molienda a medida que
+ * scrolleabas. En el sitio oscuro funcionaba; sobre el fondo casi blanco
+ * del rediseno la yerba adentro de la letra quedaba como una mancha
+ * marron y no se leia ni como yerba ni como palabra. Se fue el efecto
+ * entero, y con el se libera un lugar del presupuesto de movimiento, que
+ * es el que ocupa la entrada de esta seccion.
  *
- * «Padrón» y «Despalada» porque son las dos palabras impresas en el
- * envase: si lo que se llena dijera otra cosa, el contorno sería
- * decoración.
+ * Las dos palabras no se pierden: siguen encabezando las dos columnas del
+ * cuerpo, que es donde se explican. Como display no aportaban.
  *
- * DEL REDISEÑO: se fueron los palos que salían de cuadro. El cliente los
- * leyó como huesos volando (y el hero oscuro como radiografía). La idea
- * era buena en papel; en pantalla era un chiste que nadie pidió. Quedan
- * las dos hojas desenfocadas del fondo, que sobre claro se leen como lo
- * que son.
+ * Ahora la seccion es la frase del cliente entera, con el remate
+ * manuscrito —misma logica que el hero— y la RONDA al lado: la foto real
+ * de cuatro pibes cebando en una rampa. Es la unica imagen del sitio
+ * donde se ve a quien le habla la marca, y sale del material propio, no
+ * de un banco.
  */
-
-const TEXTURA = '/imagenes/textura-molienda.jpg'
-
 export function Manifiesto() {
   const seccion = useRef<HTMLElement>(null)
-  const reducido = useMovimientoReducido()
 
-  useEffect(() => {
-    if (reducido || !seccion.current) return
+  useLayoutEffectSeguro(() => {
+    if (!seccion.current) return
+    if (movimientoReducido()) return
 
     const ctx = gsap.context(() => {
-      const rellenos = gsap.utils.toArray<HTMLElement>('[data-relleno]')
-
-      rellenos.forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { clipPath: 'inset(100% 0% 0% 0%)' },
-          {
-            clipPath: 'inset(0% 0% 0% 0%)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el,
-              // Arranca cuando la palabra entra bien en cuadro y termina
-              // antes de que se vaya.
-              start: 'top 78%',
-              end: 'top 34%',
-              scrub: 0.8,
-            },
-            delay: i * 0.05,
-          },
-        )
+      // UNA linea de tiempo para toda la seccion, no un reveal por
+      // elemento: entran en el orden en que se leen. Igual que el hero.
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: seccion.current,
+          start: 'top 72%',
+          once: true,
+        },
       })
+
+      const lineas = gsap.utils.toArray<HTMLElement>('[data-linea]')
+      if (lineas.length) {
+        tl.fromTo(
+          lineas,
+          { yPercent: 110, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'back.out(1.3)' },
+        )
+      }
+
+      // La ronda entra con el iris abriendose, no con un fade. Es una
+      // foto redonda: que se abra en redondo es la unica forma de que la
+      // entrada hable de la forma que tiene.
+      tl.fromTo(
+        '[data-ronda]',
+        { clipPath: 'circle(0% at 50% 50%)', scale: 1.12 },
+        { clipPath: 'circle(50% at 50% 50%)', scale: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.55',
+      )
+
+      tl.fromTo(
+        '[data-ronda-sticker]',
+        { scale: 0 },
+        { scale: 1, duration: 0.5, ease: 'back.out(2.2)' },
+        '-=0.25',
+      )
+
+      tl.fromTo(
+        '[data-entra]',
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
+        '-=0.5',
+      )
+
+      // La seccion crece cuando entran las fuentes y las imagenes; sin
+      // esto el disparador queda calculado sobre la altura vieja.
+      ScrollTrigger.refresh()
     }, seccion)
 
     return () => ctx.revert()
-  }, [reducido])
+  }, [])
 
   return (
     <section id="manifiesto" ref={seccion} className="relative overflow-hidden py-seccion">
-      {/* Dos hojas muy atrás, para que el fondo tenga profundidad. Si se
-          notan, están mal calibradas. */}
+      {/* Dos hojas muy atras, para que el fondo tenga profundidad. Si se
+          notan, estan mal calibradas. */}
       <Image
         aria-hidden="true"
         src="/imagenes/cutouts/hoja-partida.png"
@@ -88,46 +112,80 @@ export function Manifiesto() {
       />
 
       <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <p className="display text-display-3 text-tinta-suave">{manifiesto.antes}</p>
-
-        <div className="my-6 lg:my-10">
-          {manifiesto.palabras.map((palabra) => (
-            <p key={palabra} className="display relative text-display-1 text-verde">
-              {/* base: el contorno (hereda el verde) */}
-              <span className="contorno">{palabra}</span>
-              {/* encima: la misma palabra rellena de molienda */}
-              <span
-                aria-hidden="true"
-                data-relleno
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url(${TEXTURA})`,
-                  backgroundSize: '120% auto',
-                  backgroundPosition: 'center',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                  clipPath: reducido ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
-                }}
-              >
-                {palabra}
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] lg:gap-16">
+          <h2 className="display text-display-1 text-tinta">
+            {manifiesto.frase.map((linea) => (
+              <span key={linea} className="block overflow-hidden pb-[0.12em] -mb-[0.06em]">
+                <span data-linea className="block">
+                  {linea}
+                </span>
               </span>
-            </p>
-          ))}
+            ))}
+            {/* El remate. Mismo tratamiento que el hero, con el filete al
+                reves: sobre claro el contorno va oscuro. Ver la nota de
+                `.manuscrita-calco--tinta` en globals.css — el amarillo
+                solo sobre crema no pasa, y aca lo que dibuja la letra es
+                el contorno. */}
+            <span className="block origin-left -rotate-[2.5deg] overflow-hidden pb-[0.72em] pt-[0.2em] -mb-[0.42em] -mt-[0.2em]">
+              <span data-linea className="block">
+                <span className="manuscrita manuscrita-calco manuscrita-calco--tinta text-manuscrita text-amarillo">
+                  {manifiesto.remate}
+                </span>
+              </span>
+            </span>
+          </h2>
+
+          <figure className="relative mx-auto w-full max-w-[25rem] lg:mx-0">
+            <div
+              data-ronda
+              className="aspect-square overflow-hidden rounded-full border-[6px] border-verde shadow-[12px_14px_0_0_rgba(11,58,28,0.18)]"
+            >
+              <Image
+                src={manifiesto.foto.src}
+                alt={manifiesto.foto.alt}
+                width={1100}
+                height={1100}
+                sizes="(max-width: 1024px) 88vw, 25rem"
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            {/* El mate de la pieza del cliente, mordiendo el borde del
+                circulo. En el borde y no encima: la foto es el contenido.
+
+                La inclinacion la pone el CSS y GSAP anima SOLO la escala.
+                Si el tween tocara `rotate`, escribiria `transform` y se
+                sumaria a la propiedad `rotate` de la clase: la misma
+                vuelta contada dos veces, 28 grados en vez de 14. */}
+            <span
+              aria-hidden="true"
+              data-ronda-sticker
+              className="pointer-events-none absolute -left-[7%] top-[4%] block w-[26%] origin-center -rotate-[14deg]"
+            >
+              <Image
+                src="/imagenes/stickers/mate.png"
+                alt=""
+                width={364}
+                height={536}
+                sizes="(max-width: 1024px) 24vw, 7rem"
+                className="block h-auto w-full drop-shadow-[6px_7px_0_rgba(11,58,28,0.22)]"
+              />
+            </span>
+          </figure>
         </div>
 
-        <p className="display text-display-3">{manifiesto.despues}</p>
-
-        <div className="mt-14 grid max-w-4xl gap-8 sm:grid-cols-2 lg:mt-20">
+        <div className="mt-16 grid max-w-4xl gap-8 sm:grid-cols-2 lg:mt-20">
           {manifiesto.cuerpo.map((parrafo, i) => (
-            <div key={parrafo}>
-              <Etiqueta className="mb-3 block">{i === 0 ? 'El padrón' : 'La palabra'}</Etiqueta>
+            <div key={parrafo} data-entra>
+              <Etiqueta className="mb-3 block">{manifiesto.etiquetas[i]}</Etiqueta>
               <p className="text-body-lg text-tinta-suave">{parrafo}</p>
             </div>
           ))}
         </div>
 
-        <p className="display mt-14 text-display-2 text-verde lg:mt-20">{manifiesto.cierre}</p>
+        <p data-entra className="display mt-14 text-display-2 text-verde lg:mt-20">
+          {manifiesto.cierre}
+        </p>
       </div>
     </section>
   )
