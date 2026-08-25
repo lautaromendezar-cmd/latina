@@ -40,6 +40,22 @@ real de góndola o punto de venta (ver `ASSETS-PENDIENTES.md`).
 scrape en `distribuidores.ts` — "Rosario del Talar" (¿del Tala?) y
 "Zona Oeste", que no es una localidad y nunca matchea una búsqueda.
 
+**LA IMAGEN OG QUEDÓ HECHA** (`src/app/opengraph-image.tsx`, con
+`next/og` como pedía el brief — era el pendiente de Fase 4). Es la
+composición del hero sobre el bloque verde plano: dos líneas
+condensadas, el remate manuscrito con calco y el paquete real al lado,
+banda amarilla al pie. Tres cosas que hay que saber:
+
+- **Satori no soporta fuentes variables**: los TTF de `src/app/_og/`
+  son la Archivo INSTANCIADA con fontTools en wdth 78 / wght 850 (el
+  corte exacto de `.display`) más Pacifico. Si el display cambia de
+  corte, reinstanciar (el comando está en el comentario del archivo).
+- El calco del remate se falsea con ocho sombras en anillo (tampoco
+  hay text-stroke en Satori).
+- La ruta es estática: se renderiza una vez en build. Twitter card
+  agregada en `layout.tsx`; la URL de la imagen sale sola de
+  `metadataBase`.
+
 ---
 
 ## LA SEGUNDA MITAD DE LA HOME (25-ago)
@@ -426,8 +442,8 @@ abierta del presupuesto.
 ## Falta
 
 ### Fase 4
-Lighthouse real ahora que entró el video del hero, accesibilidad de punta
-a punta, OG con `next/og`, deploy.
+Lighthouse real ahora que entró el video del hero y accesibilidad de
+punta a punta. El OG ya está (ver arriba); el deploy es cada push.
 
 ### Del cliente
 - **Foto del ½ kg.** Hoy muestra el paquete de 1 kg, que dice "1KG"

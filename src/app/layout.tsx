@@ -79,6 +79,14 @@ export const metadata: Metadata = {
     locale: meta.locale,
     type: 'website',
   },
+  // La imagen NO se declara aca: sale de `opengraph-image.tsx` por
+  // convencion de archivo, y Next la mete en og:image y twitter:image
+  // con la URL absoluta de metadataBase.
+  twitter: {
+    card: 'summary_large_image',
+    title: meta.titulo,
+    description: meta.descripcion,
+  },
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
 }
