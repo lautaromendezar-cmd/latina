@@ -50,6 +50,10 @@
   /* --- tipografía --- */
   --font-display: var(--fuente-display), "Arial Narrow", "Arial Black", system-ui, sans-serif;
   --font-sans: var(--fuente-sans), system-ui, -apple-system, sans-serif;
+  /* Excepción de UNA palabra: el remate del título del hero. Ver la nota
+     en layout.tsx. El respaldo son las manuscritas de sistema, que en
+     Windows y en macOS existen las dos. */
+  --font-manuscrita: var(--fuente-manuscrita), "Segoe Script", "Bradley Hand", cursive;
 
   /* --- escala --- */
   /* Condensada, y con techo moderado: a Lautaro los displays "enormes"
@@ -57,6 +61,12 @@
      en caps, no el tamaño. */
   --text-display-1: clamp(2.5rem, 6.8vw, 6rem);
   --text-display-1--line-height: 0.92;
+  /* La manuscrita necesita MÁS cuerpo que la condensada para pesar lo
+     mismo. A 1.55×
+     del display-1 las dos líneas se leen del mismo tamaño aunque el
+     número diga otra cosa. */
+  --text-manuscrita: clamp(3.875rem, 10.5vw, 9.25rem);
+  --text-manuscrita--line-height: 0.78;
   --text-display-2: clamp(1.875rem, 4.6vw, 3.875rem);
   --text-display-2--line-height: 0.95;
   --text-display-3: clamp(1.5rem, 2.8vw, 2.375rem);
@@ -85,6 +95,9 @@
    ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
+  /* El peso de la manuscrita, atado a la familia que este puesta.
+     Pacifico solo tiene 400: pedirle 700 lo falsea el navegador. */
+  --peso-manuscrita: 400;
 }
 
 html {
@@ -144,6 +157,60 @@ textarea {
   text-wrap: balance;
 }
 
+/* ------------------------------------------------------------------
+   Manuscrita — el remate del título del hero, y nada más.
+
+   Va SUELTA de `.display`: sin caps, sin el ajuste de tracking de la
+   condensada y sin `tnum`. Se escribe como se escribe a mano.
+
+   Ojo con el alto de línea: 0.78 recorta la caja para que la palabra se
+   monte sobre la línea de arriba, así que quien la use tiene que
+   reservar el descendente a mano (la "y" de yerba baja mucho). En el
+   hero lo hace el `pb` de la máscara.
+   ------------------------------------------------------------------ */
+.manuscrita {
+  font-family: var(--font-manuscrita);
+  font-weight: var(--peso-manuscrita);
+  text-transform: none;
+  letter-spacing: 0;
+  text-wrap: nowrap;
+}
+
+/* ------------------------------------------------------------------
+   El CALCO — filete crema y sombra dura, sobre la LETRA.
+
+   Sale de las piezas propias de la marca (el "Mate y skate"): la
+   manuscrita va contorneada en crema y con una sombra corrida y
+   oscura. No es decoracion: es lo que hace que una manuscrita se lea
+   sobre una foto de monte, que es justo lo que va a tener atras.
+
+   El filete va con `-webkit-text-stroke` + `paint-order: stroke fill`
+   (el trazo se dibuja ANTES del relleno, o si no se come la letra por
+   dentro y adelgaza la manuscrita hasta romperla). Como el trazo esta
+   centrado sobre el contorno, el filete visible es la mitad del ancho.
+
+   La sombra es `text-shadow` sin desenfoque, el mismo desplazamiento y
+   el mismo color que `.sombra-dura`: una sola sombra en todo el sitio.
+   ------------------------------------------------------------------ */
+.manuscrita-calco {
+  --filete: 10px;
+  -webkit-text-stroke: var(--filete) var(--color-crema);
+  paint-order: stroke fill;
+  text-shadow: 7px 8px 0 rgba(11, 58, 28, 0.42);
+  /* El filete engorda la palabra hacia afuera y le come el aire a la
+     linea de arriba. Se compensa cerrando el tracking, no achicando. */
+  letter-spacing: -0.015em;
+}
+
+/* En telefono el filete tiene que encoger con la letra: 10px sobre un
+   cuerpo de 62px es un filete; sobre uno de 24px es una mancha. */
+@media (max-width: 640px) {
+  .manuscrita-calco {
+    --filete: 6px;
+    text-shadow: 4px 5px 0 rgba(11, 58, 28, 0.42);
+  }
+}
+
 /* Contorno: hereda el color del texto, así funciona sobre claro y
    sobre verde. Sólo existe si algo lo rellena (manifiesto). */
 .contorno {
@@ -155,6 +222,50 @@ textarea {
 @media (min-width: 1024px) {
   .contorno {
     -webkit-text-stroke-width: 2.5px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   El fondo vivo del hero.
+
+   Un travelling lentisimo sobre la foto del yerbal, para que el hero
+   respire mientras no exista el video. Va en CSS y no en GSAP a
+   proposito: es un bucle que no depende del scroll ni de nada, no
+   necesita una linea de tiempo, y asi no suma un gramo al bundle del
+   LCP. El dia que entre el <video>, esta clase se borra y ya.
+
+   Arranca en 1.06 y no en 1: al desplazarse un 1% tiene que haber
+   imagen de sobra por fuera del cuadro o se ve el borde.
+
+   Sale del presupuesto de movimiento el hueco que dejo el preloader.
+   ------------------------------------------------------------------ */
+.fondo-vivo {
+  transform-origin: 55% 45%;
+  will-change: transform;
+  animation: fondo-deriva 26s ease-in-out infinite alternate;
+}
+
+/* El grueso del recorrido es el DESPLAZAMIENTO, no la escala, y es a
+   proposito: mover se percibe mucho mejor que agrandar, y ademas la
+   foto original mide 1280 de ancho, asi que cada punto de escala que
+   le agrego es un punto mas de blandura. La escala solo esta para que
+   sobre imagen fuera de cuadro y el desplazamiento no muestre el
+   borde: con +-1.8% hace falta 1.04 y va con 1.08. */
+@keyframes fondo-deriva {
+  from {
+    transform: scale(1.08) translate3d(-1.8%, 1.2%, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(1.8%, -1.2%, 0);
+  }
+}
+
+/* El estado quieto esta DISENADO, no es el efecto apagado: queda con el
+   mismo encuadre cerrado que el promedio de la animacion. */
+@media (prefers-reduced-motion: reduce) {
+  .fondo-vivo {
+    animation: none;
+    transform: scale(1.1);
   }
 }
 

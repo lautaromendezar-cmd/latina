@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>LaTiNa - candidatas para la manuscrita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Yellowtail&family=Kaushan+Script&family=Courgette&family=Grand+Hotel&family=Lobster+Two:ital,wght@1,700&family=Damion&family=Norican&family=Caveat:wght@700&family=Archivo:wdth,wght@78,850&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#fcfbf7; --verde:#17813a; --amarillo:#ffc81a; --tinta:#0b3a1c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--crema);color:var(--tinta);
+       font-family:system-ui,sans-serif;padding:32px clamp(16px,4vw,56px) 96px}
+  h1{font-size:20px;letter-spacing:.02em;margin:0 0 6px}
+  p.lede{margin:0 0 32px;max-width:70ch;line-height:1.6;color:#33593f;font-size:14px}
+  .refe{display:block;max-width:300px;border-radius:12px;margin:0 0 32px;
+        box-shadow:5px 5px 0 0 var(--tinta)}
+
+  .fila{background:var(--verde);border-radius:18px;padding:34px 36px 30px;margin-bottom:20px;
+        position:relative;overflow:hidden}
+  .nombre{position:absolute;top:14px;right:18px;color:var(--crema);opacity:.85;
+          font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+
+  /* Las dos lineas de arriba, tal cual el hero: Archivo condensada. */
+  .caps{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 78;font-weight:850;
+        text-transform:uppercase;color:var(--crema);font-size:clamp(30px,5.2vw,64px);
+        line-height:.92;letter-spacing:-.005em;margin:0}
+
+  /* El remate, con el calco: filete crema + sombra dura. */
+  .script{color:var(--amarillo);font-size:clamp(46px,8.4vw,104px);line-height:.82;
+          margin:2px 0 0;display:inline-block;transform:rotate(-2.5deg);transform-origin:left;
+          -webkit-text-stroke:10px var(--crema);paint-order:stroke fill;
+          text-shadow:7px 8px 0 rgba(11,58,28,.42);letter-spacing:-.015em;white-space:nowrap}
+
+  /* Y la misma fuente escribiendo la frase de la pieza del cliente,
+     para comparar letra por letra contra el original. */
+  .cotejo{margin:26px 0 0;color:var(--crema);font-size:12px;letter-spacing:.14em;
+          text-transform:uppercase;font-weight:700;opacity:.8}
+  .skate{color:var(--crema);font-size:clamp(34px,5.6vw,64px);line-height:1;margin:4px 0 0;
+         -webkit-text-stroke:6px rgba(252,251,247,.001);white-space:nowrap}
+
+  .f1 .script,.f1 .skate{font-family:'Pacifico',cursive}
+  .f2 .script,.f2 .skate{font-family:'Yellowtail',cursive}
+  .f3 .script,.f3 .skate{font-family:'Kaushan Script',cursive}
+  .f4 .script,.f4 .skate{font-family:'Courgette',cursive}
+  .f5 .script,.f5 .skate{font-family:'Grand Hotel',cursive}
+  .f6 .script,.f6 .skate{font-family:'Lobster Two',cursive;font-style:italic;font-weight:700}
+  .f7 .script,.f7 .skate{font-family:'Damion',cursive}
+  .f8 .script,.f8 .skate{font-family:'Norican',cursive}
+  .f9 .script,.f9 .skate{font-family:'Caveat',cursive;font-weight:700}
+</style>
+
+<h1>Candidatas para la manuscrita del hero</h1>
+<p class="lede">
+  Cada bloque es el hero real: las dos lineas en Archivo condensada y el remate
+  en la candidata, con el calco (filete crema + sombra dura) que usa la pieza del
+  cliente. Abajo de cada una, la misma fuente escribiendo <em>Mate y skate</em>
+  para cotejar letra por letra contra el original. Decime el numero.
+</p>
+
+<div class="fila f1"><span class="nombre">1 - Pacifico</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f2"><span class="nombre">2 - Yellowtail</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f3"><span class="nombre">3 - Kaushan Script</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f4"><span class="nombre">4 - Courgette</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f5"><span class="nombre">5 - Grand Hotel</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f6"><span class="nombre">6 - Lobster Two italic</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f7"><span class="nombre">7 - Damion</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f8"><span class="nombre">8 - Norican</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>
+
+<div class="fila f9"><span class="nombre">9 - Caveat (la que esta puesta)</span>
+  <p class="caps">El mate cambia<br>cuando cambias</p><p class="script">la yerba</p>
+  <p class="cotejo">Cotejo</p><p class="skate">Mate y skate</p></div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Montserrat } from 'next/font/google'
+import { Archivo, Montserrat, Pacifico } from 'next/font/google'
 import './globals.css'
 
 import { Nav } from '@/components/layout/Nav'
@@ -38,6 +38,32 @@ const montserrat = Montserrat({
   variable: '--fuente-sans',
 })
 
+/**
+ * La tercera familia, y es una excepcion con nombre y apellido: UNA
+ * palabra del hero. Nada mas.
+ *
+ * Sale de una pieza del propio cliente —el "Mate y skate" que esta en
+ * pdf-latina/latina-material— que es una brush pesada, monolineal y de
+ * altura de x grande, contorneada en crema. Esa pieza no trae la fuente:
+ * es un PNG, asi que esto es la CANDIDATA MAS CERCANA de Google Fonts,
+ * no la original. Las otras ocho estan servidas en tools/fuentes.html.
+ *
+ * Pacifico y no Caveat (lo que habia): Caveat es escritura con marcador,
+ * fina y de cuaderno. La pieza del cliente es brush de cartel, gorda y
+ * casi vertical. Son dos registros distintos y el suyo ya esta elegido.
+ *
+ * OJO: Pacifico tiene un solo peso (400). Si se cambia por una familia
+ * con bold de verdad, hay que subir --peso-manuscrita en globals.css: si
+ * se pide 700 a una fuente que no lo tiene, el navegador lo falsea
+ * engordando el trazo y la manuscrita se empasta.
+ */
+const pacifico = Pacifico({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--fuente-manuscrita',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://yerbamatelatina.com.ar'),
   title: {
@@ -64,7 +90,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-AR" className={`${archivo.variable} ${montserrat.variable}`}>
+    <html
+      lang="es-AR"
+      className={`${archivo.variable} ${montserrat.variable} ${pacifico.variable}`}
+    >
       <body>
         <a
           href="#contenido"

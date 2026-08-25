@@ -54,11 +54,16 @@ export const nav = {
 export const hero = {
   // Reordenamiento de la frase madre del cliente:
   // "Cuando cambiás la yerba, cambia el mate."
+  //
   // `destacada`: la línea que va en amarillo, el gesto de las piezas de IG.
+  // `manuscrita`: la línea que sale de la condensada y se escribe a mano.
+  //   Es UNA sola en todo el sitio y es el remate del hero. Dos palabras
+  //   manuscritas dejan de ser un gesto y pasan a ser una fuente más.
+  //
   titulo: [
-    { texto: 'El mate cambia', destacada: false },
-    { texto: 'cuando cambiás', destacada: false },
-    { texto: 'la yerba', destacada: true },
+    { texto: 'El mate cambia', destacada: false, manuscrita: false },
+    { texto: 'cuando cambiás', destacada: false, manuscrita: false },
+    { texto: 'la yerba', destacada: true, manuscrita: true },
   ],
   // Sin números: no tenemos una cifra de cebadas confirmada y no se
   // inventa una para que la frase suene mejor.
