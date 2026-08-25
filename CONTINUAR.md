@@ -25,6 +25,13 @@ La solución: reponer `muted` por propiedad + `play()` a mano al montar,
 y reintento único en el primer toque/scroll. Con reduced-motion no se
 intenta nada (los `<source>` ya filtran por media query).
 
+**Y en teléfono el video arranca en el segundo 5,5** (pedido de
+Lautaro: ver el tucán de una). Medido cuadro por cuadro: el loop dura
+12,1s y en la franja central que ve un teléfono el tucán entra a los
+~5s y sale a los 8,5. El salto del poster al 5,5 no se ve porque la
+cámara está quieta. Desktop arranca de cero, como siempre. Detalle en
+`HeroVideo.tsx`.
+
 ### El layout del hero en teléfono taparía el vuelo
 
 Se miró el video cuadro por cuadro: **el tucán vuela por la banda
