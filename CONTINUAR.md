@@ -4,6 +4,54 @@
 
 ---
 
+## EL HERO SE REHIZO ENCIMA (24-ago, más tarde)
+
+Al cliente le gustó el rediseño diurno, y el hero cambió otra vez sobre esa
+base. Lo de abajo (el rediseño) sigue valiendo para todo el resto del sitio;
+esto es lo que pasó con el hero:
+
+- **El fondo es una foto del yerbal**, no un bloque de verde plano: monte de
+  araucarias del sur de Brasil, que es donde se elabora. **Es el poster del
+  video que falta**: cuando exista, se cambia el `<Image>` por un `<video>`
+  con este mismo archivo, se borra `.fondo-vivo` y no se mueve nada más.
+- **Se mueve**, con un travelling en CSS puro (`.fondo-vivo`), 26s ida y
+  vuelta. En GSAP no: es un bucle que no depende del scroll, no necesita
+  línea de tiempo y así no le pesa al LCP. El grueso del recorrido es el
+  desplazamiento y no la escala, porque la foto mide 1280 de ancho y cada
+  punto de zoom es un punto de blandura.
+- **El velo no es estética, es contraste.** Sobre el cielo claro de la foto,
+  crema no llega a AA ni con el verde de marca al 88%. Del lado del texto el
+  velo es verde-profundo (la bajada queda en ~5.3:1 en el peor píxel) y se
+  abre a transparente hacia la derecha, donde no hay texto. En teléfono es
+  parejo: ahí el texto ocupa todo el ancho.
+- **El remate del título va MANUSCRITO**: "la yerba" sale de la condensada,
+  en amarillo y con el *calco* de las piezas de la marca (filete crema +
+  sombra dura sobre la letra). Es la tercera familia del sitio y es una
+  excepción de una palabra.
+- **A la derecha, el collage** con la lógica de la pieza "No sos vos, es tu
+  yerba": el paquete quieto de ancla y dos stickers pisándolo en diagonal,
+  flotando con la deriva que ya existía. La greca de trama salió del hero:
+  sobre una foto es ruido sobre ruido.
+
+**El presupuesto de movimiento sigue en siete**: el fondo vivo ocupa el hueco
+que dejó el preloader.
+
+### Lo que falta del hero
+
+1. **Elegir la manuscrita.** Pacifico es provisional: es la más parecida de
+   Google Fonts a la brush de la pieza `skate.png.png` del cliente, pero esa
+   pieza es un PNG y no trae la fuente. Las nueve candidatas están servidas
+   en **`tools/fuentes.html`** (doble clic), cada una escribiendo el hero real
+   y cotejando "Mate y skate" contra el original. **Si se cambia, hay que
+   rehacer la cuenta del `pb` de la máscara** en `HeroTitulo.tsx`: la cola de
+   la "y" es distinta en cada familia y con la de Pacifico ya salió cortada
+   una vez. Y revisar `--peso-manuscrita`: Pacifico tiene un solo peso.
+2. **El video del fondo.** Falta generarlo a partir de `hero-yerbal.webp`.
+3. **Messi.** Ver la nota en `ASSETS-PENDIENTES.md`: es uso comercial de la
+   imagen de una persona real sin licencia, y la decisión es del cliente.
+
+---
+
 ## REDISEÑO DIURNO — PUSHEADO Y EN PRODUCCIÓN (24-ago)
 
 Lautaro lo revisó y dio el OK; el push a main del 24-ago lo deployó en
@@ -35,7 +83,7 @@ rediseño total del sistema visual sobre la misma base:
 **Para revisar**: `npm run dev` y mirar la home + las 3 internas.
 Puntos donde el gusto de Lautaro y el brief juvenil chocan (decidir
 antes de pushear): (1) la tira marquee, (2) el pin de Origen, (3) el
-tamaño del display del hero. **NO está pusheado**: push a main = deploy.
+tamaño del display del hero. Se pusheó: push a main = deploy.
 
 ```bash
 npm install

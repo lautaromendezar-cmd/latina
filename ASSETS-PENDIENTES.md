@@ -138,6 +138,30 @@ etiqueta letra por letra antes de usarla.
 
 ---
 
+## El hero (ago-2026)
+
+| Path | De dónde salió |
+|---|---|
+| `imagenes/hero-yerbal.webp` | Generada. Monte de araucarias del sur de Brasil con arbustos de yerba adelante. **Mide 1280×714**: a pantalla completa en un monitor grande se ve blanda. Atrás del velo se disimula; se arregla sola cuando llegue el cuadro del video. |
+| `imagenes/stickers/mate.png` | Recortado de `pdf-latina/latina-material/IMG_4579.PNG` (la pieza "No sos vos, es tu yerba") con `colorkey` sobre el verde. Arte propio de la marca, no dibujado de nuevo. |
+| `imagenes/stickers/messi.png` | " |
+| `imagenes/mate-foto.webp` | Recorte de `images/mate.png`. **Hoy no la usa nadie**: quedó del intento de poner el mate en el hero. Sirve para Presentaciones o el manifiesto. |
+
+> **No intentes calar `images/mate.png`. Ya falló por los dos caminos.**
+> El matting automático de Higgsfield le borra la mano y deja muñones colgando
+> del porongo. El `colorkey` de ffmpeg se come el aro de alpaca y las uñas,
+> porque el gris del fondo del estudio es exactamente el gris de la plata.
+> Para tener el mate calado hay que **volver a generar la foto** con el mate
+> aislado sobre un fondo de color plano y contrastado.
+
+> **Los dos stickers son material de terceros y conviene saberlo.**
+> El del mate trae un microtexto abajo que dice `blank tag co`: el cliente lo
+> sacó de un banco de stickers. Y **Messi es una persona real**: esto es uso
+> comercial de su imagen sin licencia. El cliente ya lo usa en Instagram, así
+> que la decisión es de él, pero en la home del sitio la exposición es otra.
+
+---
+
 ## Dos cosas del material
 
 **El `logo.PNG` dice `ERVA-MATE`.** Es la versión brasilera. El paquete real
