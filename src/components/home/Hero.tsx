@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Boton } from '@/components/ui/Boton'
 import { hero } from '@/content/site'
 import { HeroTitulo } from '@/components/home/HeroTitulo'
+import { HeroVideo } from '@/components/home/HeroVideo'
 
 /**
  * Hero.
@@ -72,8 +73,24 @@ import { HeroTitulo } from '@/components/home/HeroTitulo'
  *  · Mide exactamente una pantalla (`h-[100svh]`, red de `min-h` para
  *    telefonos acostados). La tira amarilla es lo primero al scrollear.
  *  · Los dos CTAs visibles SIN scroll, tambien en 360x640.
- *  · En telefono no se muestra el collage: a una columna se le monta al
- *    titulo. El paquete aparece grande en Pilares.
+ *
+ * EN TELEFONO EL LAYOUT ES OTRO, y sale de mirar el video cuadro por
+ * cuadro: el tucan vuela por la BANDA SUPERIOR del encuadre (el 45% de
+ * arriba), y como en un telefono el recorte de object-cover conserva
+ * todo el alto, esa banda es la misma en pantalla. El texto centrado le
+ * caia justo encima del vuelo. Entonces:
+ *
+ *  · El bloque de texto va AL PIE (justify-end abajo de md): la mitad
+ *    superior queda libre para el tucan y el atardecer, y el espacio
+ *    muerto que habia abajo lo ocupa el contenido.
+ *  · El collage aparece tambien en telefono, mas chico, arriba del
+ *    titulo y a la derecha, con la misma deriva (.cutout). SOLO si el
+ *    viewport tiene alto para pagarlo: por debajo de 50rem se esconde
+ *    (`.hero-collage-movil` en globals.css, la cuenta esta ahi), porque
+ *    los CTAs sin scroll son regla y el collage es lo primero que se
+ *    sacrifica. El tucan le pasa por atras un instante por bucle; un
+ *    cutout pisando el fondo es lenguaje del collage, no un texto
+ *    ilegible.
  */
 export function Hero() {
   return (
@@ -81,33 +98,15 @@ export function Hero() {
       data-bloque="verde"
       className="relative flex h-[100svh] min-h-[34rem] flex-col overflow-hidden bg-verde-profundo text-crema"
     >
-      <video
-        aria-hidden="true"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/imagenes/hero-poster.webp"
-        className="absolute inset-0 h-full w-full object-cover object-center"
-      >
-        <source
-          src="/imagenes/hero-loop.webm"
-          type="video/webm"
-          media="(prefers-reduced-motion: no-preference)"
-        />
-        <source
-          src="/imagenes/hero-loop.mp4"
-          type="video/mp4"
-          media="(prefers-reduced-motion: no-preference)"
-        />
-      </video>
+      {/* El video vive en un componente cliente por el autoplay de iOS:
+          la historia entera esta contada en HeroVideo.tsx. */}
+      <HeroVideo />
 
       {/* Velo: UNA capa de negro pareja, y nada de verde.
           Ver la nota de arriba para el porqué y para el número. */}
       <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-16 pt-24 sm:px-6 lg:px-10 lg:pt-28">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-end px-4 pb-10 pt-24 sm:px-6 md:justify-center md:pb-16 lg:px-10 lg:pt-28">
         {/* El collage. Vive en su propia columna y no en el flujo: asi el
             texto de la izquierda no negocia ancho con el, y a la vez
             tiene el ancho acotado para que los stickers no se le vengan
@@ -159,6 +158,42 @@ export function Hero() {
             no cada hijo: si no, la fila de botones se estira por debajo
             del collage. */}
         <div className="md:max-w-[56%]">
+          {/* El collage de telefono: el mismo trio que el de desktop, en
+              chico y en flujo, arriba del titulo y a la derecha. Mismos
+              archivos (ya estan en cache) y misma deriva por .cutout.
+              `.hero-collage-movil` lo esconde en pantallas bajas y de md
+              para arriba, donde manda la columna de la derecha. */}
+          <div aria-hidden="true" className="hero-collage-movil pointer-events-none mb-5 justify-end pr-3">
+            <div className="relative w-[8.5rem]">
+              <Image
+                src="/imagenes/cutouts/pack-1kg.png"
+                alt=""
+                width={960}
+                height={1547}
+                sizes="(min-width: 768px) 1px, 40vw"
+                className="block h-auto w-full rotate-[3deg] drop-shadow-[8px_8px_0_rgba(11,58,28,0.45)]"
+              />
+              <Image
+                src="/imagenes/stickers/messi.png"
+                alt=""
+                width={470}
+                height={730}
+                sizes="(min-width: 768px) 1px, 22vw"
+                data-plano="frente"
+                className="cutout absolute -right-[28%] -top-[7%] w-[54%] rotate-[9deg] drop-shadow-[5px_6px_0_rgba(11,58,28,0.4)]"
+              />
+              <Image
+                src="/imagenes/stickers/mate.png"
+                alt=""
+                width={364}
+                height={536}
+                sizes="(min-width: 768px) 1px, 18vw"
+                data-plano="fondo"
+                className="cutout absolute -bottom-[5%] -left-[24%] w-[44%] rotate-[-13deg] drop-shadow-[5px_6px_0_rgba(11,58,28,0.4)]"
+              />
+            </div>
+          </div>
+
           <HeroTitulo />
 
           <p data-hero-entra className="mt-7 max-w-[38ch] text-body-lg font-semibold">

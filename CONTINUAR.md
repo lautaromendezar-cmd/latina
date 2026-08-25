@@ -4,6 +4,56 @@
 
 ---
 
+## EL HERO Y ORIGEN EN TELÉFONO (25-ago, al final)
+
+Lautaro abrió el sitio en un iPhone y aparecieron dos problemas. Lo que
+había y lo que se hizo:
+
+### El video del hero no arrancaba en iPhone (botón de play)
+
+Dos causas apiladas, las dos documentadas en `HeroVideo.tsx` (nuevo
+componente cliente que reemplaza al `<video>` inline):
+
+1. **React no escribe `muted` en el HTML del servidor** (bug conocido
+   de react-dom). Safari parsea un `<video autoplay>` sin muted y niega
+   el autoplay en el acto. En desktop la hidratación le ganaba a la
+   carga del video y no se notaba.
+2. **El modo de bajo consumo de iOS** bloquea todo autoplay hasta un
+   gesto (la captura de Lautaro tenía la batería al 14%, en amarillo).
+
+La solución: reponer `muted` por propiedad + `play()` a mano al montar,
+y reintento único en el primer toque/scroll. Con reduced-motion no se
+intenta nada (los `<source>` ya filtran por media query).
+
+### El layout del hero en teléfono taparía el vuelo
+
+Se miró el video cuadro por cuadro: **el tucán vuela por la banda
+superior del encuadre (45% de arriba)**, y en un teléfono object-cover
+conserva todo el alto, así que esa banda es la misma en pantalla. El
+texto centrado le caía encima. Ahora, SOLO abajo de `md` (desktop
+intacto):
+
+- El bloque de texto va **al pie** (`justify-end`): la mitad de arriba
+  queda libre para el tucán y el atardecer.
+- **El collage aparece también en teléfono**: paquete y stickers en
+  chico, arriba del título a la derecha, con la deriva de `.cutout`.
+  Sólo con viewport de 50rem de alto o más (`.hero-collage-movil` en
+  globals.css, la cuenta del porqué está ahí): abajo de eso empujaría
+  los CTAs fuera de pantalla, que es regla del hero.
+
+### Origen en teléfono: la banda verde y la entrada que faltaba
+
+- El encabezado ("Origen") era un bloque del flujo con `pt-24 pb-10`
+  sobre fondo verde → una **banda verde vacía de ~200px** entre la tira
+  y la primera foto. Ahora es overlay absoluto sobre la primera foto,
+  como en desktop. El contraste ya estaba pagado (velo negro 65%).
+- Abajo de 1024px no corría **ninguna** animación (el gate del pin
+  cortaba todo), contra la regla de "cada sección con su entrada".
+  Ahora cada slide apilada dispara su entrada al entrar en cuadro:
+  lugar, título y cuerpo, sin SplitText.
+
+---
+
 ## PASADA DE TEXTOS + LAS INTERNAS ALCANZAN AL REDISEÑO (25-ago, más tarde)
 
 Lectura de la home de punta a punta buscando texto que hubiera quedado

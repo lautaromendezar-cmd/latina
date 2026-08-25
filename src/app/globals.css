@@ -480,6 +480,29 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
+   El collage del hero en teléfono
+   ------------------------------------------------------------------
+   En desktop el collage tiene su columna; en teléfono entra en el
+   flujo, arriba del título y a la derecha. La condición de ALTO no es
+   estética: los dos CTAs visibles sin scroll son regla del hero, y la
+   columna completa —collage, título, bajada, botones— mide unos 720px.
+   Por debajo de 50rem el collage es exactamente lo que empujaría los
+   CTAs afuera (o se metería abajo de la nav, que con justify-end es el
+   lado por el que desborda) — así que es lo primero que se sacrifica.
+   Va acá y no en una clase de Tailwind porque la media query combina
+   ancho Y alto.
+   ------------------------------------------------------------------ */
+.hero-collage-movil {
+  display: none;
+}
+
+@media (max-width: 47.9375rem) and (min-height: 50rem) {
+  .hero-collage-movil {
+    display: flex;
+  }
+}
+
+/* ------------------------------------------------------------------
    Movimiento reducido — la red, además del estado propio por sección.
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {

@@ -61,7 +61,35 @@ export function Origen() {
   useLayoutEffectSeguro(() => {
     if (!seccion.current || !marco.current) return
     if (movimientoReducido()) return
-    if (!window.matchMedia('(min-width: 1024px)').matches) return
+
+    // Teléfono y tablet: sin pin —las tres pantallas quedan apiladas—
+    // pero CON entrada. Antes abajo de 1024 no corría nada y la sección
+    // era la única sin animación de entrada, contra la regla escrita en
+    // CONTINUAR.md. Cada slide dispara la suya al entrar en cuadro:
+    // lugar, título y cuerpo en el orden en que se leen. Sin SplitText:
+    // a este tamaño el título entero alcanza, y el plugin se paga solo
+    // donde está el rearmado letra por letra del pin.
+    if (!window.matchMedia('(min-width: 1024px)').matches) {
+      const ctxMovil = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>('[data-slide]').forEach((slide) => {
+          gsap.fromTo(
+            slide.querySelectorAll('[data-secundario], [data-titulo-slide]'),
+            { y: 28, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: slide, start: 'top 70%', once: true },
+            },
+          )
+        })
+        ScrollTrigger.refresh()
+      }, seccion)
+
+      return () => ctxMovil.revert()
+    }
 
     let ctx: gsap.Context | null = null
     let cancelado = false
@@ -238,10 +266,15 @@ export function Origen() {
   return (
     <section ref={seccion} data-bloque="verde" className="relative bg-verde-profundo text-crema">
       <div ref={marco} className="relative w-full overflow-hidden">
-        {/* Encabezado. En el teléfono es un bloque más, arriba de la
-            primera pantalla; en desktop se apoya sobre el marco pineado y
-            se queda ahí mientras pasan los tres momentos. */}
-        <header className="relative z-20 px-4 pb-10 pt-24 sm:px-6 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:top-0 lg:px-10 lg:pb-0 lg:pt-10">
+        {/* Encabezado. Se apoya SOBRE la primera foto en cualquier
+            pantalla: en desktop sobre el marco pineado, en teléfono
+            sobre la primera de las tres apiladas. Antes en teléfono era
+            un bloque más del flujo, y el costo era una banda verde vacía
+            de 200px entre la tira y la foto — pt-24 más pb-10 de nada.
+            El contraste ya está pagado: es la misma etiqueta amarilla
+            sobre el mismo velo negro del 65% que el resto de la
+            sección. */}
+        <header className="pointer-events-none absolute inset-x-0 top-0 z-20 px-4 pt-24 sm:px-6 lg:px-10 lg:pt-10">
           {/* "De las montañas al río" se eliminó: los tres momentos ya
               dicen cada uno dónde está, y el título competía con ellos
               desde una esquina.
