@@ -294,6 +294,41 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
+   Pilares · lo que orbita el paquete.
+
+   La flotacion va en CSS y en un elemento PROPIO, no en el mismo que
+   anima GSAP en la entrada. Las dos cosas escriben `transform`, y una
+   animacion CSS activa le gana por cascada a un estilo en linea: si
+   comparten elemento, la entrada existe pero no se ve. Por eso cada
+   chip son dos nodos, uno flota y el otro entra.
+
+   Catorce pixeles de recorrido en diez segundos. Es a proposito que sea
+   poco: adentro de esas pastillas hay TEXTO, y texto que se mueve mucho
+   no se lee. La inclinacion de cada chip va por la propiedad `rotate`
+   del CSS, que es independiente de `transform`, asi que no pelea con
+   ninguna de las dos animaciones.
+   ------------------------------------------------------------------ */
+.pilar-flota {
+  animation: pilar-flotar var(--ciclo, 10s) ease-in-out infinite alternate;
+  animation-delay: var(--retraso, 0s);
+}
+
+@keyframes pilar-flotar {
+  from {
+    transform: translate3d(0, -7px, 0);
+  }
+  to {
+    transform: translate3d(0, 7px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pilar-flota {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
    Etiquetas — Montserrat traqueado, sin tercera familia.
    ------------------------------------------------------------------ */
 .etiqueta {

@@ -169,39 +169,46 @@ export const origen = {
 export const pilares = {
   etiqueta: 'Qué la hace distinta',
   titulo: 'Por qué cambia el mate',
-  // Cada pilar lleva un recorte REAL del producto, no un icono de línea:
-  // el paquete, la molienda y el sello impreso en el envase. Un set de
-  // iconos genérico es lo que tiene cualquier marca; esto es lo que hay
-  // adentro de esta bolsa.
+  // El paquete en el centro y los tres claims orbitandolo. Es foto
+  // real recortada, como en el hero: es lo unico con la etiqueta a la
+  // vista y la IA le rompe el microtexto.
+  producto: {
+    imagen: '/imagenes/cutouts/pack-1kg.png',
+    alt: 'Paquete de LaTiNa de 1 kg de yerba mate elaborada despalada',
+  },
+  // `chip` es lo que va en la pastilla que flota: corto, de un
+  // vistazo. `titulo` y `cuerpo` son la lectura, abajo. No repiten
+  // palabras entre si a proposito: el chip no es el titulo abreviado.
   items: [
     {
       id: 'rendimiento',
-      imagen: '/imagenes/pack-1kg.png',
-      alt: 'Paquete de LaTiNa de 1 kg',
-      pestana: 'Más rendimiento',
+      chip: 'Más rendimiento',
       titulo: 'Rinde más por paquete',
       cuerpo:
         'Sin palo grueso ocupando lugar, lo que cebás es hoja y polvo. Para el que toma muchos mates por día la diferencia se nota en cuántas veces vuelve a cargar el mate, no en la primera cebada.',
     },
     {
       id: 'padron',
-      imagen: '/imagenes/cutouts/polvo.png',
-      alt: 'Molienda fina de padrón uruguayo, macro',
-      pestana: 'Padrón uruguayo',
+      chip: 'Padrón uruguayo',
       titulo: 'El padrón que no se consigue acá',
       cuerpo:
         'No es una molienda argentina con otro nombre: es el estándar uruguayo, más fino y con más polvo. Es la única parte de esta yerba que ninguna marca de este lado del río puede copiar.',
     },
     {
       id: 'sintacc',
-      imagen: '/imagenes/pilares/sello-sin-gluten.png',
-      alt: 'Sello Sin Gluten impreso en el envase',
-      pestana: 'Sin T.A.C.C.',
+      chip: 'Sin T.A.C.C.',
       titulo: 'Libre de gluten, con sello',
       cuerpo:
         'El envase lo dice y lo lleva impreso: yerba mate elaborada despalada, libre de gluten. Apta para celíacos.',
     },
   ],
+  // Lo que orbita con los chips, ademas del paquete.
+  //
+  // Era esto y el sello SIN GLUTEN, que salio: decia exactamente lo
+  // mismo que el chip 'Sin T.A.C.C.' que tiene al lado, y encima el
+  // sello ya esta impreso en el envase, o sea que estaba tres veces en
+  // el mismo cuadro.
+  orbita: [{ src: '/imagenes/cutouts/polvo.png', ancho: 1200, alto: 800 }],
 } as const
 
 /**

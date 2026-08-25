@@ -52,6 +52,51 @@ que dejó el preloader.
 
 ---
 
+## PILARES: se fue el acordeón (24-ago)
+
+El acordeón escondía detrás de un click las tres razones para comprar:
+para leer la segunda había que cerrar la primera. Son claims paralelos, no
+pasos, así que ahora se ven los tres juntos. El paquete grande en el centro
+y los claims orbitándolo en pastillas inclinadas que flotan; abajo, los tres
+títulos con su cuerpo.
+
+Se fue con el toda su maquinaria de accesibilidad (botones con
+`aria-expanded`, panel que nunca se desmontaba, `onFocus` que abría
+tabulando) y no se perdió nada: ya no hay estado que comunicar porque no hay
+nada cerrado. Los chips del escenario son `aria-hidden` — el mismo texto
+está en la lista de abajo.
+
+**Los colores salen de COMBINACIONES, no de tonos nuevos.** La paleta tiene
+dos, verde y amarillo. Los tres pares son amarillo/tinta (8.6:1),
+verde/crema (4.7:1) y verde-profundo/amarillo (6.2:1). Si hacen falta más
+colores es una decisión de marca, no se resuelve en el componente.
+
+**Entra en una pantalla** (`lg:h-[100svh]`): columna flex donde encabezado y
+lista miden lo que miden y el escenario se queda con lo que sobra. El
+`min-h-0` del hijo flexible NO es opcional: sin el, el mínimo automático de
+una caja flex es su contenido y la sección desborda apenas el viewport es
+bajo.
+
+### Tres trampas que costaron tiempo acá
+
+1. **La flotación y la entrada NO pueden compartir elemento.** Las dos
+   escriben `transform`, y una animación CSS activa le gana por cascada a un
+   estilo en línea: la entrada existía pero no se veía nunca. Por eso cada
+   chip son dos nodos, uno flota y el otro entra.
+2. **Un solo ScrollTrigger atado a la sección no sirve** cuando la sección
+   mide una pantalla: arrancaba al cruzar el borde de arriba y para cuando
+   el paquete aparecía en cuadro la animación había terminado. Van dos, uno
+   para el encabezado y otro para el escenario.
+3. **El recorte de la caída lo hace el contenedor del producto**, no la
+   sección. Si recortara la sección, el paquete pasaría por encima del
+   encabezado durante toda la caída.
+
+`imagenes/pilares/sello-sin-gluten.png` quedó sin uso: decía lo mismo que el
+chip "Sin T.A.C.C." y encima el sello ya está impreso en el envase, o sea que
+estaba tres veces en el mismo cuadro. No se borró: es arte real del producto.
+
+---
+
 ## LA TIRA Y EL MANIFIESTO (24-ago)
 
 **El separador de la tira es el mate de la marca, no un rombo.** El emblema
