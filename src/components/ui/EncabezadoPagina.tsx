@@ -99,8 +99,23 @@ export function EncabezadoPagina({
             style={{ objectPosition: posicion }}
           />
         </div>
-        {/* Velo verde, más liviano que antes: las fotos se ven. */}
-        <div className="absolute inset-0 bg-verde-profundo/65" />
+        {/* Velo NEGRO, el mismo criterio que el hero y Origen: baja la luz
+            sin tocar el tono. El verde-profundo/65 que había hacía dos
+            trabajos —contraste y pintar de marca— y el segundo convertía
+            las tres fotos en monocromo verde.
+
+            68% Y NO 60/65 COMO LA HOME, y el número no es a ojo: dos de
+            las tres fotos tienen blanco PURO (la ventana quemada de
+            donde-comprar, las fundas de vende-latina), así que la cuenta
+            va contra luminancia 1.0 y no contra un "casi blanco".
+
+              negro al 65% -> etiqueta amarilla 4.49:1  falla por un pelo
+              negro al 68% -> amarilla 5.06:1 · crema 7.6:1  pasan las dos
+
+            La que manda es la ETIQUETA AMARILLA de 12px (necesita 4.5:1),
+            igual que en Origen. Si se cambia una foto, rehacer la cuenta
+            contra la nueva: cada imagen tiene su peor píxel. */}
+        <div className="absolute inset-0 bg-black/[0.68]" />
       </div>
 
       <div className="relative mx-auto flex min-h-[58svh] max-w-[1400px] flex-col justify-end px-4 pb-12 pt-32 sm:px-6 lg:px-10 lg:pb-16 lg:pt-40">

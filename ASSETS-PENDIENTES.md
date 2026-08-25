@@ -73,6 +73,7 @@ el generador. Al llegar un asset real se pone `pendiente: false` ahí.
 | Path | Nota |
 |---|---|
 | `imagenes/pack-500g.png` | **No existe en ningún lado**: todo el material del cliente es del kilo. |
+| `imagenes/paginas/donde-comprar.jpg` | La actual es un almacén sepia de banco —bolsas kraft, lamparitas vintage— que no tiene nada de LaTiNa ni del registro juvenil. Sirve una foto real de góndola o de un punto de venta con el paquete, apaisada y de 1920px o más. Reemplazar es pisar el archivo; el velo negro de la cabecera está calculado contra blanco puro, así que aguanta cualquier foto. |
 
 > Cuidado con lo que mande: mezcla fotos reales con renders de IA. `pack-dark.jpg`
 > y `pack-hero.jpg` de `contenido-latina` tienen el microtexto roto

@@ -4,6 +4,44 @@
 
 ---
 
+## PASADA DE TEXTOS + LAS INTERNAS ALCANZAN AL REDISEÑO (25-ago, más tarde)
+
+Lectura de la home de punta a punta buscando texto que hubiera quedado
+mal tras tanto agregar y sacar secciones, y ajuste de las internas al
+criterio nuevo. Lo que se tocó:
+
+**Textos (el diseño no se tocó):**
+
+- **Cierre B2B** enumeraba tres escalas ("unidad, funda de 12 kg y
+  palet") con la escalera de CUATRO peldaños abajo. Ahora dice "de la
+  unidad al palet".
+- **Redes** decía "acá al lado" y en teléfono el muro queda ARRIBA.
+  Igual que "el formulario de al lado" en /contacto. Deixis fuera.
+- **/vende-latina** tenía un "Estamos en 8 provincias" escrito a mano;
+  ahora sale de `totalProvincias`, como todo el resto del sitio.
+- **/contacto** decía "Lo más rápido es WhatsApp…" dos veces casi
+  textual (bajada de cabecera + título de sección). La bajada ahora
+  presenta los canales; el ranking lo hace la sección.
+- Copy muerta fuera de `site.ts` (etiqueta y bajada del preview de
+  Dónde comprar, `footer.legal`, `footer.seguinos`) y los comentarios
+  de la manuscrita puestos al día (hoy: hero, manifiesto, Dónde comprar).
+
+**El velo de las cabeceras internas pasó a negro (68%).** Era el
+verde-profundo/65 viejo, el criterio que la home ya abandonó. El 68 no
+es a ojo: dos de las tres fotos tienen blanco PURO (medido píxel por
+píxel), y al 65 la etiqueta amarilla queda en 4.49:1. La cuenta está en
+`EncabezadoPagina.tsx`.
+
+**Pendiente que quedó anotado**: la foto de cabecera de /donde-comprar
+es un almacén sepia de banco, cero LaTiNa. Pedirle al cliente una foto
+real de góndola o punto de venta (ver `ASSETS-PENDIENTES.md`).
+
+**No se tocó** (necesita confirmación del cliente): las dos erratas del
+scrape en `distribuidores.ts` — "Rosario del Talar" (¿del Tala?) y
+"Zona Oeste", que no es una localidad y nunca matchea una búsqueda.
+
+---
+
 ## LA SEGUNDA MITAD DE LA HOME (25-ago)
 
 Cuatro secciones tocadas y una nueva, todas sobre referencias que trajo
