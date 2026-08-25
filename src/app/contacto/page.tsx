@@ -83,9 +83,11 @@ export default function ContactoPage() {
           <div>
             <Etiqueta className="mb-4 block">Directo</Etiqueta>
             <h2 className="display mb-6 text-display-2">Lo más rápido es WhatsApp</h2>
+            {/* "El formulario" sin "de al lado": en teléfono queda abajo,
+                no al lado, y la frase tiene que funcionar en los dos. */}
             <p className="mb-8 max-w-[42ch] text-tinta-suave">
-              Te contestamos en el día. Si preferís dejarlo escrito, el formulario de al lado
-              llega al mismo lugar.
+              Te contestamos en el día. Si preferís dejarlo escrito, el formulario llega al
+              mismo lugar.
             </p>
 
             <Greca tono="amarillo" alto={10} opacidad={0.9} className="mb-8 max-w-[10rem]" />

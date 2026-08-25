@@ -57,8 +57,9 @@ export const hero = {
   //
   // `destacada`: la línea que va en amarillo, el gesto de las piezas de IG.
   // `manuscrita`: la línea que sale de la condensada y se escribe a mano.
-  //   Es UNA sola en todo el sitio y es el remate del hero. Dos palabras
-  //   manuscritas dejan de ser un gesto y pasan a ser una fuente más.
+  //   La regla es UNA por sección como mucho y siempre sobre el remate de
+  //   una frase (hoy: hero, manifiesto y Dónde comprar). Suelta o repetida
+  //   deja de ser un gesto y pasa a ser una fuente más.
   //
   titulo: [
     { texto: 'El mate cambia', destacada: false, manuscrita: false },
@@ -105,11 +106,11 @@ export const manifiesto = {
   // La frase madre del cliente, entera y partida en renglones.
   //
   // El remate va MANUSCRITO y en amarillo: la misma logica que
-  // "la yerba" en el hero. Es el segundo y ultimo lugar del sitio
-  // donde aparece la manuscrita, y la regla es una por seccion como
-  // mucho, siempre sobre el REMATE de una frase y nunca sobre una
-  // palabra suelta: si se usa en cualquier lado deja de ser un gesto
-  // y pasa a ser una fuente mas.
+  // "la yerba" en el hero. La regla es una por seccion como mucho,
+  // siempre sobre el REMATE de una frase y nunca sobre una palabra
+  // suelta (hoy la usan el hero, este manifiesto y Donde comprar): si
+  // se usa en cualquier lado deja de ser un gesto y pasa a ser una
+  // fuente mas.
   frase: ['Cuando cambiás', 'la yerba, cambia'],
   remate: 'el mate.',
   // La ronda. Foto REAL del cliente, no de un banco: cuatro pibes
@@ -214,14 +215,16 @@ export const pilares = {
 } as const
 
 export const dondeComprarPreview = {
-  etiqueta: 'Dónde comprar',
+  // La etiqueta y la bajada que habia aca se fueron con la seccion
+  // adelgazada: la etiqueta decia lo mismo que el titulo y la bajada
+  // explicaba el fallback antes de que pase. No quedan como campos
+  // muertos porque un campo que existe alguien lo vuelve a renderizar.
+  //
   // El titulo se parte para que el remate vaya manuscrito, igual que en
   // el hero y en el manifiesto. El texto no cambio: es la misma
   // pregunta, escrita en dos registros.
   titulo: '¿Quién te la vende',
   tituloRemate: 'cerca?',
-  bajada:
-    'Buscá tu localidad. Si todavía no llegamos, te la mandamos igual — o la traés vos a tu ciudad.',
   // Lo que quedo de la seccion Presentaciones, que se elimino. Los dos
   // gramajes salen de `data/producto.ts`; esto es lo que los acompana.
   presentaciones: {
@@ -262,8 +265,10 @@ export const dondeComprarPreview = {
 export const cierreB2B = {
   etiqueta: 'Mayoristas',
   titulo: 'Vendé LaTiNa',
+  // Sin enumerar las escalas: la escalera está justo abajo y tiene CUATRO
+  // peldaños — la versión anterior nombraba tres y se contradecía sola.
   cuerpo:
-    'Una yerba que rinde más se repone menos seguido y deja mejor margen por kilo. Escribinos y te pasamos la lista por escala: unidad, funda de 12 kg y palet.',
+    'Una yerba que rinde más se repone menos seguido y deja mejor margen por kilo. Escribinos y te pasamos la lista por escala, de la unidad al palet.',
   cta: { href: '/vende-latina', texto: 'Ver condiciones' },
   // La pieza es del propio cliente: tres pibes riendose y el paquete
   // adentro de los anteojos. Es el argumento B2B dicho al reves — no
@@ -289,8 +294,10 @@ export const cierreB2B = {
 export const redes = {
   etiqueta: 'Instagram',
   titulo: 'Seguinos en Instagram',
+  // "Acá" y no "acá al lado": en teléfono el muro queda ARRIBA del texto,
+  // no al lado, y la frase tiene que funcionar en los dos layouts.
   cuerpo:
-    'Ahí se cuenta primero a dónde está llegando y quién la está tomando. Todo lo que ves acá al lado salió de ese Instagram.',
+    'Ahí se cuenta primero a dónde está llegando y quién la está tomando. Todo lo que ves acá salió de ese Instagram.',
   cta: 'Ver el Instagram',
   // El muro se mueve solo y adentro hay TEXTO: sin control de pausa
   // no cumple WCAG 2.2.2, la misma regla que hizo que la tira
@@ -314,8 +321,8 @@ export const redes = {
 export const footer = {
   credito: 'Diseño y desarrollo: Lautaro Mendez',
   creditoUrl: 'https://lautaromendez.com.ar',
-  legal: 'Yerba mate elaborada despalada · Industria brasilera · Libre de gluten',
-  seguinos: 'Seguinos',
+  // La linea legal NO vive aca: el footer la arma desde `data/producto.ts`
+  // (etiqueta del envase), que es la unica fuente de lo que dice el envase.
   escribinos: 'Escribinos',
 } as const
 
@@ -336,7 +343,12 @@ export const paginas = {
   },
   contacto: {
     titulo: 'Contacto',
-    bajada: 'Lo más rápido es WhatsApp. Si preferís escribir, este formulario llega al mismo lugar.',
+    // Sin "lo más rápido es WhatsApp": esa frase es el título de la
+    // sección de canales, media pantalla más abajo, y la página la decía
+    // dos veces casi textual. La bajada presenta los canales; el ranking
+    // lo hace la sección. (También es la meta description de /contacto,
+    // por eso no dice "acá abajo".)
+    bajada: 'Escribinos por WhatsApp, por Instagram o con el formulario: todo llega al mismo teléfono.',
   },
 } as const
 

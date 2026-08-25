@@ -8,6 +8,7 @@ import { Greca } from '@/components/ui/Greca'
 import { paginas, contacto } from '@/content/site'
 import { escalas, preciosPublicados, piePrecios, tiposDeNegocio, comoNosConociste } from '@/data/mayorista'
 import { PROVINCIAS } from '@/data/provincias'
+import { totalProvincias } from '@/lib/distribuidores'
 
 export const metadata: Metadata = {
   title: paginas.vendeLatina.titulo,
@@ -28,8 +29,9 @@ const ARGUMENTOS = [
   },
   {
     titulo: 'Una marca que recién entra',
-    cuerpo:
-      'Estamos en 8 provincias. Si en tu zona todavía no hay nadie vendiéndola, sos el primero, no el quinto.',
+    // El número sale de los datos, como en todo el resto del sitio: un
+    // "8" escrito a mano acá queda mintiendo solo cuando entre la novena.
+    cuerpo: `Estamos en ${totalProvincias} provincias. Si en tu zona todavía no hay nadie vendiéndola, sos el primero, no el quinto.`,
   },
 ]
 
