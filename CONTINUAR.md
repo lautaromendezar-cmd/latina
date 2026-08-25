@@ -37,9 +37,17 @@ intacto):
   queda libre para el tucán y el atardecer.
 - **El collage aparece también en teléfono**: paquete y stickers en
   chico, arriba del título a la derecha, con la deriva de `.cutout`.
-  Sólo con viewport de 50rem de alto o más (`.hero-collage-movil` en
-  globals.css, la cuenta del porqué está ahí): abajo de eso empujaría
-  los CTAs fuera de pantalla, que es regla del hero.
+  Sólo con viewport de 42rem de alto o más (`.hero-collage-movil` en
+  globals.css): abajo de eso empujaría los CTAs fuera de pantalla,
+  que es regla del hero.
+
+  **El umbral se mide contra el viewport CHICO, aprendido rompiéndolo:**
+  la primera versión pedía 50rem y en el iPhone de Lautaro el collage
+  aparecía recién al scrollear — al cargar, con las barras de Safari
+  desplegadas, la media query de alto ve ~734px, y al plegar las
+  barras pasa a 844 y el collage "nacía" en medio del gesto. El hero
+  mide 100svh (viewport chico, fijo), así que la columna entera tiene
+  que entrar en ese número. La cuenta completa está en globals.css.
 
 ### Origen en teléfono: la banda verde y la entrada que faltaba
 

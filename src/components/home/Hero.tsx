@@ -85,12 +85,13 @@ import { HeroVideo } from '@/components/home/HeroVideo'
  *    muerto que habia abajo lo ocupa el contenido.
  *  · El collage aparece tambien en telefono, mas chico, arriba del
  *    titulo y a la derecha, con la misma deriva (.cutout). SOLO si el
- *    viewport tiene alto para pagarlo: por debajo de 50rem se esconde
- *    (`.hero-collage-movil` en globals.css, la cuenta esta ahi), porque
- *    los CTAs sin scroll son regla y el collage es lo primero que se
- *    sacrifica. El tucan le pasa por atras un instante por bucle; un
- *    cutout pisando el fondo es lenguaje del collage, no un texto
- *    ilegible.
+ *    viewport tiene alto para pagarlo — y el umbral se mide contra el
+ *    VIEWPORT CHICO, no contra el alto con las barras plegadas: la
+ *    historia completa esta en `.hero-collage-movil` de globals.css,
+ *    que es donde vive la cuenta. Los CTAs sin scroll son regla y el
+ *    collage es lo primero que se sacrifica. El tucan le pasa por
+ *    atras un instante por bucle; un cutout pisando el fondo es
+ *    lenguaje del collage, no un texto ilegible.
  */
 export function Hero() {
   return (
@@ -106,7 +107,7 @@ export function Hero() {
           Ver la nota de arriba para el porqué y para el número. */}
       <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-end px-4 pb-10 pt-24 sm:px-6 md:justify-center md:pb-16 lg:px-10 lg:pt-28">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-end px-4 pb-8 pt-24 sm:px-6 md:justify-center md:pb-16 lg:px-10 lg:pt-28">
         {/* El collage. Vive en su propia columna y no en el flujo: asi el
             texto de la izquierda no negocia ancho con el, y a la vez
             tiene el ancho acotado para que los stickers no se le vengan
@@ -163,14 +164,20 @@ export function Hero() {
               archivos (ya estan en cache) y misma deriva por .cutout.
               `.hero-collage-movil` lo esconde en pantallas bajas y de md
               para arriba, donde manda la columna de la derecha. */}
-          <div aria-hidden="true" className="hero-collage-movil pointer-events-none mb-5 justify-end pr-3">
-            <div className="relative w-[8.5rem]">
+          {/* `priority` en los tres: son contenido del primer cuadro en
+              telefono, y un lazy adentro de un display:none no
+              interseca nunca — cargaria recien al aparecer, con
+              pop-in. En desktop el preload sale gratis: sizes los deja
+              en 1px. */}
+          <div aria-hidden="true" className="hero-collage-movil pointer-events-none mb-3 justify-end pr-3">
+            <div className="relative w-[7rem]">
               <Image
                 src="/imagenes/cutouts/pack-1kg.png"
                 alt=""
                 width={960}
                 height={1547}
-                sizes="(min-width: 768px) 1px, 40vw"
+                priority
+                sizes="(min-width: 768px) 1px, 30vw"
                 className="block h-auto w-full rotate-[3deg] drop-shadow-[8px_8px_0_rgba(11,58,28,0.45)]"
               />
               <Image
@@ -178,7 +185,8 @@ export function Hero() {
                 alt=""
                 width={470}
                 height={730}
-                sizes="(min-width: 768px) 1px, 22vw"
+                priority
+                sizes="(min-width: 768px) 1px, 17vw"
                 data-plano="frente"
                 className="cutout absolute -right-[28%] -top-[7%] w-[54%] rotate-[9deg] drop-shadow-[5px_6px_0_rgba(11,58,28,0.4)]"
               />
@@ -187,7 +195,8 @@ export function Hero() {
                 alt=""
                 width={364}
                 height={536}
-                sizes="(min-width: 768px) 1px, 18vw"
+                priority
+                sizes="(min-width: 768px) 1px, 14vw"
                 data-plano="fondo"
                 className="cutout absolute -bottom-[5%] -left-[24%] w-[44%] rotate-[-13deg] drop-shadow-[5px_6px_0_rgba(11,58,28,0.4)]"
               />

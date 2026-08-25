@@ -483,20 +483,29 @@ textarea {
    El collage del hero en teléfono
    ------------------------------------------------------------------
    En desktop el collage tiene su columna; en teléfono entra en el
-   flujo, arriba del título y a la derecha. La condición de ALTO no es
-   estética: los dos CTAs visibles sin scroll son regla del hero, y la
-   columna completa —collage, título, bajada, botones— mide unos 720px.
-   Por debajo de 50rem el collage es exactamente lo que empujaría los
-   CTAs afuera (o se metería abajo de la nav, que con justify-end es el
-   lado por el que desborda) — así que es lo primero que se sacrifica.
-   Va acá y no en una clase de Tailwind porque la media query combina
-   ancho Y alto.
+   flujo, arriba del título y a la derecha, sólo si el viewport tiene
+   alto para pagarlo: los dos CTAs visibles sin scroll son regla del
+   hero y el collage es lo primero que se sacrifica.
+
+   EL UMBRAL SE MIDE CONTRA EL VIEWPORT CHICO, y esto se aprendió
+   rompiéndolo. La primera versión pedía 50rem pensando en los 844px
+   lógicos de un iPhone — pero una media query de alto ve el viewport
+   DINÁMICO: al cargar, con las barras de Safari desplegadas, mide
+   ~734px, y recién al scrollear (las barras se pliegan) pasa a 844.
+   Resultado: el collage nacía escondido y APARECÍA con el primer
+   scroll, como un glitch. El hero, en cambio, mide 100svh, que está
+   clavado al viewport chico y no se mueve — así que la columna entera
+   (collage ~190px + título + bajada + CTAs + aire ≈ 660px) tiene que
+   entrar en ESE número, con lugar para la nav. 42rem (672px) muestra
+   el collage desde la carga en cualquier teléfono normal y deja
+   afuera sólo a los realmente bajos (SE y similares), donde no cabía
+   de ninguna forma.
    ------------------------------------------------------------------ */
 .hero-collage-movil {
   display: none;
 }
 
-@media (max-width: 47.9375rem) and (min-height: 50rem) {
+@media (max-width: 47.9375rem) and (min-height: 42rem) {
   .hero-collage-movil {
     display: flex;
   }
