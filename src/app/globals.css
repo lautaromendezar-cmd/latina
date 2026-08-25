@@ -33,7 +33,11 @@
   --color-blanco: #ffffff; /* superficie elevada (cards, inputs) */
   --color-verde: #17813a; /* bloque de marca; crema encima pasa AA */
   --color-verde-vivo: #23a24a; /* decoración sobre verde, nunca texto */
-  --color-verde-profundo: #0c5223; /* hover, footer, etiquetas sobre claro */
+  --color-verde-profundo: #0c5223; /* hover, velos, etiquetas sobre claro */
+  /* El footer, y solo el footer. Es el piso de la pagina: tiene que
+     leerse como el final y no como una seccion mas de marca. Crema
+     encima da 14.4:1 y amarillo 9.6:1. */
+  --color-verde-noche: #062e14;
 
   /* --- tinta --- */
   --color-tinta: #0b3a1c; /* texto sobre claro y sobre amarillo */
@@ -250,50 +254,6 @@ textarea {
 }
 
 /* ------------------------------------------------------------------
-   El fondo vivo del hero.
-
-   Un travelling lentisimo sobre la foto del yerbal, para que el hero
-   respire mientras no exista el video. Va en CSS y no en GSAP a
-   proposito: es un bucle que no depende del scroll ni de nada, no
-   necesita una linea de tiempo, y asi no suma un gramo al bundle del
-   LCP. El dia que entre el <video>, esta clase se borra y ya.
-
-   Arranca en 1.06 y no en 1: al desplazarse un 1% tiene que haber
-   imagen de sobra por fuera del cuadro o se ve el borde.
-
-   Sale del presupuesto de movimiento el hueco que dejo el preloader.
-   ------------------------------------------------------------------ */
-.fondo-vivo {
-  transform-origin: 55% 45%;
-  will-change: transform;
-  animation: fondo-deriva 26s ease-in-out infinite alternate;
-}
-
-/* El grueso del recorrido es el DESPLAZAMIENTO, no la escala, y es a
-   proposito: mover se percibe mucho mejor que agrandar, y ademas la
-   foto original mide 1280 de ancho, asi que cada punto de escala que
-   le agrego es un punto mas de blandura. La escala solo esta para que
-   sobre imagen fuera de cuadro y el desplazamiento no muestre el
-   borde: con +-1.8% hace falta 1.04 y va con 1.08. */
-@keyframes fondo-deriva {
-  from {
-    transform: scale(1.08) translate3d(-1.8%, 1.2%, 0);
-  }
-  to {
-    transform: scale(1.14) translate3d(1.8%, -1.2%, 0);
-  }
-}
-
-/* El estado quieto esta DISENADO, no es el efecto apagado: queda con el
-   mismo encuadre cerrado que el promedio de la animacion. */
-@media (prefers-reduced-motion: reduce) {
-  .fondo-vivo {
-    animation: none;
-    transform: scale(1.1);
-  }
-}
-
-/* ------------------------------------------------------------------
    Pilares · lo que orbita el paquete.
 
    La flotacion va en CSS y en un elemento PROPIO, no en el mismo que
@@ -425,6 +385,64 @@ textarea {
   display: block;
   width: 1em;
   height: 1em;
+}
+
+/* ------------------------------------------------------------------
+   Redes · el muro que sube y baja.
+
+   Dos columnas de piezas de Instagram en marquesina VERTICAL, una en
+   cada sentido. Es CSS puro por el mismo motivo que el fondo del hero:
+   es un bucle que no depende del scroll ni de nada, no necesita linea
+   de tiempo, y asi no le suma nada al bundle.
+
+   DOS COPIAS y -50%, no tres y -33% como la tira. La diferencia es que
+   ahi la pista tiene que ser mas ANCHA que el viewport, que puede medir
+   2560; aca la columna tiene alto fijo (620px como mucho) y cinco
+   piezas ya miden mas del doble. Con dos copias sobra.
+
+   El sentido inverso NO se hace con `animation-direction: reverse`: eso
+   invierte tambien la curva de la animacion, y aunque en lineal se ve
+   igual, deja la pista arrancando desde -50% en el primer cuadro. Son
+   dos keyframes con los extremos dados vuelta.
+   ------------------------------------------------------------------ */
+.muro-pista {
+  --muro-dur: 46s;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  animation: muro-sube var(--muro-dur) linear infinite;
+}
+
+.muro-pista[data-sentido="baja"] {
+  animation-name: muro-baja;
+}
+
+.muro-pista[data-pausada="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes muro-sube {
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes muro-baja {
+  from {
+    transform: translate3d(0, -50%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Estado quieto DISENADO: la pista se para arriba de todo y la ventana
+   deja de recortar en degrade. No es el efecto apagado, es un muro. */
+@media (prefers-reduced-motion: reduce) {
+  .muro-pista {
+    animation: none;
+    transform: none;
+  }
 }
 
 /* ------------------------------------------------------------------

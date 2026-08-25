@@ -6,19 +6,58 @@ import { HeroTitulo } from '@/components/home/HeroTitulo'
 /**
  * Hero.
  *
- * El fondo es el yerbal: monte de araucarias del sur de Brasil con los
- * arbustos de yerba adelante. Es el lugar donde se elabora, no un paisaje
- * de stock. Se mueve con un travelling lentisimo en CSS (`.fondo-vivo`)
- * hasta que exista el video; ese dia se cambia el <Image> por un <video>
- * con este mismo archivo de poster, se borra la clase y no se mueve nada
- * mas.
+ * El fondo es el tucan sobre el monte al atardecer, elegido de una
+ * referencia del propio cliente (el mismo tucan aparece en sus piezas de
+ * Instagram). Antes era el yerbal de araucarias del sur de Brasil, que era
+ * mas fiel al LUGAR donde se elabora; este es mas fiel al lenguaje visual
+ * de la MARCA. Gano la marca, y esta bien que gane.
  *
- * EL VELO NO ES ESTETICA, ES CONTRASTE. Sobre la parte mas clara de la
- * foto, crema necesita que el velo del lado del texto sea verde-profundo:
- * asi la bajada queda en ~5.3:1 en el peor pixel y pasa AA. Del lado
- * derecho el velo se abre hasta transparente, porque ahi no hay texto y
- * el monte se tiene que ver. En telefono no hay "derecha": el texto ocupa
- * todo el ancho, asi que el velo es parejo.
+ * YA ES EL VIDEO. El travelling en CSS (`.fondo-vivo`) que lo reemplazaba
+ * se borro junto con la clase, como estaba previsto: el tucan entra por la
+ * izquierda, cruza el cuadro y sale. El loop cierra solo porque el primer
+ * cuadro y el ultimo son el monte vacio.
+ *
+ * De paso mejora lo del paquete del pico. En la foto fija media el 11% del
+ * ancho —unos 210px en una pantalla de 1920— con la etiqueta generada y
+ * rota. En el video el tucan vuela mas lejos y en movimiento, asi que el
+ * paquete es chico y nunca esta quieto: la etiqueta deja de ser algo que
+ * se pueda leer.
+ *
+ * MOVIMIENTO REDUCIDO SIN JAVASCRIPT. Los dos <source> llevan
+ * `media="(prefers-reduced-motion: no-preference)"`. Si el visitante pidio
+ * no moverse, ninguna fuente coincide, el navegador no elige ninguna y no
+ * DESCARGA el video: se queda el poster. Es el estado estatico disenado,
+ * gratis y sin un `if` de cliente.
+ *
+ * El poster es EL CUADRO CERO del video, no la foto suelta: cualquier otra
+ * imagen daria un salto en el instante en que arranca la reproduccion.
+ * Tambien es lo que pinta el LCP, por eso pesa 66 KB y el video va con
+ * `preload="metadata"`: primero se ve, despues se mueve.
+ *
+ * EL VELO ES NEGRO Y PAREJO, y eso es un cambio de criterio.
+ *
+ * Antes eran tres capas de verde: una pareja que llevaba la foto al color
+ * de marca y un degrade que cargaba la tinta del lado del texto. Funcionaba
+ * para el contraste, pero convertia la foto en un monocromo verde: el
+ * atardecer naranja, las montanas azules y el tucan desaparecian. El velo
+ * estaba haciendo dos trabajos —dar contraste y pintar de marca— y el
+ * segundo se comia a la foto.
+ *
+ * Ahora hace uno solo. Negro puro al 60%, igual en todo el cuadro: baja la
+ * luz sin tocar el tono, asi que la foto conserva sus colores y el hero
+ * pasa a ser foto + tipografia. La marca la ponen el amarillo del remate y
+ * el del boton, que es donde tiene que estar.
+ *
+ * EL NUMERO NO ES A OJO. El pixel mas claro de la zona donde vive el texto
+ * es 255,248,232 —casi blanco puro—, y su luminancia es 0.942. Para que
+ * crema pase AA encima (4.5:1) el fondo tiene que quedar en 0.176 o menos:
+ *
+ *   negro al 50% -> 4.03:1   NO pasa
+ *   negro al 55% -> 4.81:1   pasa raspando
+ *   negro al 60% -> 5.80:1   pasa comodo
+ *
+ * Por eso 60 y no 50. Si alguna vez se aclara, hay que rehacer la cuenta
+ * contra la foto que este puesta: cada imagen tiene su propio pixel peor.
  *
  * A la derecha, el collage, con la logica de la pieza "No sos vos, es tu
  * yerba" del cliente: el producto en el centro y los stickers pisandolo.
@@ -34,7 +73,7 @@ import { HeroTitulo } from '@/components/home/HeroTitulo'
  *    telefonos acostados). La tira amarilla es lo primero al scrollear.
  *  · Los dos CTAs visibles SIN scroll, tambien en 360x640.
  *  · En telefono no se muestra el collage: a una columna se le monta al
- *    titulo. El paquete aparece grande en Presentaciones.
+ *    titulo. El paquete aparece grande en Pilares.
  */
 export function Hero() {
   return (
@@ -42,23 +81,31 @@ export function Hero() {
       data-bloque="verde"
       className="relative flex h-[100svh] min-h-[34rem] flex-col overflow-hidden bg-verde-profundo text-crema"
     >
-      <Image
-        src="/imagenes/hero-yerbal.webp"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="fondo-vivo object-cover object-center"
-      />
-
-      {/* Velo, en dos capas: una pareja que lleva la foto al verde de
-          marca, y otra que carga la tinta del lado donde va el texto. */}
-      <div aria-hidden="true" className="absolute inset-0 bg-verde/32" />
-      <div aria-hidden="true" className="absolute inset-0 bg-verde-profundo/74 md:hidden" />
-      <div
+      <video
         aria-hidden="true"
-        className="absolute inset-0 hidden bg-gradient-to-r from-verde-profundo/94 via-verde-profundo/68 to-transparent md:block"
-      />
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/imagenes/hero-poster.webp"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      >
+        <source
+          src="/imagenes/hero-loop.webm"
+          type="video/webm"
+          media="(prefers-reduced-motion: no-preference)"
+        />
+        <source
+          src="/imagenes/hero-loop.mp4"
+          type="video/mp4"
+          media="(prefers-reduced-motion: no-preference)"
+        />
+      </video>
+
+      {/* Velo: UNA capa de negro pareja, y nada de verde.
+          Ver la nota de arriba para el porqué y para el número. */}
+      <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-4 pb-16 pt-24 sm:px-6 lg:px-10 lg:pt-28">
         {/* El collage. Vive en su propia columna y no en el flujo: asi el

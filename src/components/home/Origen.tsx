@@ -242,8 +242,15 @@ export function Origen() {
             primera pantalla; en desktop se apoya sobre el marco pineado y
             se queda ahí mientras pasan los tres momentos. */}
         <header className="relative z-20 px-4 pb-10 pt-24 sm:px-6 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:top-0 lg:px-10 lg:pb-0 lg:pt-10">
-          <p className="etiqueta mb-2 text-amarillo">{origen.etiqueta}</p>
-          <h2 className="display max-w-[18ch] text-display-3">{origen.titulo}</h2>
+          {/* "De las montañas al río" se eliminó: los tres momentos ya
+              dicen cada uno dónde está, y el título competía con ellos
+              desde una esquina.
+
+              La etiqueta pasa a ser el `h2` de la sección. No es un
+              detalle: si se va el único h2, los tres `h3` de los momentos
+              quedan colgando de la nada y el esquema de encabezados se
+              rompe. Se ve igual que antes, es la misma etiqueta. */}
+          <h2 className="etiqueta text-amarillo">{origen.etiqueta}</h2>
         </header>
 
         {/* Índice. Dice en qué punto del recorrido estás, que es el dato
@@ -284,12 +291,25 @@ export function Origen() {
                     priority={i === 0}
                     className="object-cover"
                   />
-                  {/* Velo verde, más liviano que el 75% del sitio viejo:
-                      las fotos son diurnas y el rediseño las deja verse.
-                      El texto sigue centrado sobre la banda más pareja de
-                      cada foto; si se cambia una foto por otra con el
-                      centro muy claro, subir el velo. */}
-                  <div aria-hidden="true" className="absolute inset-0 bg-verde-profundo/60" />
+                  {/* Velo NEGRO, igual que el del hero: baja la luz sin
+                      tocar el tono, así que la montaña, el río y la ruta
+                      conservan su color en vez de volverse un monocromo
+                      verde.
+
+                      65% Y NO 60% COMO EL HERO, y la diferencia tiene un
+                      motivo. El píxel más claro de las tres fotos está en
+                      la de Uruguay: 255,250,247, luminancia 0.963. Con
+                      negro al 60% la bajada en crema queda en 5.7:1 y
+                      pasa, pero la ETIQUETA AMARILLA queda en 3.8:1 y no
+                      llega a los 4.5 que pide un texto de 12px. Al 65%
+                      el amarillo sube a 4.59:1 y la crema a 6.9:1.
+
+                      (Con el velo verde que había, esa etiqueta estaba en
+                      2.18:1: esto no lo empeora, lo arregla.)
+
+                      Si se cambia una foto, hay que rehacer la cuenta
+                      contra la nueva: cada imagen tiene su peor píxel. */}
+                  <div aria-hidden="true" className="absolute inset-0 bg-black/[0.65]" />
                 </div>
 
                 <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center">

@@ -10,7 +10,7 @@ import { etiqueta as etiquetaEnvase } from '@/data/producto'
  */
 export function Footer() {
   return (
-    <footer data-bloque="verde" className="bg-verde-profundo text-crema">
+    <footer data-bloque="verde" className="bg-verde-noche text-crema">
       <Greca tono="amarillo" alto={14} opacidad={0.6} />
 
       <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 lg:px-10 lg:py-24">

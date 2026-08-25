@@ -1,6 +1,118 @@
 # LaTiNa — dónde quedó esto
 
-Última sesión: **24-ago-2026**.
+Última sesión: **25-ago-2026**.
+
+---
+
+## LA SEGUNDA MITAD DE LA HOME (25-ago)
+
+Cuatro secciones tocadas y una nueva, todas sobre referencias que trajo
+Lautaro. Lo que hay que saber de cada una:
+
+### PRESENTACIONES: eliminada
+
+Su único dato —viene en dos tamaños— ya lo dice la tira, y el paquete ya
+aparece grande en el hero y cayendo en Pilares. Pero el motivo de fondo fue
+otro: **`pack-500g.png` era el MISMO ARCHIVO que `pack-1kg.png`, byte por
+byte**, así que la tarjeta del ½ kg mostraba un envase con 1KG impreso. Eso
+no es un placeholder que se degrada bien, es una afirmación falsa sobre el
+producto.
+
+Se borró el archivo Y los campos de imagen de `data/producto.ts`: mientras
+el campo exista, el próximo que pase lo llena con lo que haya a mano. El
+dato (dos tamaños, sólo el de 1 kg con escala mayorista) se queda.
+
+Los dos gramajes y el botón a la tienda viven ahora al pie de Dónde comprar.
+**Cuando llegue la foto real del ½ kg**, los dos paquetes juntos y en escala
+vuelven a merecer un momento propio.
+
+### DÓNDE COMPRAR: el tratamiento de "Find our location"
+
+Título centrado con el remate manuscrito, el garabato a la izquierda y el
+sello de goma a la derecha (`components/ui/Adornos.tsx`). **La flecha está
+dibujada a ojo** y no sale de ningún material de la marca; el sello dice lo
+que dice el ENVASE, no una frase inventada.
+
+Después se adelgazó: la primera versión apilaba cinco estilos de componente
+y se leía como una ensalada. Se fueron la etiqueta, la bajada, la card de
+las presentaciones y las ocho pastillas de provincias (ahora una línea de
+texto). **Quedan tres cosas con forma**: el campo de búsqueda, la lista de
+resultados y el bloque del fallback. El resto es tipografía.
+
+### VENDÉ LATINA: bloque a sangre estilo Paput
+
+La grilla cuelga de la SECCIÓN y no del contenedor de 1400, así la foto
+llega al borde del viewport. **La escalera de compra va DENTRO de la columna
+izquierda**, en dos por dos: estuvo un rato abajo y a lo ancho, y el costo
+era que la grilla terminaba donde terminaba el texto y la foto no llegaba al
+piso del bloque.
+
+### REDES: sección nueva, el muro de Instagram
+
+Dos columnas en marquesina vertical, una sube y otra baja, con **piezas
+REALES** del cliente sacadas de `pdf-latina/latina-material`. Cambiarlas es
+pisar los diez archivos de `public/imagenes/redes/`.
+
+Tres cosas que costaron tiempo:
+
+1. **El que recorta tiene que tener alto DEFINIDO.** La pista mide más de
+   5000px; con la celda en `h-auto` + `min-h-full`, el alto lo ponía el
+   contenido y la sección se iba a cinco mil píxeles. Va `absolute inset-0`
+   adentro de una celda estirada.
+2. **Las dos columnas no duran lo mismo** (46s y 54s). Si duran igual,
+   vuelven al punto de partida en el mismo instante y el salto se ve.
+3. **Botón de pausa obligatorio**: adentro de las piezas hay texto y WCAG
+   2.2.2 pide control para movimiento automático de más de 5s.
+
+### EL VELO PASÓ DE VERDE A NEGRO (hero y Origen)
+
+El velo verde hacía DOS trabajos —dar contraste y pintar de marca— y el
+segundo se comía la foto: todo quedaba en monocromo verde. Ahora es negro
+parejo: baja la luz sin tocar el tono.
+
+**Los números no son a ojo y son distintos en cada sección**, porque cada
+foto tiene su peor píxel:
+
+| | peor píxel | velo | resultado |
+|---|---|---|---|
+| Hero | 255,248,232 | negro 60% | bajada 5.80:1 |
+| Origen | 255,250,247 | negro 65% | bajada 6.89:1, etiqueta amarilla 4.59:1 |
+
+Origen va al 65 y no al 60 porque **la etiqueta amarilla de 12px** ("Sur de
+Brasil", etc.) necesita 4.5:1 y al 60% se quedaba en 3.80. Con el velo verde
+que había estaba en **2.18:1**: esto no lo empeoró, lo arregló.
+
+Si se cambia una foto, hay que rehacer la cuenta contra la nueva.
+
+### HERO: el fondo es VIDEO
+
+El tucán cruzando el monte al atardecer, de una referencia del propio
+cliente. El loop cierra solo: el primer cuadro y el último son el monte
+vacío. Del master de 15,2 MB salieron webm 665 KB / mp4 960 KB a 1600px, sin
+audio.
+
+- **El poster es el CUADRO CERO del video**, no una foto suelta: cualquier
+  otra imagen da un salto cuando arranca la reproducción.
+- **Movimiento reducido sin JavaScript**: los dos `<source>` llevan
+  `media="(prefers-reduced-motion: no-preference)"`. Si el visitante pidió
+  no moverse, ninguna fuente coincide y el navegador ni descarga el video.
+- Murió `.fondo-vivo` (el travelling en CSS que reemplazaba al video) y
+  murieron los tres archivos del hero oscuro viejo.
+
+### OJO CON LAS ETIQUETAS GENERADAS
+
+Las dos imágenes nuevas del cliente tienen el paquete con la etiqueta rota
+(emblema convertido en mancha, microtexto ilegible). Están puestas igual
+**porque a tamaño de pantalla no se leen**, pero el margen es corto:
+
+- `vende-latina.webp`: el paquete adentro de los anteojos.
+- El video del hero: el paquete en el pico. En la foto fija medía 210px en
+  1920 y era el caso más riesgoso; en el video vuela lejos y en movimiento,
+  así que dejó de ser legible.
+
+**La solución definitiva es la misma para las dos**: regenerar con el hueco
+vacío —lentes opacos, pico sin nada— y componer encima el recorte del
+paquete REAL, que es lo que ya se hace en el hero y en Pilares.
 
 ---
 

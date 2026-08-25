@@ -149,15 +149,11 @@ export const assets = {
       pendiente: false,
       transparente: true,
     },
-    {
-      path: '/imagenes/pack-500g.png',
-      ancho: 1200,
-      alto: 1500,
-      descripcion:
-        'Paquete de ½ kg, foto real. NO EXISTE en el banco actual: todas las fotos del cliente son del 1 kg.',
-      pendiente: true,
-      transparente: true,
-    },
+    // El ½ kg NO tiene entrada de archivo a proposito. La habia, y el
+    // placeholder que se genero era una COPIA EXACTA del 1 kg: el sitio
+    // mostraba un envase con 1KG impreso abajo del rotulo "½ kg". Cuando
+    // llegue la foto real se vuelve a agregar aca; mientras no exista, el
+    // sitio dice que hay dos tamanos con tipografia y no finge una foto.
   ],
 } satisfies Record<string, Asset[]>
 

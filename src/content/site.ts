@@ -132,7 +132,9 @@ export const manifiesto = {
 
 export const origen = {
   etiqueta: 'Origen',
-  titulo: 'De las montañas al río',
+  // El titulo de la seccion se elimino: los tres momentos ya dicen cada
+  // uno donde estan, y "De las montanas al rio" competia con ellos desde
+  // una esquina. La etiqueta quedo de encabezado.
   // Trayectoria, no geografía: Brasil donde se hace, Uruguay donde se
   // probó el padrón, Argentina donde recién llega. Sin fechas (MARCA.md).
   momentos: [
@@ -211,26 +213,23 @@ export const pilares = {
   orbita: [{ src: '/imagenes/cutouts/polvo.png', ancho: 1200, alto: 800 }],
 } as const
 
-/**
- * Las dos presentaciones.
- *
- * Es una franja, no una sección de catálogo: sin selector de variante, sin
- * carrusel, sin precios. Sólo dice que el paquete viene en dos tamaños,
- * porque si no el sitio da a entender que hay uno solo y el ½ kg se pierde.
- */
-export const presentacionesCopy = {
-  etiqueta: 'El paquete',
-  titulo: 'Viene en dos',
-  bajada:
-    'Las dos son la misma yerba: mismo padrón, misma molienda. Cambia cuánta llevás.',
-  ctaTienda: 'Comprar online',
-} as const
-
 export const dondeComprarPreview = {
   etiqueta: 'Dónde comprar',
-  titulo: '¿Quién te la vende cerca?',
+  // El titulo se parte para que el remate vaya manuscrito, igual que en
+  // el hero y en el manifiesto. El texto no cambio: es la misma
+  // pregunta, escrita en dos registros.
+  titulo: '¿Quién te la vende',
+  tituloRemate: 'cerca?',
   bajada:
     'Buscá tu localidad. Si todavía no llegamos, te la mandamos igual — o la traés vos a tu ciudad.',
+  // Lo que quedo de la seccion Presentaciones, que se elimino. Los dos
+  // gramajes salen de `data/producto.ts`; esto es lo que los acompana.
+  presentaciones: {
+    etiqueta: 'Viene en dos',
+    nota:
+      'Las dos son la misma yerba: mismo padrón, misma molienda. Cambia cuánta llevás.',
+    cta: 'Comprar online',
+  },
   placeholderBusqueda: 'Escribí tu localidad',
   etiquetaBusqueda: 'Buscá tu localidad',
   verTodos: 'Ver todos los puntos de venta',
@@ -266,6 +265,50 @@ export const cierreB2B = {
   cuerpo:
     'Una yerba que rinde más se repone menos seguido y deja mejor margen por kilo. Escribinos y te pasamos la lista por escala: unidad, funda de 12 kg y palet.',
   cta: { href: '/vende-latina', texto: 'Ver condiciones' },
+  // La pieza es del propio cliente: tres pibes riendose y el paquete
+  // adentro de los anteojos. Es el argumento B2B dicho al reves — no
+  // "compranos", sino "esto te lo van a pedir".
+  foto: {
+    src: '/imagenes/vende-latina.webp',
+    alt:
+      'Tres personas jovenes riendose; el del medio tiene anteojos de sol donde se refleja un paquete de LaTiNa',
+  },
+  escalasEtiqueta: 'Escalas de compra · paquete de 1 kg',
+  escalasNota: 'El ½ kg no tiene precio mayorista.',
+} as const
+
+/* ------------------------------------------------------------------ */
+/* Redes                                                               */
+/*                                                                     */
+/* El muro son piezas REALES del Instagram de la marca, sacadas de     */
+/* `pdf-latina/latina-material`. No son placeholders ni banco de       */
+/* imagenes: por eso el cuerpo puede decir que lo que se ve al lado    */
+/* salio de ahi.                                                       */
+/* ------------------------------------------------------------------ */
+
+export const redes = {
+  etiqueta: 'Instagram',
+  titulo: 'Seguinos en Instagram',
+  cuerpo:
+    'Ahí se cuenta primero a dónde está llegando y quién la está tomando. Todo lo que ves acá al lado salió de ese Instagram.',
+  cta: 'Ver el Instagram',
+  // El muro se mueve solo y adentro hay TEXTO: sin control de pausa
+  // no cumple WCAG 2.2.2, la misma regla que hizo que la tira
+  // tuviera boton.
+  pausar: 'Pausar el muro',
+  reanudar: 'Reanudar el muro',
+  posteos: [
+    { src: '/imagenes/redes/01.webp', alt: 'Pieza de la marca: un pibe saltando en skate sobre una pila de paquetes de LaTiNa' },
+    { src: '/imagenes/redes/02.webp', alt: 'Pieza de la marca con la frase «No sos vos, es tu yerba» y el paquete de 1 kg' },
+    { src: '/imagenes/redes/03.webp', alt: 'Pieza de la marca: «Buenos días» sobre un mate dibujado en amarillo' },
+    { src: '/imagenes/redes/04.webp', alt: 'Pieza de la marca: el paquete de LaTiNa con la leyenda «padrón uruguayo»' },
+    { src: '/imagenes/redes/05.webp', alt: 'Foto de la marca: un mate en la mano dentro de un auto, con la pregunta «¿Viajás?»' },
+    { src: '/imagenes/redes/06.webp', alt: 'Pieza de la marca: el paquete de LaTiNa sobre un paisaje de monte al atardecer' },
+    { src: '/imagenes/redes/07.webp', alt: 'Foto de la marca: termo, mate y alfajores sobre una mesa oscura' },
+    { src: '/imagenes/redes/08.webp', alt: 'Foto de la marca: alguien cebando un mate con un termo' },
+    { src: '/imagenes/redes/09.webp', alt: 'Pieza de la marca: el logotipo de LaTiNa sobre un fondo verde con rayos' },
+    { src: '/imagenes/redes/10.webp', alt: 'Foto de la marca: primer plano de un mate cebado con molienda fina' },
+  ],
 } as const
 
 export const footer = {

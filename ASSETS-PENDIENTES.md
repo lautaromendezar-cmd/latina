@@ -172,6 +172,38 @@ etiqueta letra por letra antes de usarla.
 
 ---
 
+## La segunda mitad de la home (25-ago)
+
+| Path | De dónde salió |
+|---|---|
+| `imagenes/hero-loop.mp4` · `.webm` · `hero-poster.webp` | El video del tucán, generado por Lautaro. Master de 15,2 MB en `images/HERO LOOP.mp4`; se sacaron 1600px sin audio → webm 665 KB, mp4 960 KB. **El poster es el cuadro CERO del video**, no una foto suelta. |
+| `imagenes/vende-latina.webp` | Generada por Lautaro sobre una pieza del cliente. Recorte 4:5 de `images/vende-latina.png`. |
+| `imagenes/redes/01..10.webp` | Diez piezas REALES del Instagram de la marca, recortadas de `pdf-latina/latina-material` a 440×550. Cambiarlas es pisar los archivos. |
+
+> **Las dos imágenes generadas tienen la etiqueta del paquete ROTA.** El
+> emblema circular queda como una mancha y el microtexto es ruido. Están
+> puestas igual porque a tamaño de pantalla no se leen, pero el margen es
+> corto — el peor caso era la foto fija del tucán, donde el paquete medía
+> 210px en una pantalla de 1920. El video lo mejoró: vuela más lejos y en
+> movimiento.
+>
+> **La solución definitiva es la misma para las dos**: regenerar con el hueco
+> vacío (lentes opacos, pico sin nada) y componer encima el recorte del
+> paquete REAL. Es lo que ya se hace en el hero y en Pilares.
+
+> **`pack-500g.png` se BORRÓ, y con él los campos de imagen de
+> `data/producto.ts`.** Era una copia byte por byte de `pack-1kg.png`: la
+> tarjeta del ½ kg mostraba un envase con 1KG impreso. Mientras el campo
+> exista, el próximo que pase lo llena con lo que haya a mano. Cuando llegue
+> la foto real del ½ kg se vuelven a agregar los campos ahí.
+
+> **Murieron los tres archivos del hero oscuro viejo** (`hero-loop` anterior
+> y `hero-poster.jpg`), y también `hero-yerbal.webp`. Los reemplazó el video.
+> `imagenes/pilares/sello-sin-gluten.png` y `imagenes/textura-molienda.jpg`
+> siguen en el repo sin usarse: son arte real del producto y no se borran.
+
+---
+
 ## Dos cosas del material
 
 **El `logo.PNG` dice `ERVA-MATE`.** Es la versión brasilera. El paquete real

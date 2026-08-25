@@ -15,18 +15,21 @@ export type Presentacion = {
   descripcion: string
   /** El ½ kg no tiene precio mayorista. */
   mayorista: boolean
-  imagen: string
-  /**
-   * Medidas reales del archivo. Van acá y no hardcodeadas en el componente
-   * porque los dos paquetes tienen proporciones distintas: el 1 kg ya es la
-   * foto recortada de verdad y el ½ kg todavía es un placeholder. Con un
-   * solo par de medidas para los dos, el que no coincide se estira.
-   */
-  ancho: number
-  alto: number
-  alt: string
 }
 
+/**
+ * SIN IMAGEN, y es una decision.
+ *
+ * Cada presentacion traia su `imagen`, y la del ½ kg apuntaba a
+ * `pack-500g.png`, que era una COPIA EXACTA del archivo del 1 kg: el
+ * sitio mostraba un envase con 1KG impreso abajo del rotulo "½ kg".
+ * Se borro el archivo y se borraron los campos, porque mientras el
+ * campo exista alguien lo va a volver a llenar con lo que haya a mano.
+ *
+ * El DATO es cierto y se queda: hay dos tamanos y solo el de 1 kg tiene
+ * escala mayorista. Cuando llegue la foto real del ½ kg se vuelven a
+ * agregar los campos de imagen aca.
+ */
 export const presentaciones: Presentacion[] = [
   {
     id: '1kg',
@@ -34,10 +37,6 @@ export const presentaciones: Presentacion[] = [
     gramaje: '1 kg',
     descripcion: 'La de todos los días. Es la que se vende por escala.',
     mayorista: true,
-    imagen: '/imagenes/pack-1kg.png',
-    ancho: 960,
-    alto: 1547,
-    alt: 'Paquete de LaTiNa yerba mate de 1 kg',
   },
   {
     id: '500g',
@@ -45,10 +44,6 @@ export const presentaciones: Presentacion[] = [
     gramaje: '½ kg',
     descripcion: 'La presentación chica, para probarla o para llevar.',
     mayorista: false,
-    imagen: '/imagenes/pack-500g.png',
-    ancho: 960,
-    alto: 1547,
-    alt: 'Paquete de LaTiNa yerba mate de medio kilo',
   },
 ]
 
