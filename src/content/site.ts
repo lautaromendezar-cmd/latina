@@ -152,8 +152,11 @@ export const origen = {
       cuerpo:
         'Entre montañas, con productores chicos y un secado que no se apura. La yerba sale con el sabor que tenía la hoja, no con el que le deja la máquina.',
       imagen: '/imagenes/origen/brasil.jpg',
-      // Foto que trajo el cliente (WhatsApp 26-ago). El original está en
-      // images/aca-se-hace.jfif; es JPEG con otro nombre, no se re-encodeó.
+      // IMAGEN GENERADA (26-ago, nano_banana_pro) a partir de la foto que
+      // trajo el cliente, que está en images/aca-se-hace.jfif: era vertical
+      // de 1272px y a pantalla completa en desktop se veía mal. Se generó
+      // la misma escena en 16:9 con la foto de referencia. No hay paquete
+      // ni etiqueta en cuadro, que es donde las generadas se rompen.
       alt: 'Amanecer sobre el monte del sur de Brasil: el sol entrando entre la niebla y pájaros volando sobre las copas',
     },
     {
