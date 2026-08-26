@@ -4,6 +4,29 @@
 
 ---
 
+## EL TRASPASO SE HIZO Y ESTÁ COMPLETO (26-ago, más tarde)
+
+`yerbamatelatina.com.ar` y `www` apuntan a Vercel y validan; Search
+Console quedó verificado (TXT en el DNS) y el sitemap leído ("Correcto",
+4 páginas). Cosas que hay que saber de cómo quedó:
+
+- **Los dos hosts van por registro A (216.198.79.1), no CNAME.** No es
+  descuido: el servidor DNS de DonWeb tiene el nombre `www` trabado para
+  CNAMEs — se guardaron tres veces y nunca publicó ninguno, mientras los
+  A y TXT salían en minutos. **No volver a intentar CNAME en www ahí.**
+- Los nameservers quedaron en DonWeb (`ns1/ns2.donweb.com`); el intento
+  de migrar a los de Vercel se revirtió (mientras estuvo a medias, DonWeb
+  dejó de publicar su zona). La zona DNS vive en el panel de DonWeb con
+  tres registros: A @, A www, TXT google-site-verification.
+- El hosting y los correos de DonWeb se dejan morir; solo se renueva el
+  dominio.
+- **Vigilancia**: los primeros días, mirar Indexación en Search Console;
+  un 404 de URL vieja = redirect que faltó, se agrega en next.config.ts.
+
+Del checklist de abajo queda vivo solo el punto de la tienda.
+
+---
+
 ## LISTO PARA EL TRASPASO DEL DOMINIO (26-ago, cierre)
 
 El sitio quedó verificado para conectar `yerbamatelatina.com.ar` a Vercel.
