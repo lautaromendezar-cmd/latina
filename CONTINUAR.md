@@ -4,6 +4,48 @@
 
 ---
 
+## LISTO PARA EL TRASPASO DEL DOMINIO (26-ago, cierre)
+
+El sitio quedó verificado para conectar `yerbamatelatina.com.ar` a Vercel.
+Lo que se comprobó con el build de producción corriendo local:
+
+- **268 recursos internos crawleados** (links, todas las variantes de cada
+  imagen, video, fuentes) por las 4 páginas: **cero rotos**. El 404, el
+  sitemap, el robots y la imagen OG responden bien.
+- **Redirects 308 para TODO el sitio viejo**: se relevaron los cinco
+  sitemaps del WordPress (page, product, category, product_brand,
+  product_cat) y las URLs que mueren con el traspaso (/tienda, /carrito,
+  /finalizar-compra, /mi-cuenta, /producto/*, /categoria-producto/*,
+  /marca/latina, /category/*) van a /donde-comprar. Las tres páginas con
+  slug compartido (/donde-comprar, /vende-latina, /contacto) no necesitan
+  nada. OJO: `/marca` NO puede ser wildcard — el logo vive en
+  `public/marca/` y los redirects corren antes que los estáticos (se
+  descubrió porque el crawl lo rompió).
+
+**BLOQUEANTE antes o junto con el traspaso:**
+`tienda.yerbamatelatina.com.ar` **NO EXISTE en el DNS** (NXDOMAIN), y el
+sitio la linkea dos veces: "Tienda" en la nav y "Ir a la tienda" en el
+fallback del buscador (el camino más transitado). Además la tienda REAL de
+hoy es el WooCommerce del dominio viejo, que muere con el traspaso. El
+cliente tiene que decidir: (a) montar la tienda en el subdominio antes del
+switch, o (b) sacar los dos botones hasta que exista.
+
+**Checklist del traspaso (lo que sigue):**
+1. Vercel → proyecto latina → Domains → agregar `yerbamatelatina.com.ar`
+   (+ `www`) y apuntar el DNS donde diga Vercel (A 76.76.21.21 / CNAME).
+2. Resolver el bloqueante de la tienda (arriba).
+3. Apenas resuelva el DNS: pasada por las 4 URLs + una vieja (/tienda)
+   para confirmar el 308 en producción.
+4. Search Console: dar de alta la propiedad de dominio (verificación por
+   TXT en el DNS), mandar `https://yerbamatelatina.com.ar/sitemap.xml` y
+   pedir indexación de las 4 páginas. Si la propiedad vieja ya existía,
+   el sitemap nuevo REEMPLAZA a los cinco del WordPress (borrarlos).
+5. Los días siguientes: mirar Cobertura en Search Console — los 404 que
+   aparezcan son URLs viejas que faltó redirigir (agregar en
+   `next.config.ts`, no en el hosting).
+
+---
+
 ## LA LISTA DE PUNTOS DE VENTA REAL (26-ago, segunda sesión)
 
 Apareció **`Puntos de Venta.pdf`** en la raíz del repo (lo trajo el
