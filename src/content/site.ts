@@ -116,7 +116,9 @@ export const manifiesto = {
   // se usa en cualquier lado deja de ser un gesto y pasa a ser una
   // fuente mas.
   frase: ['Cuando cambiás', 'la yerba, cambia'],
-  remate: 'el mate.',
+  // La E mayúscula en medio de la frase es pedido textual del cliente
+  // (WhatsApp 26-ago): el remate es SU producto, no el final de la oración.
+  remate: 'El mate.',
   // La ronda. Foto REAL del cliente, no de un banco: cuatro pibes
   // cebando en una rampa al atardecer, con el paquete apoyado al
   // borde. Es lo mas cerca que tiene la marca de mostrar a quien le

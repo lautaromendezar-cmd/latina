@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { Etiqueta } from '@/components/ui/Etiqueta'
+import { TexturaGreca } from '@/components/ui/TexturaGreca'
 import { useLayoutEffectSeguro, movimientoReducido } from '@/lib/motion'
 import { manifiesto } from '@/content/site'
 
@@ -88,6 +89,11 @@ export function Manifiesto() {
 
   return (
     <section id="manifiesto" ref={seccion} className="relative overflow-hidden py-seccion">
+      {/* El cliente vio el fondo "solo blanco" y pidio la parte blanca del
+          PAQUETE, que no es blanco liso: es blanco con la greca. Mismos
+          parametros que Pilares (el id del pattern se comparte a proposito,
+          son el mismo dibujo). */}
+      <TexturaGreca tono="verde" escala={132} opacidad={0.05} />
       {/* Dos hojas muy atras, para que el fondo tenga profundidad. Si se
           notan, estan mal calibradas. */}
       <Image
