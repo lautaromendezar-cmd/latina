@@ -157,7 +157,7 @@ export const origen = {
       lugar: 'Uruguay',
       titulo: 'Acá se probó',
       cuerpo:
-        'Fuimos de los primeros en llevar este padrón a Uruguay, donde el mate se toma con molienda fina y mucho polvo. Ese padrón, el que allá es normal, es el que hoy está adentro del paquete.',
+        'Fuimos de los primeros en llevar este padrón a Uruguay, donde el mate se toma con molienda fina. Ese padrón, el que allá es normal, es el que hoy está adentro del paquete.',
       imagen: '/imagenes/origen/uruguay.jpg',
       alt: 'Campo uruguayo al atardecer, con un ombú y el Río de la Plata al fondo',
     },

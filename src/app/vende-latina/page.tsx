@@ -124,7 +124,7 @@ export default function VendeLatinaPage() {
             <h2 className="display mb-6 text-display-2">Padrón uruguayo, sin T.A.C.C.</h2>
             <p className="mb-8 max-w-[46ch] text-body-lg text-tinta-suave">
               Yerba mate elaborada despalada, libre de gluten, de industria brasilera. Molienda
-              fina y mucho polvo: es la que le vas a vender al que toma muchos mates por día.
+              fina, con cuerpo: es la que le vas a vender al que toma muchos mates por día.
             </p>
             <Boton href="/#manifiesto" variante="secundario">
               Qué es el padrón despalado
