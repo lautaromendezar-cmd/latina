@@ -68,8 +68,12 @@ export const hero = {
   ],
   // Sin números: no tenemos una cifra de cebadas confirmada y no se
   // inventa una para que la frase suene mejor.
+  // "Mucho polvo" salió por pedido del cliente (WhatsApp 26-ago); la
+  // montañita es frase textual suya y va en la oración de beneficios,
+  // no en la ficha técnica: es lo que ves al cebar, como el cuerpo es
+  // lo que tomás.
   bajada:
-    'Molienda fina, mucho polvo, cero palo: padrón uruguayo. Más cuerpo en el primer mate y en el último del termo.',
+    'Molienda fina, cero palo: padrón uruguayo. La mejor montañita que vas a armar y más cuerpo del primer mate al último del termo.',
   cta: {
     primario: { href: '/donde-comprar', texto: 'Dónde comprar' },
     secundario: { href: '/vende-latina', texto: 'Quiero distribuir' },
