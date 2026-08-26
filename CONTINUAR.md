@@ -4,6 +4,50 @@
 
 ---
 
+## LA LISTA DE PUNTOS DE VENTA REAL (26-ago, segunda sesión)
+
+Apareció **`Puntos de Venta.pdf`** en la raíz del repo (lo trajo el
+cliente): la lista oficial, ~285 comercios. Se transcribió ENTERA a
+`data/distribuidores.ts` y se fusionó con el relevo viejo del sitio
+anterior. El buscador pasó de 29 puntos en 8 provincias a **305 en 10**
+(250 en Entre Ríos; más de la mitad en Gualeguaychú). Lo que hay que
+saber:
+
+- **Donde el PDF y el relevo viejo nombraban el mismo punto, mandó el
+  PDF**, conservando teléfono/Instagram viejos si el PDF no los traía
+  (Mate Ideal, A Mate Firme, Yerbas Viale, Pilar de la Torre, Perlo
+  Rocío, Julieta Gabas). Tres pares INTERNOS del PDF eran el mismo
+  comercio dos veces (mismo teléfono, misma esquina) y quedaron una:
+  Súper El Remanso, Frutería La Feria, Despensa El Tata.
+- **La errata quedó saldada: es "Rosario del Tala"**, el PDF lo confirma.
+  "Zona Oeste" sigue sin ser una localidad, y ahora con DOS entradas (el
+  relevo viejo y "El Club de la Yerba" del PDF, teléfonos distintos).
+- **Del relevo viejo se conservaron los que el PDF no cubre** (interior
+  de Buenos Aires, La Pampa, Misiones, Santa Fe, Tucumán, Chubut, y
+  cuatro personas de Entre Ríos que el PDF no lista: Bresler, Olague,
+  Montani, Eckerdt). Varios traen Instagram `@yerbacentenaria*`, de la
+  marca hermana — **preguntar al cliente si esos siguen vigentes para
+  LaTiNa o se borran.**
+- Dos localidades del PDF quedaron ambiguas y están decididas por la
+  calle, con comentario en el archivo: **CAMA** (Fioroto 395 → Pueblo
+  Belgrano) y **La Costa Regionales** (Doello Jurado / Artigas →
+  Gualeguaychú). Y "Centemacia" (Maciá) está tal cual el PDF, con un
+  [VERIFICAR] de si es local o dirección.
+- El formato del archivo cambió: con 305 entradas, cada localidad es una
+  llamada a `pv()` con filas `[nombre, dirección?, teléfono?, IG?]`; los
+  ids salen del nombre y se numeran solos ante repetidos ("Kiosco",
+  sucursales). `lib/distribuidores.ts` no se tocó: la API es la misma.
+- **Único cambio de componente**: el stagger del Buscador se techa en
+  0,9s total (con 300 fichas el each fijo tardaba 7,5s). "En X de 24
+  provincias" y "Estamos en X provincias" (/vende-latina) ya eran
+  dinámicos y pasaron solos de 8 a 10.
+- **Para mirar**: `/donde-comprar` — la vista sin filtrar ahora lista
+  305 fichas (una página LARGA). Si molesta, la salida es de diseño
+  (paginar, colapsar por provincia o no listar nada hasta que se
+  busque): decisión de Lautaro, no se tomó sola.
+
+---
+
 ## LA DEVOLUCIÓN DEL CLIENTE, PRIMERA TANDA (26-ago)
 
 Llegó por WhatsApp en cuentagotas y se aplicó todo, pusheado y en

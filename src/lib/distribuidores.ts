@@ -11,7 +11,7 @@ export function normalizar(texto: string): string {
 
 /**
  * Provincias con al menos un punto de venta, ordenadas por cantidad.
- * Son 8 de 23, y esa es exactamente la razón por la que el buscador se
+ * Son 10 de 24, y esa es exactamente la razón por la que el buscador se
  * diseña desde el caso "no hay nadie cerca" y no desde el caso feliz.
  */
 export function provincias(): Array<{ nombre: string; cantidad: number }> {

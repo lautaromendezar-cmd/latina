@@ -13,8 +13,8 @@ import { movimientoReducido } from '@/lib/motion'
  * Buscador de puntos de venta.
  *
  * Está diseñado AL REVÉS de un directorio normal, y es a propósito. Los
- * datos dicen: 29 puntos, 8 provincias de 24, cero coordenadas, cinco
- * direcciones de calle.
+ * datos dicen: ~300 puntos pero concentrados en 10 provincias de 24 (y
+ * más de la mitad en una sola ciudad), sin coordenadas.
  *
  * De ahí salen las decisiones:
  *
@@ -65,7 +65,9 @@ export function Buscador() {
           opacity: 1,
           y: 0,
           duration: 0.42,
-          stagger: { each: 0.025, from: 'start' },
+          // Con la lista completa (~300 fichas) un each fijo de 0.025 tarda
+          // 7,5s en terminar: el escalonado entero se techa en 0,9s.
+          stagger: { each: Math.min(0.025, 0.9 / fichas.length), from: 'start' },
           ease: 'power2.out',
           overwrite: true,
         },
