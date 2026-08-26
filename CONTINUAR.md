@@ -1,6 +1,40 @@
 # LaTiNa — dónde quedó esto
 
-Última sesión: **25-ago-2026**.
+Última sesión: **26-ago-2026**.
+
+---
+
+## LA DEVOLUCIÓN DEL CLIENTE, PRIMERA TANDA (26-ago)
+
+Llegó por WhatsApp en cuentagotas y se aplicó todo, pusheado y en
+producción:
+
+- **"Mucho polvo" murió en todo el sitio** (hero, Origen-Uruguay,
+  /vende-latina — el cliente lo pidió para el hero pero era la frase lo
+  que le molestaba). La bajada del hero remata con su frase textual:
+  "La mejor montañita que vas a armar". OJO: la palabra "polvo" suelta
+  sigue en el manifiesto y en dos Pilares ("más hoja, más polvo", "hoja
+  y polvo", "con más polvo"); son explicativas y quedaron, pero si el
+  cliente las ve y saltan, ya está detectado dónde están.
+- **Manifiesto**: el remate pasó a "El mate." (E mayúscula, textual del
+  cliente) y el fondo dejó de ser blanco liso: entró la TexturaGreca
+  con los mismos parámetros que Pilares — "la parte blanca del paquete"
+  no es blanco, es blanco con la greca.
+- **Origen: el velo bajó del 65% al 56%** (pedido: que las fotos se
+  noten). No fue gratis: las tres fotos tienen píxeles casi blancos y
+  la etiqueta amarilla de 12px pedía 4.5:1. La salida fue subir las
+  etiquetas amarillas de la sección a 19px (peso 700 ya lo tenían): como
+  texto grande WCAG piden 3:1, y al 56% dan 3.18:1 con crema en 4.77:1.
+  **Si alguien achica esas etiquetas, el velo vuelve al 65** — está
+  comentado en el componente.
+- **La foto de "Acá se hace" es GENERADA** (nano_banana_pro) a partir
+  de una foto vertical que trajo el cliente (guardada en
+  images/aca-se-hace.jfif): la original a 1272px en desktop se veía
+  horrible. Misma escena en 16:9 a 2752px, sol a la izquierda para que
+  el centro (donde cae el texto) quede en niebla. Sin paquete ni
+  etiqueta en cuadro, que es donde las generadas se rompen. Hay una
+  variante descartada (sol al centro) en el chat de la sesión si el
+  cliente pide otra.
 
 ---
 
