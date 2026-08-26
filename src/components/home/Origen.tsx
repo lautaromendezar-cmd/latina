@@ -272,8 +272,13 @@ export function Origen() {
             un bloque más del flujo, y el costo era una banda verde vacía
             de 200px entre la tira y la foto — pt-24 más pb-10 de nada.
             El contraste ya está pagado: es la misma etiqueta amarilla
-            sobre el mismo velo negro del 65% que el resto de la
-            sección. */}
+            sobre el mismo velo negro del 56% que el resto de la
+            sección.
+
+            LOS 19px NO SON UN CAPRICHO: con el velo al 56% el amarillo
+            solo pasa AA como texto grande (>=18.67px en peso 700, que
+            .etiqueta ya tiene). Vale para TODAS las etiquetas amarillas
+            de la sección; la cuenta completa está en el velo, abajo. */}
         <header className="pointer-events-none absolute inset-x-0 top-0 z-20 px-4 pt-24 sm:px-6 lg:px-10 lg:pt-10">
           {/* "De las montañas al río" se eliminó: los tres momentos ya
               dicen cada uno dónde está, y el título competía con ellos
@@ -283,7 +288,7 @@ export function Origen() {
               detalle: si se va el único h2, los tres `h3` de los momentos
               quedan colgando de la nada y el esquema de encabezados se
               rompe. Se ve igual que antes, es la misma etiqueta. */}
-          <h2 className="etiqueta text-amarillo">{origen.etiqueta}</h2>
+          <h2 className="etiqueta text-[1.1875rem] text-amarillo">{origen.etiqueta}</h2>
         </header>
 
         {/* Índice. Dice en qué punto del recorrido estás, que es el dato
@@ -329,24 +334,29 @@ export function Origen() {
                       conservan su color en vez de volverse un monocromo
                       verde.
 
-                      65% Y NO 60% COMO EL HERO, y la diferencia tiene un
-                      motivo. El píxel más claro de las tres fotos está en
-                      la de Uruguay: 255,250,247, luminancia 0.963. Con
-                      negro al 60% la bajada en crema queda en 5.7:1 y
-                      pasa, pero la ETIQUETA AMARILLA queda en 3.8:1 y no
-                      llega a los 4.5 que pide un texto de 12px. Al 65%
-                      el amarillo sube a 4.59:1 y la crema a 6.9:1.
+                      56% Y YA NO 65. El cliente pidió que las fotos se
+                      noten más (26-ago), y el piso no lo pone el gusto,
+                      lo pone el AA. Las tres fotos tienen píxeles casi
+                      blancos (el peor: 255,255,255 en Uruguay), y contra
+                      ese píxel un velo más liviano solo cierra si la
+                      etiqueta amarilla cuenta como TEXTO GRANDE (3:1 en
+                      vez de 4.5): por eso las etiquetas amarillas de
+                      esta sección miden 19px — ver la nota en el header.
+                      Al 56%: amarillo 3.18:1, crema 4.77:1. Medido
+                      contra el peor píxel de cada foto, incluida la
+                      nueva de Brasil.
 
-                      (Con el velo verde que había, esa etiqueta estaba en
-                      2.18:1: esto no lo empeora, lo arregla.)
-
-                      Si se cambia una foto, hay que rehacer la cuenta
-                      contra la nueva: cada imagen tiene su peor píxel. */}
-                  <div aria-hidden="true" className="absolute inset-0 bg-black/[0.65]" />
+                      SI SE ACHICAN LAS ETIQUETAS AMARILLAS (<18.67px o
+                      peso <700), el amarillo vuelve a pedir 4.5:1 y el
+                      velo tiene que volver al 65%. Y si se cambia una
+                      foto, rehacer la cuenta: cada imagen tiene su peor
+                      píxel. */}
+                  <div aria-hidden="true" className="absolute inset-0 bg-black/[0.56]" />
                 </div>
 
                 <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center">
-                  <p data-secundario className="etiqueta mb-5 text-amarillo">
+                  {/* 19px por la cuenta del velo (texto grande WCAG). */}
+                  <p data-secundario className="etiqueta mb-5 text-[1.1875rem] text-amarillo">
                     {m.lugar}
                   </p>
                   <h3 data-titulo-slide className="display max-w-[14ch] text-display-1">

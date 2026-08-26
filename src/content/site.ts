@@ -152,7 +152,9 @@ export const origen = {
       cuerpo:
         'Entre montañas, con productores chicos y un secado que no se apura. La yerba sale con el sabor que tenía la hoja, no con el que le deja la máquina.',
       imagen: '/imagenes/origen/brasil.jpg',
-      alt: 'Yerbales en terrazas sobre las montañas del sur de Brasil, con niebla en el valle',
+      // Foto que trajo el cliente (WhatsApp 26-ago). El original está en
+      // images/aca-se-hace.jfif; es JPEG con otro nombre, no se re-encodeó.
+      alt: 'Amanecer sobre el monte del sur de Brasil: el sol entrando entre la niebla y pájaros volando sobre las copas',
     },
     {
       id: 'uruguay',
