@@ -83,15 +83,17 @@ export function Nav() {
               {item.texto}
             </Link>
           ))}
-          <a
-            href={nav.externo.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-amarillo px-4 py-2 text-[0.9375rem] font-bold text-tinta transition-colors hover:bg-amarillo-claro"
-          >
-            {nav.externo.texto}
-            <span aria-hidden="true"> ↗</span>
-          </a>
+          {nav.externo && (
+            <a
+              href={nav.externo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-amarillo px-4 py-2 text-[0.9375rem] font-bold text-tinta transition-colors hover:bg-amarillo-claro"
+            >
+              {nav.externo.texto}
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          )}
         </nav>
 
         <button
@@ -132,15 +134,17 @@ export function Nav() {
                 {item.texto}
               </Link>
             ))}
-            <a
-              href={nav.externo.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-4 text-lg font-bold text-tinta"
-            >
-              {nav.externo.texto}
-              <span aria-hidden="true"> ↗</span>
-            </a>
+            {nav.externo && (
+              <a
+                href={nav.externo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-4 text-lg font-bold text-tinta"
+              >
+                {nav.externo.texto}
+                <span aria-hidden="true"> ↗</span>
+              </a>
+            )}
           </nav>
         </div>
       )}

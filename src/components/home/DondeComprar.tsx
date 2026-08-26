@@ -293,10 +293,14 @@ export function DondeComprar() {
           </p>
 
           <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Boton href={contacto.tienda} externo variante="primario">
-              {copy.presentaciones.cta}
-            </Boton>
-            <Boton href="/donde-comprar" variante="secundario">
+            {/* Sin tienda online no hay botón de compra: queda la salida
+                real (el listado). Vuelve solo cuando contacto.tienda exista. */}
+            {contacto.tienda && (
+              <Boton href={contacto.tienda} externo variante="primario">
+                {copy.presentaciones.cta}
+              </Boton>
+            )}
+            <Boton href="/donde-comprar" variante={contacto.tienda ? 'secundario' : 'primario'}>
               {copy.verTodos}
             </Boton>
           </div>

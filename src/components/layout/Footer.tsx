@@ -39,17 +39,19 @@ export function Footer() {
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <a
-                    href={nav.externo.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-crema transition-colors hover:text-amarillo"
-                  >
-                    {nav.externo.texto}
-                    <span aria-hidden="true"> ↗</span>
-                  </a>
-                </li>
+                {nav.externo && (
+                  <li>
+                    <a
+                      href={nav.externo.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-crema transition-colors hover:text-amarillo"
+                    >
+                      {nav.externo.texto}
+                      <span aria-hidden="true"> ↗</span>
+                    </a>
+                  </li>
+                )}
               </ul>
             </nav>
 

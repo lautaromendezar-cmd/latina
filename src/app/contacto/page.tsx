@@ -33,13 +33,18 @@ const ATAJOS = [
     href: '/vende-latina',
     externo: false,
   },
-  {
-    titulo: 'Comprar online',
-    cuerpo: 'Te llega a cualquier punto del país.',
-    cta: 'Ir a la tienda',
-    href: contacto.tienda,
-    externo: true,
-  },
+  // La card de la tienda vuelve sola cuando contacto.tienda exista.
+  ...(contacto.tienda
+    ? [
+        {
+          titulo: 'Comprar online',
+          cuerpo: 'Te llega a cualquier punto del país.',
+          cta: 'Ir a la tienda',
+          href: contacto.tienda,
+          externo: true,
+        },
+      ]
+    : []),
 ]
 
 export default function ContactoPage() {
@@ -59,7 +64,11 @@ export default function ContactoPage() {
         <Etiqueta as="h2" className="mb-8 block">
           Lo que más nos preguntan
         </Etiqueta>
-        <ul className="grid gap-4 lg:grid-cols-3 lg:gap-6">
+        <ul
+          className={`grid gap-4 lg:gap-6 ${
+            ATAJOS.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
+          }`}
+        >
           {ATAJOS.map((a) => (
             <li
               key={a.titulo}
@@ -106,7 +115,8 @@ export default function ContactoPage() {
                   </a>
                 </dd>
               </div>
-              <div className="border-b-2 border-tinta/10 py-4">
+              {/* El borde de abajo solo si la fila de la tienda viene después. */}
+              <div className={contacto.tienda ? 'border-b-2 border-tinta/10 py-4' : 'py-4'}>
                 <dt className="etiqueta mb-1 text-verde-profundo">Instagram</dt>
                 <dd>
                   <a
@@ -119,19 +129,21 @@ export default function ContactoPage() {
                   </a>
                 </dd>
               </div>
-              <div className="py-4">
-                <dt className="etiqueta mb-1 text-verde-profundo">Tienda online</dt>
-                <dd>
-                  <a
-                    href={contacto.tienda}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg font-bold text-tinta underline underline-offset-4 hover:text-verde"
-                  >
-                    tienda.yerbamatelatina.com.ar
-                  </a>
-                </dd>
-              </div>
+              {contacto.tienda && (
+                <div className="py-4">
+                  <dt className="etiqueta mb-1 text-verde-profundo">Tienda online</dt>
+                  <dd>
+                    <a
+                      href={contacto.tienda}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg font-bold text-tinta underline underline-offset-4 hover:text-verde"
+                    >
+                      Comprar online
+                    </a>
+                  </dd>
+                </div>
+              )}
             </dl>
           </div>
 

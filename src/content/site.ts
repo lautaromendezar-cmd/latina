@@ -28,8 +28,13 @@ export const contacto = {
   instagram: 'latinayerbamate',
   instagramUrl: 'https://www.instagram.com/latinayerbamate/',
   sitio: 'yerbamatelatina.com.ar',
-  // La venta online se muda a Tienda Nube en subdominio.
-  tienda: 'https://tienda.yerbamatelatina.com.ar',
+  // La tienda se está armando en Tienda Nube y TODAVÍA NO EXISTE. Mientras
+  // sea null, el sitio entero esconde sus botones de tienda (nav, home,
+  // buscador y contacto) y el fallback del buscador ofrece WhatsApp.
+  // Cuando esté la URL definitiva, se pone acá y todo vuelve solo.
+  // OJO: tienda.yerbamatelatina.com.ar no resolvía en DNS — no volver a
+  // linkearla sin comprobar que responde.
+  tienda: null as string | null,
   // [VERIFICAR: mail de contacto — la marca no tiene uno público, y las
   // Server Actions de Resend necesitan un destinatario real.]
   email: null,
@@ -41,7 +46,8 @@ export const nav = {
     { href: '/vende-latina', texto: 'Vendé LaTiNa' },
     { href: '/contacto', texto: 'Contacto' },
   ],
-  externo: { href: contacto.tienda, texto: 'Tienda' },
+  // Sin tienda no hay botón: un link muerto o un "#" es peor que nada.
+  externo: contacto.tienda ? { href: contacto.tienda, texto: 'Tienda' } : null,
   saltarAlContenido: 'Saltar al contenido',
   abrirMenu: 'Abrir el menú',
   cerrarMenu: 'Cerrar el menú',
@@ -253,14 +259,27 @@ export const dondeComprarPreview = {
     titulo: 'Todavía no llegamos a tu ciudad.',
     cuerpo: 'Hay dos formas de tomar LaTiNa igual.',
     opciones: [
-      {
-        id: 'online',
-        titulo: 'Pedila online',
-        cuerpo: 'Te llega a cualquier punto del país.',
-        cta: 'Ir a la tienda',
-        href: contacto.tienda,
-        externo: true,
-      },
+      // Mientras no haya tienda online, la primera salida es WhatsApp: la
+      // única promesa que hoy se puede cumplir. Con tienda, vuelve sola.
+      contacto.tienda
+        ? {
+            id: 'online',
+            titulo: 'Pedila online',
+            cuerpo: 'Te llega a cualquier punto del país.',
+            cta: 'Ir a la tienda',
+            href: contacto.tienda,
+            externo: true,
+          }
+        : {
+            id: 'online',
+            titulo: 'Pedila por WhatsApp',
+            cuerpo: 'Escribinos y vemos cómo acercártela.',
+            cta: 'Escribinos',
+            href: `https://wa.me/${contacto.whatsappE164}?text=${encodeURIComponent(
+              'Hola, quiero comprar LaTiNa pero no encuentro un punto de venta en mi zona.',
+            )}`,
+            externo: true,
+          },
       {
         id: 'distribuir',
         titulo: 'Traela vos',

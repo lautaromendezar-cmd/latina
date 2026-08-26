@@ -230,16 +230,36 @@ export function Buscador() {
             <Greca tono="amarillo" alto={10} opacidad={0.9} className="mb-8 max-w-xs" />
 
             <ul className="grid gap-8 sm:grid-cols-2">
-              <li className="flex flex-col items-start gap-3">
-                <h3 className="text-lg font-bold text-tinta">Pedila online</h3>
-                <p className="flex-1 text-sm text-tinta-suave">
-                  Te llega a cualquier punto del país, sin depender de que haya un comercio
-                  cerca.
-                </p>
-                <Boton href={contacto.tienda} externo variante="primario">
-                  Ir a la tienda
-                </Boton>
-              </li>
+              {/* Sin tienda online, la primera salida es WhatsApp: la única
+                  promesa cumplible hoy. Con contacto.tienda, vuelve sola. */}
+              {contacto.tienda ? (
+                <li className="flex flex-col items-start gap-3">
+                  <h3 className="text-lg font-bold text-tinta">Pedila online</h3>
+                  <p className="flex-1 text-sm text-tinta-suave">
+                    Te llega a cualquier punto del país, sin depender de que haya un comercio
+                    cerca.
+                  </p>
+                  <Boton href={contacto.tienda} externo variante="primario">
+                    Ir a la tienda
+                  </Boton>
+                </li>
+              ) : (
+                <li className="flex flex-col items-start gap-3">
+                  <h3 className="text-lg font-bold text-tinta">Pedila por WhatsApp</h3>
+                  <p className="flex-1 text-sm text-tinta-suave">
+                    Escribinos y vemos cómo acercártela, estés donde estés.
+                  </p>
+                  <Boton
+                    href={`https://wa.me/${contacto.whatsappE164}?text=${encodeURIComponent(
+                      'Hola, quiero comprar LaTiNa pero no encuentro un punto de venta en mi zona.',
+                    )}`}
+                    externo
+                    variante="primario"
+                  >
+                    Escribinos
+                  </Boton>
+                </li>
+              )}
               <li className="flex flex-col items-start gap-3">
                 <h3 className="text-lg font-bold text-tinta">Traela vos</h3>
                 <p className="flex-1 text-sm text-tinta-suave">
