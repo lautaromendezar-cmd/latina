@@ -43,10 +43,14 @@ eso usa la ruta.
 `afterInteractive` y no `beforeInteractive`: el pixel no le pelea la red
 al LCP del hero.
 
-**Falta verificar en vivo** con el Meta Pixel Helper: que el PageView
-salga en la home, que cambie al navegar a otra página y que el `Contact`
-aparezca al tocar el botón de WhatsApp. Hasta ese momento el
-Administrador de eventos sigue diciendo "Nunca se recibieron eventos".
+**Verificado en vivo el mismo día**: el pixel figura activo y recibiendo
+en el Administrador de eventos.
+
+Lo que NO tiene y algún día puede hacer falta: cartel de cookies (el
+pixel es de terceros — en Argentina hoy no es exigible, pero sí si
+alguna vez pautan hacia la UE) y Conversions API, el envío server-side
+que recupera lo que se comen los bloqueadores. Ninguna de las dos está
+pedida.
 
 ---
 
