@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { WhatsAppFlotante } from '@/components/layout/WhatsAppFlotante'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { CutoutsAmbiente } from '@/components/layout/CutoutsAmbiente'
+import { MetaPixel } from '@/components/layout/MetaPixel'
 import { meta, marca, nav } from '@/content/site'
 
 /**
@@ -118,6 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Footer />
         <WhatsAppFlotante />
+        <MetaPixel />
       </body>
     </html>
   )

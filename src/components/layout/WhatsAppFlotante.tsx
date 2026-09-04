@@ -21,6 +21,7 @@ export function WhatsAppFlotante() {
       href={`https://wa.me/${contacto.whatsappE164}?text=${mensaje}`}
       target="_blank"
       rel="noopener noreferrer"
+      data-origen="boton flotante"
       className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[3px_3px_0_0_rgba(11,58,28,0.4)] transition-transform hover:scale-105 sm:bottom-6 sm:right-6"
     >
       <span className="sr-only">Escribinos por WhatsApp al {contacto.whatsapp}</span>

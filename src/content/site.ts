@@ -382,6 +382,16 @@ export const paginas = {
   },
 } as const
 
+export const analitica = {
+  // Pixel de Meta. Es el "Identificador" del conjunto de datos "LaTiNa
+  // 2026" en el Administrador de eventos, no una clave: viaja en el HTML
+  // de todas formas, así que vive acá y no en una variable de Vercel.
+  //
+  // En null el sitio no inyecta NADA (ni script, ni noscript, ni el
+  // listener de los clics a WhatsApp). Sirve para apagarlo de un saque.
+  pixelMeta: '1632414004968469' as string | null,
+} as const
+
 export const meta = {
   titulo: 'LaTiNa Yerba Mate · El verdadero sabor del padrón uruguayo',
   descripcion:
