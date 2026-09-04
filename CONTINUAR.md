@@ -1,6 +1,52 @@
 # LaTiNa — dónde quedó esto
 
-Última sesión: **26-ago-2026**.
+Última sesión: **4-sep-2026**.
+
+---
+
+## EL PIXEL DE META (4-sep)
+
+Conjunto de datos **"LaTiNa 2026"**, ID `1632414004968469`, en
+`analitica.pixelMeta` de `site.ts`. Está en producción desde este push.
+
+No va en variable de entorno de Vercel a propósito: un ID de pixel no es
+un secreto (viaja en el HTML de cualquier sitio que lo tenga), y como
+dato de la marca vive donde viven los demás. Poniéndolo en `null` el
+sitio deja de inyectar TODO —script, noscript y listener—, igual que
+`contacto.tienda` esconde la tienda. Es el interruptor si alguna vez hay
+que apagarlo.
+
+**Dos cosas que el snippet de Meta no hace solo:**
+
+1. **PageView por ruta.** El snippet dispara una única vez por carga y
+   esto es un SPA: sin el efecto sobre `usePathname` en `MetaPixel.tsx`,
+   ir de la home a `/donde-comprar` no existía para el pixel. La primera
+   ruta se saltea a mano, si no toda visita de entrada contaba doble.
+
+2. **Los clics a WhatsApp.** Se cazan con UN listener delegado en el
+   documento (`a[href*="wa.me"]`, en fase de captura) en vez de un
+   onClick por link. Los `wa.me` están en footer, contacto, vendé-LaTiNa,
+   el buscador y el botón flotante, y casi todos son componentes de
+   SERVIDOR: convertirlos a cliente para medir un clic sale más caro que
+   el listener, y cualquier link nuevo queda medido sin tocar nada.
+   El formulario avisa aparte (`src/lib/analitica.ts`) porque abre con
+   `window.open` y no hay anchor que interceptar — y avisa ANTES de
+   abrirlo, porque en iOS el popup se lleva el foco y el evento puede
+   quedar sin salir.
+
+El evento es **`Contact`**, el estándar de Meta: uno inventado no sirve
+para optimizar campañas. Lleva `origen` como parámetro para poder separar
+en el Administrador el botón flotante del formulario de distribuidores.
+Para etiquetar un link nuevo alcanza con ponerle `data-origen="..."`; sin
+eso usa la ruta.
+
+`afterInteractive` y no `beforeInteractive`: el pixel no le pelea la red
+al LCP del hero.
+
+**Falta verificar en vivo** con el Meta Pixel Helper: que el PageView
+salga en la home, que cambie al navegar a otra página y que el `Contact`
+aparezca al tocar el botón de WhatsApp. Hasta ese momento el
+Administrador de eventos sigue diciendo "Nunca se recibieron eventos".
 
 ---
 
