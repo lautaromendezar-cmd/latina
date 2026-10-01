@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>LaTiNa Yerba Mate · Links</title>
+<meta name="description" content="LaTiNa Yerba Mate — El verdadero sabor del padrón uruguayo. Sitio oficial, ventas por WhatsApp, galería, YouTube e Instagram." />
+<meta name="theme-color" content="#0a2e17" />
+<link rel="icon" href="/links/assets/img/emblema-mate.webp" type="image/webp" />
+<meta property="og:title" content="LaTiNa Yerba Mate" />
+<meta property="og:description" content="El verdadero sabor del padrón uruguayo." />
+<meta property="og:image" content="/links/assets/img/logo-latina.webp" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --green-900:#06250f;
+    --green-800:#0a2e17;
+    --green-700:#0e3b1f;
+    --green-600:#14592f;
+    --green-500:#1f7a3f;
+    --green-400:#2e9e54;
+    --gold:#f4c430;
+    --gold-soft:#ffd957;
+    --cream:#f6f1e2;
+    --ink:#06250f;
+    --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Montserrat",system-ui,sans-serif;
+    color:#eaf3ec;
+    height:100dvh;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(46,158,84,.30), transparent 60%),
+      radial-gradient(90% 60% at 90% 110%, rgba(244,196,48,.12), transparent 60%),
+      linear-gradient(180deg, var(--green-800) 0%, var(--green-900) 60%, #04190a 100%);
+    position:relative;
+  }
+  /* greca / yerba leaf texture overlay */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='46' viewBox='0 0 80 46'%3E%3Cpath d='M40 0L60 23 40 46 20 23z' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3Ccircle cx='40' cy='23' r='3' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-size:80px 46px;
+  }
+  .wrap{
+    position:relative;z-index:1;
+    max-width:480px;height:100dvh;margin:0 auto;
+    padding:clamp(12px,2.2dvh,30px) clamp(16px,5vw,24px) calc(clamp(10px,2dvh,26px) + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;justify-content:space-between;gap:clamp(6px,1.2dvh,16px);
+  }
+
+  /* ---------- HEADER ---------- */
+  .head{display:flex;flex-direction:column;align-items:center;flex:0 0 auto}
+  .badge{
+    width:clamp(82px,15.5dvh,140px);aspect-ratio:1;
+    background:#fff;
+    border-radius:50%;
+    display:grid;place-items:center;
+    border:3px solid var(--gold);
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.6), 0 0 0 6px rgba(244,196,48,.10), inset 0 0 0 1px rgba(0,0,0,.06);
+    overflow:hidden;
+    animation:pop .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .badge img{width:106%;height:106%;object-fit:contain}
+  .brand{text-align:center;animation:rise .7s .05s cubic-bezier(.2,.8,.2,1) both}
+  .brand h1{
+    font-family:"Anton",sans-serif;font-weight:400;
+    font-size:clamp(26px,5dvh,46px);line-height:.9;letter-spacing:.5px;
+    text-transform:uppercase;color:#fff;
+    text-shadow:0 2px 0 rgba(0,0,0,.25);
+    margin-top:clamp(8px,1.4dvh,18px);
+  }
+  .brand h1 .y{color:var(--gold-soft)}
+  .tag{
+    margin-top:clamp(6px,1dvh,12px);font-size:clamp(10px,1.55dvh,13px);
+    letter-spacing:.12em;text-transform:uppercase;
+    color:rgba(246,241,226,.82);font-weight:600;line-height:1.3;
+  }
+  .greca{
+    height:12px;margin:clamp(8px,1.4dvh,16px) auto 0;width:180px;opacity:.85;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M14 1L26 7 14 13 2 7z' fill='none' stroke='%23f4c430' stroke-width='1.4'/%3E%3Ccircle cx='14' cy='7' r='1.5' fill='%23f4c430'/%3E%3C/svg%3E");
+    background-size:28px 14px;background-repeat:repeat-x;background-position:center;
+  }
+
+  /* ---------- LINKS ---------- */
+  .links{display:flex;flex-direction:column;gap:clamp(8px,1.45dvh,15px);flex:0 1 auto;justify-content:center}
+  .btn{
+    --accent:var(--gold);
+    position:relative;display:flex;align-items:center;gap:clamp(11px,1.6vw,14px);
+    padding:clamp(10px,1.7dvh,17px) clamp(14px,4vw,18px);border-radius:var(--radius);
+    text-decoration:none;color:#f4fbf2;font-weight:700;letter-spacing:.02em;
+    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.10);
+    backdrop-filter:blur(6px);
+    box-shadow:0 10px 24px -16px rgba(0,0,0,.8);
+    overflow:hidden;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .25s, background .25s;
+    opacity:0;transform:translateY(14px);
+    animation:rise .6s forwards;
+  }
+  .btn::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);
+    box-shadow:0 0 14px var(--accent);
+  }
+  .btn::after{
+    content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
+    background:linear-gradient(110deg,transparent,rgba(255,255,255,.16),transparent);
+    transform:skewX(-18deg);transition:left .6s ease;
+  }
+  .btn:hover,.btn:focus-visible{
+    transform:translateY(-3px);
+    border-color:var(--accent);
+    box-shadow:0 16px 34px -16px rgba(0,0,0,.9), 0 0 0 1px rgba(244,196,48,.12);
+    outline:none;
+  }
+  .btn:hover::after{left:130%}
+  .btn:active{transform:translateY(-1px) scale(.995)}
+  .btn .ico{
+    flex:0 0 auto;width:clamp(36px,5dvh,42px);height:clamp(36px,5dvh,42px);
+    border-radius:11px;display:grid;place-items:center;
+    background:rgba(244,196,48,.12);border:1px solid rgba(244,196,48,.25);
+    color:var(--accent);
+  }
+  .btn .ico svg{width:54%;height:54%;display:block}
+  .btn .txt{flex:1;display:flex;flex-direction:column;line-height:1.18;font-size:clamp(14px,1.95dvh,16px)}
+  .btn .txt small{font-weight:600;font-size:clamp(10px,1.4dvh,11.5px);letter-spacing:.05em;color:rgba(234,243,236,.55);text-transform:uppercase;margin-top:2px}
+  .btn .arr{flex:0 0 auto;color:rgba(234,243,236,.5);transition:transform .25s,color .25s}
+  .btn .arr svg{width:clamp(15px,2.1dvh,18px);height:clamp(15px,2.1dvh,18px);display:block}
+  .btn:hover .arr{transform:translateX(4px);color:var(--accent)}
+
+  /* primary (gold) variant */
+  .btn.primary{
+    --accent:#0a2e17;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+    color:#0a2e17;border-color:rgba(0,0,0,.08);
+    box-shadow:0 14px 30px -12px rgba(244,196,48,.5);
+  }
+  .btn.primary::before{background:#0a2e17;box-shadow:none}
+  .btn.primary .ico{background:rgba(10,46,23,.12);border-color:rgba(10,46,23,.2);color:#0a2e17}
+  .btn.primary .txt small{color:rgba(10,46,23,.6)}
+  .btn.primary .arr{color:rgba(10,46,23,.55)}
+  .btn.primary:hover .arr{color:#0a2e17}
+  .btn.primary:hover{box-shadow:0 18px 38px -12px rgba(244,196,48,.65)}
+
+  .btn.wa{--accent:#25d366}
+  .btn.wa .ico{background:rgba(37,211,102,.14);border-color:rgba(37,211,102,.3);color:#25d366}
+  .btn.yt{--accent:#ff3d3d}
+  .btn.yt .ico{background:rgba(255,61,61,.12);border-color:rgba(255,61,61,.28);color:#ff5a5a}
+  .btn.ig{--accent:#e1306c}
+  .btn.ig .ico{background:rgba(225,48,108,.12);border-color:rgba(225,48,108,.28);color:#ff5a92}
+
+  /* ---------- FOOTER ---------- */
+  .foot{text-align:center;flex:0 0 auto}
+  .foot .em{width:clamp(28px,4.4dvh,44px);height:auto;opacity:.9;margin:0 auto clamp(4px,.8dvh,9px);display:block}
+  .foot a{color:var(--gold-soft);text-decoration:none;font-weight:700;font-size:clamp(13px,1.8dvh,14px)}
+  .foot .web{display:block;margin-top:3px;color:rgba(234,243,236,.6);font-size:clamp(11px,1.5dvh,12.5px);letter-spacing:.05em}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pop{0%{opacity:0;transform:scale(.7)}60%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.btn{opacity:1;transform:none}}
+  /* short / landscape fallback: allow scroll instead of clipping */
+  @media (max-height:560px){body{height:auto;overflow:auto}.wrap{height:auto;min-height:100dvh}}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="head">
+      <div class="badge"><img src="/links/assets/img/logo-latina.webp" alt="LaTiNa Yerba Mate" /></div>
+      <div class="brand">
+        <h1><span class="y">LaTiNa</span><br/>Yerba Mate</h1>
+        <p class="tag">El verdadero sabor del padrón uruguayo</p>
+        <div class="greca"></div>
+      </div>
+    </div>
+
+    <nav class="links">
+      <a class="btn primary" style="animation-delay:.10s" href="https://yerbamatelatina.com.ar" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 2.6 16 0 18M12 3c-2.6 2.5-2.6 16 0 18"/></svg></span>
+        <span class="txt">Sitio Web Oficial<small>yerbamatelatina.com.ar</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="btn wa" style="animation-delay:.16s" href="https://api.whatsapp.com/send?phone=543446313763" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.43 15.1L2 22l5.05-1.32A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 6.86 12.4l-.18.28.74 2.7-2.77-.73-.27.16a8.1 8.1 0 1 1-4.38-15.01Zm-3.1 4.05c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.7 2.6 4.13 3.55 2.02.8 2.43.64 2.87.6.44-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.93-1.19-.71-.64-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46Z"/></svg></span>
+        <span class="txt">WhatsApp Ventas<small>Hacé tu pedido directo</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="btn" style="animation-delay:.22s" href="/links/galeria">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg></span>
+        <span class="txt">Galería<small>Fotos y videos de la marca</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="btn yt" style="animation-delay:.28s" href="https://www.youtube.com/watch?v=AVthQDA8Wzg" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.5 12 4.5 12 4.5s-7 0-8.9.6A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></span>
+        <span class="txt">YouTube Oficial<small>Mirá nuestro contenido</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="btn ig" style="animation-delay:.34s" href="https://www.instagram.com/latinayerbamate" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+        <span class="txt">Instagram<small>@latinayerbamate</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </nav>
+
+    <footer class="foot">
+      <img class="em" src="/links/assets/img/emblema-mate.webp" alt="" />
+      <a href="https://www.instagram.com/latinayerbamate" target="_blank" rel="noopener">@latinayerbamate</a>
+      <span class="web">www.yerbamatelatina.com.ar</span>
+    </footer>
+  </main>
+</body>
+</html>

@@ -26,6 +26,16 @@ const nextConfig: NextConfig = {
     qualities: [72, 75],
   },
 
+  // La botonera tipo linktree que vivía en el FTP viejo
+  // (yerbamatelatina.com.ar/links). Es HTML estático en public/links/;
+  // Next no sirve index.html de una carpeta, de ahí los rewrites.
+  async rewrites() {
+    return [
+      { source: '/links', destination: '/links/index.html' },
+      { source: '/links/galeria', destination: '/links/galeria.html' },
+    ]
+  },
+
   async redirects() {
     const aDondeComprar = (source: string) => ({
       source,
