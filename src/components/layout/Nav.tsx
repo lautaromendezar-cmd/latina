@@ -9,7 +9,7 @@ import { nav, marca } from '@/content/site'
 /**
  * Nav. Fija arriba. Arriba de todo es transparente (el hero verde o la
  * foto de las internas pasan por detrás, texto en crema); en cuanto se
- * scrollea se vuelve crema con tinta. El botón "Tienda" es amarillo
+ * scrollea se vuelve crema con tinta. El botón "Comprar online" es amarillo
  * siempre: funciona sobre los dos fondos.
  *
  * El menú de mobile es un panel a pantalla completa, no un drawer.
@@ -96,12 +96,25 @@ export function Nav() {
           )}
         </nav>
 
+        {/* En mobile la compra queda a la vista, sin abrir el menú. */}
+        {nav.externo && (
+          <a
+            href={nav.externo.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto inline-flex min-h-11 items-center rounded-full bg-amarillo px-4 text-sm font-bold text-tinta transition-colors hover:bg-amarillo-claro lg:hidden"
+          >
+            {nav.externo.texto}
+            <span aria-hidden="true">&nbsp;↗</span>
+          </a>
+        )}
+
         <button
           type="button"
           onClick={() => setAbierto((v) => !v)}
           aria-expanded={abierto}
           aria-controls="menu-mobile"
-          className="ml-auto flex h-11 w-11 items-center justify-center lg:hidden"
+          className={`${nav.externo ? '' : 'ml-auto '}flex h-11 w-11 items-center justify-center lg:hidden`}
         >
           <span className="sr-only">{abierto ? nav.cerrarMenu : nav.abrirMenu}</span>
           <span aria-hidden="true" className="relative block h-3.5 w-6">
@@ -139,7 +152,7 @@ export function Nav() {
                 href={nav.externo.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-4 text-lg font-bold text-tinta"
+                className="my-4 inline-flex min-h-12 items-center justify-center rounded-full bg-amarillo px-6 text-lg font-bold text-tinta sombra-dura-chica"
               >
                 {nav.externo.texto}
                 <span aria-hidden="true"> ↗</span>

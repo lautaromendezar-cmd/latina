@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Boton } from '@/components/ui/Boton'
 import { hero } from '@/content/site'
 import { HeroTitulo } from '@/components/home/HeroTitulo'
@@ -209,14 +210,33 @@ export function Hero() {
             {hero.bajada}
           </p>
 
-          <div data-hero-entra className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-            <Boton href={hero.cta.primario.href} variante="primario">
-              {hero.cta.primario.texto}
-            </Boton>
-            <Boton href={hero.cta.secundario.href} variante="secundario">
-              {hero.cta.secundario.texto}
-            </Boton>
-          </div>
+          {hero.cta.tienda ? (
+            <div data-hero-entra className="mt-9">
+              <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                <Boton href={hero.cta.tienda.href} externo variante="primario">
+                  {hero.cta.tienda.texto}
+                </Boton>
+                <Boton href={hero.cta.primario.href} variante="secundario">
+                  {hero.cta.primario.texto}
+                </Boton>
+              </div>
+              <Link
+                href={hero.cta.secundario.href}
+                className="mt-5 inline-block text-sm font-bold underline decoration-2 underline-offset-4 hover:text-amarillo"
+              >
+                ¿Tenés un comercio? {hero.cta.secundario.texto} →
+              </Link>
+            </div>
+          ) : (
+            <div data-hero-entra className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              <Boton href={hero.cta.primario.href} variante="primario">
+                {hero.cta.primario.texto}
+              </Boton>
+              <Boton href={hero.cta.secundario.href} variante="secundario">
+                {hero.cta.secundario.texto}
+              </Boton>
+            </div>
+          )}
         </div>
       </div>
     </section>

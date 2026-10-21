@@ -28,13 +28,11 @@ export const contacto = {
   instagram: 'latinayerbamate',
   instagramUrl: 'https://www.instagram.com/latinayerbamate/',
   sitio: 'yerbamatelatina.com.ar',
-  // La tienda se está armando en Tienda Nube y TODAVÍA NO EXISTE. Mientras
-  // sea null, el sitio entero esconde sus botones de tienda (nav, home,
-  // buscador y contacto) y el fallback del buscador ofrece WhatsApp.
-  // Cuando esté la URL definitiva, se pone acá y todo vuelve solo.
-  // OJO: tienda.yerbamatelatina.com.ar no resolvía en DNS — no volver a
-  // linkearla sin comprobar que responde.
-  tienda: null as string | null,
+  // Tienda Nube, en su propio dominio (verificado que responde el 20-oct-2026).
+  // Si algún día vuelve a null, el sitio entero esconde sus botones de
+  // tienda (nav, hero, home, buscador y contacto) y el fallback del
+  // buscador ofrece WhatsApp.
+  tienda: 'https://latinayerbamateshop.com.ar/' as string | null,
   // [VERIFICAR: mail de contacto — la marca no tiene uno público, y las
   // Server Actions de Resend necesitan un destinatario real.]
   email: null,
@@ -47,7 +45,7 @@ export const nav = {
     { href: '/contacto', texto: 'Contacto' },
   ],
   // Sin tienda no hay botón: un link muerto o un "#" es peor que nada.
-  externo: contacto.tienda ? { href: contacto.tienda, texto: 'Tienda' } : null,
+  externo: contacto.tienda ? { href: contacto.tienda, texto: 'Comprar online' } : null,
   saltarAlContenido: 'Saltar al contenido',
   abrirMenu: 'Abrir el menú',
   cerrarMenu: 'Cerrar el menú',
@@ -80,7 +78,10 @@ export const hero = {
   // lo que tomás.
   bajada:
     'Molienda fina, cero palo: padrón uruguayo. La mejor montañita que vas a armar y más cuerpo del primer mate al último del termo.',
+  // Con tienda, la compra online va primero y "Dónde comprar" pasa a
+  // secundario; distribuir baja a link (sigue en el nav y en el cierre B2B).
   cta: {
+    tienda: contacto.tienda ? { href: contacto.tienda, texto: 'Comprar online' } : null,
     primario: { href: '/donde-comprar', texto: 'Dónde comprar' },
     secundario: { href: '/vende-latina', texto: 'Quiero distribuir' },
   },
