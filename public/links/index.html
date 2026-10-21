@@ -45,8 +45,8 @@
   body{
     font-family:"Montserrat",system-ui,sans-serif;
     color:#eaf3ec;
-    height:100dvh;
-    overflow:hidden;
+    min-height:100dvh;
+    overflow-x:hidden;
     background:
       radial-gradient(120% 80% at 50% -10%, rgba(46,158,84,.30), transparent 60%),
       radial-gradient(90% 60% at 90% 110%, rgba(244,196,48,.12), transparent 60%),
@@ -61,7 +61,7 @@
   }
   .wrap{
     position:relative;z-index:1;
-    max-width:480px;height:100dvh;margin:0 auto;
+    max-width:480px;min-height:100dvh;margin:0 auto;
     padding:clamp(12px,2.2dvh,30px) clamp(16px,5vw,24px) calc(clamp(10px,2dvh,26px) + env(safe-area-inset-bottom));
     display:flex;flex-direction:column;justify-content:space-between;gap:clamp(6px,1.2dvh,16px);
   }
@@ -191,31 +191,37 @@
     </div>
 
     <nav class="links">
-      <a class="btn primary" style="animation-delay:.10s" href="https://yerbamatelatina.com.ar" target="_blank" rel="noopener">
+      <a class="btn primary" style="animation-delay:.10s" href="https://latinayerbamateshop.com.ar/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg></span>
+        <span class="txt">Comprar Online<small>latinayerbamateshop.com.ar</small></span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="btn" style="animation-delay:.16s" href="https://yerbamatelatina.com.ar" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 2.6 16 0 18M12 3c-2.6 2.5-2.6 16 0 18"/></svg></span>
         <span class="txt">Sitio Web Oficial<small>yerbamatelatina.com.ar</small></span>
         <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="btn wa" style="animation-delay:.16s" href="https://api.whatsapp.com/send?phone=543446313763" target="_blank" rel="noopener">
+      <a class="btn wa" style="animation-delay:.22s" href="https://api.whatsapp.com/send?phone=543446313763" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.43 15.1L2 22l5.05-1.32A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 6.86 12.4l-.18.28.74 2.7-2.77-.73-.27.16a8.1 8.1 0 1 1-4.38-15.01Zm-3.1 4.05c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.7 2.6 4.13 3.55 2.02.8 2.43.64 2.87.6.44-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.93-1.19-.71-.64-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46Z"/></svg></span>
         <span class="txt">WhatsApp Ventas<small>Hacé tu pedido directo</small></span>
         <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="btn" style="animation-delay:.22s" href="/links/galeria">
+      <a class="btn" style="animation-delay:.28s" href="/links/galeria">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg></span>
         <span class="txt">Galería<small>Fotos y videos de la marca</small></span>
         <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="btn yt" style="animation-delay:.28s" href="https://www.youtube.com/watch?v=AVthQDA8Wzg" target="_blank" rel="noopener">
+      <a class="btn yt" style="animation-delay:.34s" href="https://www.youtube.com/watch?v=AVthQDA8Wzg" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.5 12 4.5 12 4.5s-7 0-8.9.6A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></span>
         <span class="txt">YouTube Oficial<small>Mirá nuestro contenido</small></span>
         <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
 
-      <a class="btn ig" style="animation-delay:.34s" href="https://www.instagram.com/latinayerbamate" target="_blank" rel="noopener">
+      <a class="btn ig" style="animation-delay:.40s" href="https://www.instagram.com/latinayerbamate" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
         <span class="txt">Instagram<small>@latinayerbamate</small></span>
         <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
