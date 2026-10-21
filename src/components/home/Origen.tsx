@@ -159,7 +159,13 @@ export function Origen() {
          * venir, así que entra solamente el texto.
          */
         const irA = (nuevo: number, dir: 1 | -1, cortina = true): gsap.core.Timeline => {
-          enCurso?.kill()
+          // La transición anterior se TERMINA, no se mata. Matarla a mitad
+          // dejaba las máscaras del slide que entraba a medio camino, y la
+          // siguiente cortina se abre por encima de ese slide recortado:
+          // por el hueco se veía el verde de la sección (scroll rápido con
+          // la rueda). Terminada, el slide queda entero y el que salía,
+          // apagado.
+          enCurso?.progress(1).kill()
           const anterior = indice
           indice = nuevo
 
