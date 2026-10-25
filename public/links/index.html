@@ -178,6 +178,31 @@
   /* short / landscape fallback: allow scroll instead of clipping */
   @media (max-height:560px){body{height:auto;overflow:auto}.wrap{height:auto;min-height:100dvh}}
 </style>
+  <!-- GA4: mismo cargador que el sitio (GoogleAnalytics.tsx): gtag.js recién
+       con la primera interacción o a los 3,5 s del load, para no frenar el LCP. -->
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-RYYLNP0WC1');
+    (function(){
+      var cargado=false,eventos=['pointerdown','touchstart','keydown','scroll','wheel'];
+      function cargar(){
+        if(cargado)return;cargado=true;
+        eventos.forEach(function(e){removeEventListener(e,cargar,true)});
+        var s=document.createElement('script');s.async=true;
+        s.src='https://www.googletagmanager.com/gtag/js?id=G-RYYLNP0WC1';
+        document.head.appendChild(s);
+      }
+      eventos.forEach(function(e){addEventListener(e,cargar,{once:true,passive:true,capture:true})});
+      addEventListener('load',function(){setTimeout(cargar,3500)},{once:true});
+      document.addEventListener('click',function(ev){
+        var a=ev.target.closest&&ev.target.closest('a[href]');if(!a)return;
+        if(a.href.indexOf('wa.me')>-1)gtag('event','click_whatsapp',{origen:location.pathname});
+        else if(a.host==='latinayerbamateshop.com.ar')gtag('event','click_tienda',{origen:location.pathname});
+      },true);
+    })();
+  </script>
 </head>
 <body>
   <main class="wrap">

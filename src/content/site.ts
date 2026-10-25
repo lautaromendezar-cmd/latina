@@ -391,6 +391,11 @@ export const analitica = {
   // En null el sitio no inyecta NADA (ni script, ni noscript, ni el
   // listener de los clics a WhatsApp). Sirve para apagarlo de un saque.
   pixelMeta: '1632414004968469' as string | null,
+
+  // GA4: flujo "yerbamatelatina.com.ar" de la propiedad 520267731. Es la
+  // misma que tenía el WordPress viejo: el historial de antes del 26-ago
+  // sigue ahí. Mismo criterio que el pixel: en null no se inyecta nada.
+  ga4: 'G-RYYLNP0WC1' as string | null,
 } as const
 
 export const meta = {

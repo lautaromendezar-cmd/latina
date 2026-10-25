@@ -4,7 +4,7 @@ import { useId, useState } from 'react'
 import { Boton } from '@/components/ui/Boton'
 import { Etiqueta } from '@/components/ui/Etiqueta'
 import { contacto } from '@/content/site'
-import { contactoPorWhatsApp } from '@/lib/analitica'
+import { clicWhatsAppGA, contactoPorWhatsApp } from '@/lib/analitica'
 
 /**
  * Formulario que termina en WhatsApp.
@@ -104,6 +104,7 @@ export function Formulario({ campos, asunto, textoBoton, nota }: Props) {
     // Antes del window.open: en iOS el popup se lleva el foco de la
     // pestaña y el evento puede quedar sin salir.
     contactoPorWhatsApp(`formulario: ${asunto}`)
+    clicWhatsAppGA(`formulario: ${asunto}`)
 
     window.open(
       `https://wa.me/${contacto.whatsappE164}?text=${encodeURIComponent(lineas.join('\n'))}`,

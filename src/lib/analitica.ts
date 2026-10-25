@@ -48,3 +48,37 @@ export function verPagina() {
 export function contactoPorWhatsApp(origen: string) {
   seguir('Contact', { origen })
 }
+
+/* ---------- GA4 ----------
+ *
+ * Va por separado del pixel y no adentro de `contactoPorWhatsApp`: los
+ * links los mide el listener de cada uno (MetaPixel y GoogleAnalytics), y
+ * si esa función mandara a los dos, cada clic contaría doble en GA4. Así
+ * apagar uno no le saca datos al otro.
+ *
+ * Los nombres son los que se marcan como evento clave en GA4: cambiarlos
+ * corta la serie.
+ */
+
+type Gtag = (comando: 'js' | 'config' | 'event', ...args: unknown[]) => void
+
+declare global {
+  interface Window {
+    gtag?: Gtag
+  }
+}
+
+function seguirGA(evento: string, parametros?: Record<string, unknown>) {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
+  window.gtag('event', evento, parametros)
+}
+
+/** Salida a WhatsApp, para GA4. `origen` = data-origen del link o la ruta. */
+export function clicWhatsAppGA(origen: string) {
+  seguirGA('click_whatsapp', { origen })
+}
+
+/** Salida a la tienda online (Tienda Nube), para GA4. */
+export function clicTiendaGA(origen: string) {
+  seguirGA('click_tienda', { origen })
+}
