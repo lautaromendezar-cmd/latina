@@ -12,7 +12,7 @@ Google recibía señales cruzadas y no indexaba /contacto. Se invirtió por
 API: ahora `www` → 308 → sin www, y el apex sirve directo. La botonera
 /links también pasó a canonical/OG sin www. **No volver a poner el
 redirect hacia www** (si se cambia, hay que pasar todo el código a www).
-Falta: pedir indexación de /contacto en Search Console.
+Indexación de /contacto pedida en Search Console el 28-oct; revisar si entró.
 
 ---
 
